@@ -1,0 +1,239 @@
+fileFormatVersion: 2
+guid: bb2b2ecaf851dc44087b6256006b9718
+timeCreated: 1449826923
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: anglerfish_chara_derp_legs_rgb-01_0
+    21300002: anglerfish_chara_derp_legs_rgb-01_1
+    21300004: anglerfish_chara_derp_legs_rgb-01_2
+    21300006: anglerfish_chara_derp_legs_rgb-01_3
+    21300008: anglerfish_chara_derp_legs_rgb-01_4
+    21300010: anglerfish_chara_derp_legs_rgb-01_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: anglerfish_chara_derp_legs_rgb-01_0
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 2311
+        width: 2000
+        height: 1543
+      alignment: 9
+      pivot: {x: 0.48479536, y: 0.114288986}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 214.6848, y: 12.974976}
+        - {x: 260.6848, y: 58.974976}
+        - {x: 264.6848, y: 74.974976}
+        - {x: 264.6848, y: 86.974976}
+        - {x: 228.6848, y: 119.974976}
+        - {x: 223.6848, y: 118.974976}
+        - {x: 219.6848, y: 111.974976}
+        - {x: 199.6848, y: 97.974976}
+        - {x: 185.6848, y: 130.97498}
+        - {x: 171.6848, y: 101.974976}
+        - {x: 160.6848, y: 90.974976}
+        - {x: 147.6848, y: 119.974976}
+        - {x: 129.6848, y: 88.974976}
+        - {x: 75.6848, y: 83.974976}
+        - {x: 63.6848, y: 174.97498}
+        - {x: 76.6848, y: 157.97498}
+        - {x: 82.6848, y: 160.97498}
+        - {x: 92.6848, y: 180.97498}
+        - {x: 117.6848, y: 148.97498}
+        - {x: 140.6848, y: 166.97498}
+        - {x: 162.6848, y: 143.97498}
+        - {x: 166.6848, y: 142.97498}
+        - {x: 183.6848, y: 164.97498}
+        - {x: 207.6848, y: 144.97498}
+        - {x: 213.6848, y: 146.97498}
+        - {x: 226.6848, y: 164.97498}
+        - {x: 237.6848, y: 149.97498}
+        - {x: 241.6848, y: 149.97498}
+        - {x: 245.6848, y: 155.97498}
+        - {x: 264.6848, y: 191.97498}
+        - {x: 264.6848, y: 212.97498}
+        - {x: 243.6848, y: 238.97498}
+        - {x: 188.6848, y: 283.97498}
+        - {x: 142.6848, y: 346.97498}
+        - {x: 122.6848, y: 350.97498}
+        - {x: 31.6848, y: 350.97498}
+        - {x: 4.684799, y: 347.97498}
+        - {x: -55.3152, y: 335.97498}
+        - {x: -109.3152, y: 320.97498}
+        - {x: -120.3152, y: 302.97498}
+        - {x: -171.3152, y: 192.97498}
+        - {x: -184.3152, y: 186.97498}
+        - {x: -245.3152, y: 273.97498}
+        - {x: -248.3152, y: 272.97498}
+        - {x: -248.3152, y: 165.97498}
+        - {x: -246.3152, y: 97.974976}
+        - {x: -244.3152, y: -44.025024}
+        - {x: -241.3152, y: -45.025024}
+        - {x: -237.3152, y: -45.025024}
+        - {x: -144.3152, y: 48.974976}
+        - {x: -95.3152, y: 28.974976}
+        - {x: -75.3152, y: -22.025024}
+        - {x: -55.3152, y: -43.025024}
+        - {x: -40.3152, y: -45.025024}
+        - {x: 55.6848, y: -45.025024}
+        - {x: 87.6848, y: -39.025024}
+        - {x: 161.6848, y: -21.025024}
+        - {x: 179.6848, y: -14.025024}
+    - name: anglerfish_chara_derp_legs_rgb-01_1
+      rect:
+        serializedVersion: 2
+        x: 4166
+        y: 2541
+        width: 1590
+        height: 1332
+      alignment: 9
+      pivot: {x: 0.17760202, y: 0.6532853}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -72.275024, y: -222.77301}
+        - {x: -44.275024, y: -222.77301}
+        - {x: 335.72498, y: 31.22699}
+        - {x: 335.72498, y: 119.22699}
+        - {x: 87.724976, y: 119.22699}
+        - {x: -23.275024, y: 55.22699}
+        - {x: -72.275024, y: -67.77301}
+    - name: anglerfish_chara_derp_legs_rgb-01_2
+      rect:
+        serializedVersion: 2
+        x: 6160
+        y: 2150
+        width: 944
+        height: 543
+      alignment: 9
+      pivot: {x: 0.6827284, y: 0.39968294}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.69873, y: 84.34491}
+        - {x: -55.69873, y: 74.34491}
+        - {x: -70.69873, y: 21.34491}
+        - {x: -70.69873, y: -47.65509}
+        - {x: -19.69873, y: -55.65509}
+        - {x: 52.30127, y: -55.65509}
+        - {x: 78.30127, y: -29.65509}
+        - {x: 78.30127, y: 45.34491}
+        - {x: 60.30127, y: 84.34491}
+      - - {x: -164.69873, y: -47.65509}
+        - {x: -163.69873, y: -48.65509}
+        - {x: -160.69873, y: -47.65509}
+        - {x: -160.69873, y: -44.65509}
+        - {x: -163.69873, y: -43.65509}
+        - {x: -164.69873, y: -44.65509}
+      - - {x: -65.69873, y: 48.34491}
+        - {x: -68.69873, y: 47.34491}
+        - {x: -70.69873, y: 40.34491}
+        - {x: -68.69873, y: 38.34491}
+        - {x: -67.69873, y: 38.34491}
+        - {x: -61.69873, y: 44.34491}
+        - {x: -61.69873, y: 46.34491}
+        - {x: -62.69873, y: 48.34491}
+    - name: anglerfish_chara_derp_legs_rgb-01_3
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1014
+        width: 289
+        height: 554
+      alignment: 9
+      pivot: {x: 0.62556684, y: 0.5577972}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -46.29393, y: 63.886993}
+        - {x: -46.29393, y: -76.11301}
+        - {x: -43.29393, y: -79.11301}
+        - {x: -31.29393, y: -79.11301}
+        - {x: 28.70607, y: -26.113007}
+        - {x: 28.70607, y: 21.886993}
+        - {x: -30.29393, y: 63.886993}
+    - name: anglerfish_chara_derp_legs_rgb-01_4
+      rect:
+        serializedVersion: 2
+        x: 4705
+        y: 541
+        width: 324
+        height: 891
+      alignment: 9
+      pivot: {x: 0.7437714, y: 0.7252038}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48.739258, y: 63.6279}
+        - {x: -61.739258, y: 53.6279}
+        - {x: -61.739258, y: -160.3721}
+        - {x: -53.739258, y: -165.3721}
+        - {x: -24.739258, y: -165.3721}
+        - {x: 22.260742, y: -89.3721}
+        - {x: 22.260742, y: 59.6279}
+        - {x: 9.260742, y: 63.6279}
+    - name: anglerfish_chara_derp_legs_rgb-01_5
+      rect:
+        serializedVersion: 2
+        x: 6090
+        y: 498
+        width: 377
+        height: 930
+      alignment: 9
+      pivot: {x: 0.2678501, y: 0.7180551}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -26.054688, y: 68.073456}
+        - {x: -26.054688, y: -96.926544}
+        - {x: 13.9453125, y: -157.92654}
+        - {x: 39.945312, y: -170.92654}
+        - {x: 70.94531, y: -170.92654}
+        - {x: 70.94531, y: 57.073456}
+        - {x: 68.94531, y: 68.073456}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
