@@ -4,9 +4,14 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     private const float WalkSpeed = 5;
-    private const float JumpSpeed = 8;
+    private const float JumpSpeed = 10;
     private Rigidbody2D rigidbody2D;
     private PlayerGroundCollider groundCollider;
+
+	GameController gController;
+	private bool isConsuming = false;
+	private float startConsumingTime;
+	private float consumeDelay = 2.0f;
 
 	// Use this for initialization
 	void Start ()
@@ -19,30 +24,39 @@ public class Player : MonoBehaviour
         if (rigidbody2D != null) return;
         rigidbody2D = GetComponent<Rigidbody2D>();
         groundCollider = transform.FindChild("GroundCollider").GetComponent<PlayerGroundCollider>();
+		gController = Camera.main.GetComponent<GameController> ();
     }
 
     // Update is called once per frame
 	void Update ()
 	{
-	    float vx = 0;
+		if (!isConsuming) {
+			float vx = 0;
 
-	    if (Input.GetKey(KeyCode.LeftArrow))
-	    {
-	        vx -= WalkSpeed;
-	    }
-        if (Input.GetKey(KeyCode.RightArrow))
-	    {
-	        vx += WalkSpeed;
-	    }
-        if (Input.GetKeyDown(KeyCode.Space))
-	    {
-	        if (IsOnPlatform())
-	        {
-	            Jump();
-	        }
-	    }
+			if (Input.GetKey (KeyCode.LeftArrow)) {
+				vx -= WalkSpeed;
+			}
+			if (Input.GetKey (KeyCode.RightArrow)) {
+				vx += WalkSpeed;
+			}
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (IsOnPlatform ()) {
+					Jump ();
+				}
+			}
 
-	    rigidbody2D.velocity = OhVec.SetX(rigidbody2D.velocity, vx);
+
+			if (Input.GetKeyDown (KeyCode.LeftControl) && IsOnPlatform ()) {
+				isConsuming = true;
+				startConsumingTime = Time.time;
+				vx = 0;
+			}
+			rigidbody2D.velocity = OhVec.SetX (rigidbody2D.velocity, vx);
+
+		} else if (Time.time - startConsumingTime >= consumeDelay) {
+			isConsuming = false;
+			gController.transferOrbScoreToTotal ();
+		}
 	}
 
     private bool IsOnPlatform()

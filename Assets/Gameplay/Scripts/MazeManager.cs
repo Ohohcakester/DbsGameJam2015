@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 public class MazeManager : MonoBehaviour
 {
@@ -13,56 +14,82 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private float tileHeight;
 
+    [SerializeField]
+    private GameObject prefab_platform;
+
+    [SerializeField]
+    private TextAsset mazeTextFile;
+
     private float width;
     private float height;
 
     private GridGraph gridGraph;
-    private bool[,] platforms;
+    private Platform[,] platforms;
 
 	// Use this for initialization
-	void Start () {
-	    
+	void Start ()
+	{
+	    Initialise();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
+
+    private void Initialise()
+    {
+        if (gridGraph != null) return;
+        InitialiseGridGraph(mazeTextFile.text);
+    }
+
+    private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
+    {
+        float actualX = minX + tileWidth * (x + 0.5f);
+        float actualY = minY + tileHeight * (y + 0.5f);
+        
+        var platformObject = Instantiate(prefab_platform, new Vector3(actualX,actualY,0), prefab_platform.transform.rotation) as GameObject;
+        var platform = platformObject.GetComponent<Platform>();
+        platform.Initialise(type);
+        return platform;
+    }
 
     private void InitialiseGridGraph(String text)
     {
+        var delim = new [] {' '};
+
         var lines = text.Split('\n');
-        int nCols = lines[0].Split(' ').Length;
+        int nCols = lines[0].Trim().Split(delim, StringSplitOptions.RemoveEmptyEntries).Length;
         int nRows = lines.Length;
         var isBlocked = new bool[nCols,nRows];
-        platforms = new bool[nCols,nRows];
+        platforms = new Platform[nCols,nRows];
 
         for (int y = 0; y < nRows; ++y)
         {
-            var chars = lines[y].Split(' ');
+            var chars = lines[nRows-y-1].Trim().Split(delim, StringSplitOptions.RemoveEmptyEntries);
             for (int x = 0; x < nCols; ++x)
             {
                 switch (chars[x].ToLower())
                 {
                     case "x":
                         isBlocked[x, y] = false;
-                        platforms[x, y] = false;
+                        platforms[x, y] = null;
                         break;
                     case "l":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(x, y, Platform.PLATFORM_TYPE.L);
                         break;
                     case "t":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(x, y, Platform.PLATFORM_TYPE.T);
                         break;
                     case "r":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(x, y, Platform.PLATFORM_TYPE.R);
                         break;
                     case "b":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(x, y, Platform.PLATFORM_TYPE.B);
                         break;
                 }
             }
