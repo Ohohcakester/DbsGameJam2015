@@ -18,12 +18,18 @@ public class MazeManager : MonoBehaviour
     private GameObject prefab_platform;
 
     [SerializeField]
+    private GameObject prefab_player;
+
+    private Player player;
+    private Vector2 lastPlayerPosition;
+
+    [SerializeField]
     private TextAsset mazeTextFile;
 
     private float width;
     private float height;
 
-    private GridGraph gridGraph;
+    public GridGraph gridGraph { get; private set; }
     private Platform[,] platforms;
 
 	// Use this for initialization
@@ -41,6 +47,17 @@ public class MazeManager : MonoBehaviour
     {
         if (gridGraph != null) return;
         InitialiseGridGraph(mazeTextFile.text);
+        InstantiatePlayer(15,15);
+    }
+
+    private void InstantiatePlayer(float x, float y)
+    {
+        float actualX = minX + tileWidth * (x + 0.5f);
+        float actualY = minY + tileHeight * (y + 0.5f);
+
+        var playerObject = Instantiate(prefab_player, new Vector3(actualX, actualY, 0), prefab_player.transform.rotation) as GameObject;
+        player = playerObject.GetComponent<Player>();
+        Camera.main.GetComponent<CameraFollow>().setPlayer(playerObject);
     }
 
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
@@ -100,5 +117,12 @@ public class MazeManager : MonoBehaviour
 
         gridGraph = new GridGraph();
         gridGraph.Initialise(isBlocked, minX, minY, width, height);
+    }
+
+    public Vector2 PlayerPosition()
+    {
+        // add iff clause
+        lastPlayerPosition = player.transform.position;
+        return lastPlayerPosition;
     }
 }

@@ -7,11 +7,10 @@ public class CameraFollow : MonoBehaviour {
 	public float panSpeed = 0.1f;
 
 	public void setPlayer (GameObject plyr){
-		player = plyr;
+        this.player = plyr;
 	}
 
 	void Start(){
-		player = GameObject.Find ("Player");
 	}
 	
 	// Update is called once per frame

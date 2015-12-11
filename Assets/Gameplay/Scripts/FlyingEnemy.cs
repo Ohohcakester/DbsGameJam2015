@@ -12,6 +12,8 @@ public class FlyingEnemy : MonoBehaviour
 
     private Rigidbody2D rigidbody2D;
 
+    private MazeManager mazeManager;
+
     private float nextTurnTime;
 
     private float aggressiveness;
@@ -26,6 +28,8 @@ public class FlyingEnemy : MonoBehaviour
     {
         if (rigidbody2D != null) return;
         rigidbody2D = GetComponent<Rigidbody2D>();
+        mazeManager = Camera.main.GetComponent<MazeManager>();
+        aggressiveness = 1f;
     }
 
 
@@ -53,7 +57,6 @@ public class FlyingEnemy : MonoBehaviour
 
 	    float diff = targetAngle - currentAngle;
         diff = NormaliseAngle(diff);
-        Debug.Log(diff);
 
 	    if (diff < 0)
 	    {
@@ -85,9 +88,17 @@ public class FlyingEnemy : MonoBehaviour
     {
         if (Random.Range(0f, 1f) < aggressiveness)
         {
-            return 90;
+            Vector2 playerPos = mazeManager.PlayerPosition();
+            Vector2 currentPos = this.transform.position;
+            Vector2 moveDir = mazeManager.gridGraph.GetMoveDirection(currentPos.x, currentPos.y, playerPos.x, playerPos.y);
+            return ToAngle(moveDir);
         }
         return Random.Range(0, 360);
+    }
+
+    private float ToAngle(Vector2 vec)
+    {
+        return Mathf.Rad2Deg*Mathf.Atan2(-vec.y, -vec.x);
     }
 
     private void UpdateAI()

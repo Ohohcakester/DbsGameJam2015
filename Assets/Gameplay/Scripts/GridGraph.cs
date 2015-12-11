@@ -19,6 +19,8 @@ public class GridGraph
 
     public void Initialise(bool[,] tiles, float realMinX, float realMinY, float width, float height)
     {
+        scale = 3;
+
         this.realMinX = realMinX;
         this.realMinY = realMinY;
         this.width = width;
@@ -81,6 +83,7 @@ public class GridGraph
     {
         x = (x - realMinX) / width * pfSizeX;
         y = (y - realMinY) / height * pfSizeY;
+        
 
         int cx = (int)(x + 0.5f);
         int cy = (int)(y + 0.5f);
@@ -96,7 +99,7 @@ public class GridGraph
                 else {
                     int px = cx - (3 / 2) + i;
                     int py = cy - (3 / 2) + j;
-                    if (IsBlockedCoordinate(px,py))
+                    if (!IsBlockedCoordinate(px,py))
                     {
                         gx = px;
                         gy = py;
@@ -112,7 +115,7 @@ public class GridGraph
             {
                 int px = cx - (5 / 2) + i;
                 int py = cy - (5 / 2) + j;
-                if (IsBlockedCoordinate(px,py))
+                if (!IsBlockedCoordinate(px,py))
                 {
                     gx = px;
                     gy = py;
@@ -127,7 +130,7 @@ public class GridGraph
             {
                 int px = cx - (5 / 2) + i;
                 int py = cy - (3 / 2) + j;
-                if (IsBlockedCoordinate(px,py))
+                if (!IsBlockedCoordinate(px,py))
                 {
                     gx = px;
                     gy = py;
@@ -155,6 +158,7 @@ public class GridGraph
         int sx, sy, ex, ey;
         ToPfGridCoordinates(currX, currY, out sx, out sy);
         ToPfGridCoordinates(targetX, targetY, out ex, out ey);
+
 
         var nextPoint = visibilityGraph.Search(sx, sy, ex, ey);
         float nextX, nextY;

@@ -88,14 +88,14 @@ public class VisibilityGraph
         distances[startIndex] = 0;
         
         // Start algorithm
-        while (true)
+        for (int j = 0; j < size; ++j)
         {
             float minDistance = float.PositiveInfinity;
             int current = -1;
 
             for (int i = 0; i < size; ++i)
             {
-                if (distances[i] < minDistance)
+                if (!visited[i] && distances[i] < minDistance)
                 {
                     minDistance = distances[i];
                     current = i;
@@ -119,6 +119,7 @@ public class VisibilityGraph
 
     private Point GetNextDestination()
     {
+        //Debug.Log(parent[endIndex] == -1);
         if (parent[endIndex] == -1)
         {
             return Point.Null();
