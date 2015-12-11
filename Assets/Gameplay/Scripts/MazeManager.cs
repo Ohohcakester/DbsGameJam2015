@@ -43,6 +43,42 @@ public class MazeManager : MonoBehaviour
 	    
 	}
 
+    /*private void OnDrawGizmos()
+    {
+        if (gridGraph == null) return;
+        if (gridGraph.visibilityGraph == null) return;
+        var path = gridGraph.visibilityGraph.getLastPath();
+        if (path != null)
+        {
+            for (int i = 0; i < path.Count - 1; ++i)
+            {
+                var s = path[i];
+                var t = path[i + 1];
+                float x1, x2, y1, y2;
+                gridGraph.ToRealCoordinates(s.x, s.y, out x1, out y1);
+                gridGraph.ToRealCoordinates(t.x, t.y, out x2, out y2);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(new Vector3(x1, y1, 0), new Vector3(x2, y2, 0));
+            }
+        }
+        Gizmos.color = Color.black;
+        for (int y = 0; y < gridGraph.pfSizeY; ++y)
+        {
+            for (int x = 0; x < gridGraph.pfSizeX; ++x)
+            {
+                if (gridGraph.IsBlockedPfTile(x, y))
+                {
+                    float x1, x2, y1, y2;
+                    gridGraph.ToRealCoordinates(x, y, out x1, out y1);
+                    gridGraph.ToRealCoordinates(x + 1, y + 1, out x2, out y2);
+                    Gizmos.DrawLine(new Vector3(x1, y1, 0), new Vector3(x2, y2, 0));
+                    Gizmos.DrawLine(new Vector3(x1, y2, 0), new Vector3(x2, y1, 0));
+
+                }
+            }
+        }
+    }*/
+
     private void Initialise()
     {
         if (gridGraph != null) return;
@@ -58,6 +94,7 @@ public class MazeManager : MonoBehaviour
         var playerObject = Instantiate(prefab_player, new Vector3(actualX, actualY, 0), prefab_player.transform.rotation) as GameObject;
         player = playerObject.GetComponent<Player>();
         Camera.main.GetComponent<CameraFollow>().setPlayer(playerObject);
+        MergeHitBoxes();
     }
 
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
@@ -124,5 +161,42 @@ public class MazeManager : MonoBehaviour
         // add iff clause
         lastPlayerPosition = player.transform.position;
         return lastPlayerPosition;
+    }
+
+    void MergeHitBoxes()
+    {
+        int xhead = -1;
+        int yhead = -1;
+        int consecutive = 0;
+        for (int y = 0; y < platforms.GetLength(1); ++y)
+        {
+            for (int x=0; x < platforms.GetLength(0); ++x)
+            {
+                if (platforms[x, y] != null)
+                {
+                    if (xhead >= 0 && yhead >= 0)
+                    {
+                        platforms[x, y].GetComponent<BoxCollider2D>().enabled = false;
+                    }
+                    else
+                    {
+                        xhead = x;
+                        yhead = y;
+                    }
+                    consecutive++;
+                }
+                else
+                {
+                    if (xhead >= 0 && yhead >= 0)
+                    {
+                        platforms[xhead, yhead].GetComponent<BoxCollider2D>().size = new Vector2((consecutive*tileWidth), tileHeight);
+                        platforms[xhead, yhead].GetComponent<BoxCollider2D>().offset = new Vector2(((consecutive*tileWidth))/2.0f-(tileWidth/2), 0);
+                    }                    
+                    xhead = -1;
+                    yhead = -1;
+                    consecutive = 0;
+                }
+            }
+        }
     }
 }

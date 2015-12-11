@@ -1,0 +1,240 @@
+fileFormatVersion: 2
+guid: ceafe0916d9535d4bb8b624074077f3f
+timeCreated: 1449827966
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: anglerfish_chara_derp_rgb_black_0
+    21300002: anglerfish_chara_derp_rgb_black_1
+    21300004: anglerfish_chara_derp_rgb_black_2
+    21300006: anglerfish_chara_derp_rgb_black_3
+    21300008: anglerfish_chara_derp_rgb_black_4
+    21300010: anglerfish_chara_derp_rgb_black_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: anglerfish_chara_derp_rgb_black_0
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 2311
+        width: 2000
+        height: 1543
+      alignment: 9
+      pivot: {x: 0.502262, y: 0.12325067}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 250.74188, y: 56.43506}
+        - {x: 253.74188, y: 67.43506}
+        - {x: 252.74188, y: 85.43506}
+        - {x: 215.74188, y: 118.43506}
+        - {x: 202.74188, y: 90.43506}
+        - {x: 190.74188, y: 89.43506}
+        - {x: 176.74188, y: 120.43506}
+        - {x: 172.74188, y: 118.43506}
+        - {x: 164.74188, y: 86.43506}
+        - {x: 141.74188, y: 109.43506}
+        - {x: 132.74188, y: 111.43506}
+        - {x: 121.74188, y: 84.43506}
+        - {x: 106.74188, y: 83.43506}
+        - {x: 66.74188, y: 80.43506}
+        - {x: 58.741882, y: 112.43506}
+        - {x: 67.74188, y: 154.43506}
+        - {x: 73.74188, y: 157.43506}
+        - {x: 88.74188, y: 174.43506}
+        - {x: 112.74188, y: 145.43506}
+        - {x: 132.74188, y: 163.43506}
+        - {x: 158.74188, y: 136.43506}
+        - {x: 174.74188, y: 161.43506}
+        - {x: 198.74188, y: 141.43506}
+        - {x: 204.74188, y: 143.43506}
+        - {x: 228.74188, y: 145.43506}
+        - {x: 234.74188, y: 147.43506}
+        - {x: 255.74188, y: 189.43506}
+        - {x: 255.74188, y: 210.43506}
+        - {x: 235.74188, y: 236.43506}
+        - {x: 183.74188, y: 276.43506}
+        - {x: 133.74188, y: 344.43506}
+        - {x: 112.74188, y: 347.43506}
+        - {x: 22.741882, y: 347.43506}
+        - {x: -4.2581177, y: 344.43506}
+        - {x: -64.25812, y: 332.43506}
+        - {x: -118.25812, y: 317.43506}
+        - {x: -129.25812, y: 299.43506}
+        - {x: -180.25812, y: 189.43506}
+        - {x: -190.25812, y: 177.43506}
+        - {x: -243.25812, y: 256.43506}
+        - {x: -255.25812, y: 270.43506}
+        - {x: -257.25812, y: 269.43506}
+        - {x: -257.25812, y: 156.43506}
+        - {x: -252.25812, y: -46.56494}
+        - {x: -250.25812, y: -48.56494}
+        - {x: -246.25812, y: -48.56494}
+        - {x: -209.25812, y: -10.564941}
+        - {x: -154.25812, y: 46.43506}
+        - {x: -103.25812, y: 27.435059}
+        - {x: -95.25812, y: 1.4350586}
+        - {x: -84.25812, y: -25.564941}
+        - {x: -65.25812, y: -47.56494}
+        - {x: -53.258118, y: -48.56494}
+        - {x: 48.741882, y: -48.56494}
+        - {x: 123.74188, y: -32.56494}
+        - {x: 167.74188, y: -20.564941}
+        - {x: 227.74188, y: 26.435059}
+    - name: anglerfish_chara_derp_rgb_black_1
+      rect:
+        serializedVersion: 2
+        x: 4166
+        y: 2541
+        width: 1590
+        height: 1332
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27.503906, y: 171.49603}
+        - {x: -136.5039, y: 106.49603}
+        - {x: -178.5039, y: -8.503967}
+        - {x: -203.5039, y: -131.50397}
+        - {x: -203.5039, y: -170.50397}
+        - {x: -180.5039, y: -170.50397}
+        - {x: 204.4961, y: 107.49603}
+        - {x: 204.4961, y: 146.49603}
+        - {x: 127.49609, y: 171.49603}
+    - name: anglerfish_chara_derp_rgb_black_2
+      rect:
+        serializedVersion: 2
+        x: 6160
+        y: 2150
+        width: 944
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 5.460083, y: 70.400024}
+        - {x: -26.539917, y: -13.599976}
+        - {x: -26.539917, y: -59.599976}
+        - {x: 29.460083, y: -69.599976}
+        - {x: 105.46008, y: -69.599976}
+        - {x: 122.46008, y: -60.599976}
+        - {x: 122.46008, y: 65.400024}
+        - {x: 121.46008, y: 70.400024}
+      - - {x: -120.53992, y: -61.599976}
+        - {x: -119.53992, y: -62.599976}
+        - {x: -116.53992, y: -61.599976}
+        - {x: -116.53992, y: -58.599976}
+        - {x: -119.53992, y: -57.599976}
+        - {x: -120.53992, y: -58.599976}
+      - - {x: -21.539917, y: 34.400024}
+        - {x: -24.539917, y: 33.400024}
+        - {x: -26.539917, y: 26.400024}
+        - {x: -24.539917, y: 24.400024}
+        - {x: -23.539917, y: 24.400024}
+        - {x: -17.539917, y: 30.400024}
+        - {x: -17.539917, y: 32.400024}
+        - {x: -18.539917, y: 34.400024}
+    - name: anglerfish_chara_derp_rgb_black_3
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1014
+        width: 289
+        height: 554
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.003998, y: 72.084015}
+        - {x: -37.003998, y: -18.915985}
+        - {x: -30.003998, y: -70.915985}
+        - {x: -20.003998, y: -70.915985}
+        - {x: 37.996002, y: -19.915985}
+        - {x: 37.996002, y: 26.084015}
+        - {x: -24.003998, y: 72.084015}
+    - name: anglerfish_chara_derp_rgb_black_4
+      rect:
+        serializedVersion: 2
+        x: 4705
+        y: 541
+        width: 324
+        height: 891
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 35.480103, y: 114.996}
+        - {x: -26.519897, y: 114.996}
+        - {x: -41.519897, y: 111.996}
+        - {x: -41.519897, y: -101.004}
+        - {x: -34.519897, y: -114.004}
+        - {x: -5.5198975, y: -114.004}
+        - {x: 42.480103, y: -39.003998}
+        - {x: 42.480103, y: 77.996}
+        - {x: 39.480103, y: 105.996}
+    - name: anglerfish_chara_derp_rgb_black_5
+      rect:
+        serializedVersion: 2
+        x: 6090
+        y: 498
+        width: 377
+        height: 930
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -29.45996, y: 119.98801}
+        - {x: -48.45996, y: 110.98801}
+        - {x: -48.45996, y: -47.011993}
+        - {x: 4.540039, y: -119.01199}
+        - {x: 48.54004, y: -119.01199}
+        - {x: 48.54004, y: 110.98801}
+        - {x: 35.54004, y: 119.98801}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
