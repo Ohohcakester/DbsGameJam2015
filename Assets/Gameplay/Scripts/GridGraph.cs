@@ -77,6 +77,9 @@ public class GridGraph
     /// </summary>
     private void ToPfGridCoordinates(float x, float y, out int gx, out int gy)
     {
+        x = (x - realMinX) / width * pfSizeX;
+        y = (y - realMinY) / height * pfSizeY;
+
         gx = 0;
         gy = 0;
     }
@@ -86,8 +89,8 @@ public class GridGraph
     /// </summary>
     private void ToRealCoordinates(int gx, int gy, out float x, out float y)
     {
-        x = width * gx / pfSizeX;
-        y = height * gy / pfSizeY;
+        x = width*gx/pfSizeX + realMinX;
+        y = height*gy/pfSizeY + realMinY;
     }
 
     public Vector3 GetMoveDirection(float currX, float currY, float targetX, float targetY)
