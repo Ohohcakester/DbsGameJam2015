@@ -18,7 +18,7 @@ public class Collectible : MonoBehaviour {
 		//	collectibleSpriteObj.SetActive (false);
 			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject);
 
-			Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
+		//	Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
 	//		GameObject.Find ("TotalScoreScreen(Clone)").GetComponent<ScoreDisplay> ().addScore (1);
 		}
 	}
