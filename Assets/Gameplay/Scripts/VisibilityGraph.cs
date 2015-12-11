@@ -21,6 +21,9 @@ public class VisibilityGraph
 
     public VisibilityGraph(GridGraph graph)
     {
+        vertices = new List<Point>();
+        edgeList = new List<List<Edge>>();
+
         this.graph = graph;
         for (int y = 0; y <= graph.pfSizeY; ++y)
         {

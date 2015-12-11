@@ -78,7 +78,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!50 &5048162
 Rigidbody2D:
   serializedVersion: 2
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f819bf4eb91d729419a63c517cba36c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlatformLayer: 0
+  PlatformTag: Platform
 --- !u!212 &21249418
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -183,7 +183,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164708}

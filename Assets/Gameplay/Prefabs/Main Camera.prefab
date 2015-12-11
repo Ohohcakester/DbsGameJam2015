@@ -118,8 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minX: 0
   minY: 0
-  tileWidth: 0.09142857
-  tileHeight: 0.09142857
+  tileWidth: 0.8
+  tileHeight: 0.8
   prefab_platform: {fileID: 157490, guid: 1964e1a4e119f5046add03974a4591f8, type: 2}
   mazeTextFile: {fileID: 4900000, guid: a21509c1aebc41b499d0d50edc07dcd0, type: 3}
 --- !u!124 &12420450
@@ -146,11 +146,11 @@ Prefab:
       objectReference: {fileID: 157490, guid: 1964e1a4e119f5046add03974a4591f8, type: 2}
     - target: {fileID: 0}
       propertyPath: tileWidth
-      value: 0.09142857
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: tileHeight
-      value: 0.09142857
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
