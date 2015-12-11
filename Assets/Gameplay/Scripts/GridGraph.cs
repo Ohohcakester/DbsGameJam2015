@@ -15,6 +15,8 @@ public class GridGraph
     public float width;
     public float height;
 
+    private VisibilityGraph visibilityGraph;
+
     public void Initialise(bool[,] tiles, float realMinX, float realMinY, float width, float height)
     {
         this.realMinX = realMinX;
@@ -28,6 +30,7 @@ public class GridGraph
         tileGrid = tiles;
         pfGrid = new bool[pfSizeX,pfSizeY];
         ConfigurePfGrid();
+        visibilityGraph = new VisibilityGraph(this);
     }
 
     private void ConfigurePfGrid()
@@ -54,7 +57,7 @@ public class GridGraph
         return tileGrid[pfX/scale, pfY/scale];
     }
 
-    private bool IsBlockedPfTile(int pfx, int pfy)
+    public bool IsBlockedPfTile(int pfx, int pfy)
     {
         if (pfx < 0) return true;
         if (pfy < 0) return true;
@@ -63,7 +66,7 @@ public class GridGraph
         return pfGrid[pfx, pfy];
     }
 
-    private bool IsBlockedCoordinate(int pfx, int pfy)
+    public bool IsBlockedCoordinate(int pfx, int pfy)
     {
         return IsBlockedPfTile(pfx, pfy) &&
                IsBlockedPfTile(pfx-1, pfy) &&
@@ -147,8 +150,15 @@ public class GridGraph
         y = height*gy/pfSizeY + realMinY;
     }
 
-    public Vector3 GetMoveDirection(float currX, float currY, float targetX, float targetY)
+    public Vector2 GetMoveDirection(float currX, float currY, float targetX, float targetY)
     {
-        return Vector3.zero;
+        int sx, sy, ex, ey;
+        ToPfGridCoordinates(currX, currY, out sx, out sy);
+        ToPfGridCoordinates(targetX, targetY, out ex, out ey);
+
+        var nextPoint = visibilityGraph.Search(sx, sy, ex, ey);
+        float nextX, nextY;
+        ToRealCoordinates(nextPoint.x, nextPoint.y, out nextX, out nextY);
+        return new Vector2(nextX - currX, nextY - currY);
     }
 }
