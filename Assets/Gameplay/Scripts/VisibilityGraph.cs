@@ -139,7 +139,9 @@ public class VisibilityGraph
         {
             parent[v] = u;
             distances[v] = newDistance;
+            return true;
         }
+        return false;
     }
 
 
@@ -282,7 +284,7 @@ public struct Point
 
     public static Point Null()
     {
-        return new Point{x=-1;y=-1};
+        return new Point{x=-1,y=-1};
     }
 
     public bool IsNull()

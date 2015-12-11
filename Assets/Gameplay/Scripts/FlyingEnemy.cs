@@ -1,15 +1,113 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FlyingEnemy : MonoBehaviour {
+public class FlyingEnemy : MonoBehaviour
+{
+    private float currentAngle;
+    private float turnSpeed = 5.7f;
+    private float targetAngle;
+    private bool isTurning;
+
+    private float moveSpeed = 3f;
+
+    private Rigidbody2D rigidbody2D;
+
+    private float nextTurnTime;
+
+    private float aggressiveness;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+	    Initialise();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+    private void Initialise()
+    {
+        if (rigidbody2D != null) return;
+        rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+
+    public void TurnTowards(float angle)
+    {
+        angle = NormaliseAngle(angle);
+        targetAngle = angle;
+        isTurning = true;
+    }
+
+    /// <summary>
+    /// -180 <= angle < 180
+    /// </summary>
+    private float NormaliseAngle(float angle)
+    {
+        while (angle > 180) angle -= 360;
+        while (angle <= -180) angle += 360;
+        return angle;
+    }
+
+    // Update is called once per frame
+	void Update ()
+	{
+	    UpdateAI();
+
+	    float diff = targetAngle - currentAngle;
+        diff = NormaliseAngle(diff);
+        Debug.Log(diff);
+
+	    if (diff < 0)
+	    {
+	        if (diff + turnSpeed >= 0)
+	        {
+	            FinishTurning();
+	        }
+	        else
+	        {
+	            currentAngle += turnSpeed;
+	        }
+	    }
+	    else
+	    {
+	        if (diff - turnSpeed <= 0)
+	        {
+	            FinishTurning();
+	        }
+	        else
+	        {
+	            currentAngle -= turnSpeed;
+	        }
+	    }
+
+	    rigidbody2D.velocity = MoveVelocity(currentAngle);
 	}
+
+    private float DecideNextAngle()
+    {
+        if (Random.Range(0f, 1f) < aggressiveness)
+        {
+            return 90;
+        }
+        return Random.Range(0, 360);
+    }
+
+    private void UpdateAI()
+    {
+        if (Time.time > nextTurnTime)
+        {
+            TurnTowards(DecideNextAngle());
+            nextTurnTime = Time.time + Random.Range(1, 2);
+        }
+    }
+
+    private Vector2 MoveVelocity(float angle)
+    {
+        var dirVec = new Vector2(Mathf.Cos(Mathf.Deg2Rad*angle), Mathf.Sin(Mathf.Deg2Rad*angle));
+        return dirVec*moveSpeed;
+    }
+
+    private void FinishTurning()
+    {
+        currentAngle = targetAngle;
+        isTurning = false;
+    }
 }
