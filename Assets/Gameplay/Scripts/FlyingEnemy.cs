@@ -4,11 +4,11 @@ using System.Collections;
 public class FlyingEnemy : MonoBehaviour
 {
     private float currentAngle;
-    private float turnSpeed = 5.7f;
+    private float turnSpeed = 7.7f;
     private float targetAngle;
     private bool isTurning;
 
-    private float moveSpeed = 3f;
+    private float moveSpeed = 6f;
 
     private Rigidbody2D rigidbody2D;
 
@@ -24,12 +24,6 @@ public class FlyingEnemy : MonoBehaviour
 	void Start ()
 	{
         Initialise();
-        Debug.Log(ToAngle(ToUnitVector(0)));
-        Debug.Log((ToUnitVector(45)));
-        Debug.Log(ToAngle(ToUnitVector(90)));
-        Debug.Log(ToAngle(ToUnitVector(135)));
-        Debug.Log(ToAngle(ToUnitVector(180)));
-        Debug.Log(ToAngle(ToUnitVector(225)));
 	}
 
     private void Initialise()
@@ -40,11 +34,11 @@ public class FlyingEnemy : MonoBehaviour
         aggressiveness = 1f;
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.DrawLine(this.transform.position, 5 * ToUnitVector(targetAngle) + OhVec.toVector2(transform.position));
         Gizmos.DrawLine(this.transform.position, MoveVelocity(currentAngle) + OhVec.toVector2(transform.position));
-    }
+    }*/
 
     public void TurnTowards(float angle)
     {
@@ -96,7 +90,16 @@ public class FlyingEnemy : MonoBehaviour
         if (!lastPathData.IsNull() && Random.Range(0f, 1f) < aggressiveness)
         {
             Vector2 currentPos = this.transform.position;
-            var moveDir = new Vector2(lastPathData.realNextX - currentPos.x, lastPathData.realNextY - currentPos.y);
+            Vector2 moveDir;
+            if (lastPathData.isDirect)
+            {
+                Vector2 playerPos = mazeManager.PlayerPosition();
+                moveDir = new Vector2(playerPos.x - currentPos.x, playerPos.y - currentPos.y);
+            }
+            else
+            {
+                moveDir = new Vector2(lastPathData.realNextX - currentPos.x, lastPathData.realNextY - currentPos.y);
+            }
             return ToAngle(moveDir);
         }
         return Random.Range(0, 360);
@@ -116,7 +119,8 @@ public class FlyingEnemy : MonoBehaviour
         if (Time.time > nextTurnTime)
         {
             TurnTowards(DecideNextAngle());
-            nextTurnTime = Time.time + Random.Range(1, 2);
+            if (!lastPathData.IsNull() && lastPathData.isDirect) nextTurnTime = Time.time;
+            else nextTurnTime = Time.time + Random.Range(0, 0.5f);
         }
     }
 
