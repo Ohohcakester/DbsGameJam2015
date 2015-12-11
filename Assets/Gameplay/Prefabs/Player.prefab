@@ -312,7 +312,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!50 &5048162
 Rigidbody2D:
   serializedVersion: 2
@@ -691,6 +691,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: d18e4c4b8633b1e4ab82c6a9116ab2e7,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164708}

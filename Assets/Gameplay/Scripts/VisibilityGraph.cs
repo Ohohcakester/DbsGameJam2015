@@ -77,6 +77,8 @@ public class VisibilityGraph
 
     public Point Search(int sx, int sy, int ex, int ey)
     {
+        RemoveInstancesOf(startIndex);
+        RemoveInstancesOf(endIndex);
         InitialiseStartAndEnd(sx, sy, ex, ey);
 
         for (int i = 0; i < size; ++i)
@@ -184,7 +186,7 @@ public class VisibilityGraph
         edgeList[v2].Add(new Edge { v1 = v2, v2 = v1 });
     }
 
-    protected void removeInstancesOf(int index)
+    protected void RemoveInstancesOf(int index)
     {
         Predicate<Edge> hasIndex = (edge) => edge.v1 == index || edge.v2 == index;
         foreach (var edges in edgeList)
@@ -277,6 +279,20 @@ public class VisibilityGraph
             }
         }
         return true;
+    }
+
+    public List<Point> getLastPath()
+    {
+        if (vertices[endIndex].IsNull()) return null;
+        if (parent[endIndex] == -1) return null;
+        var list = new List<Point>();
+        int current = endIndex;
+        while (current != -1)
+        {
+            list.Add(vertices[current]);
+            current = parent[current];
+        }
+        return list;
     }
 }
 

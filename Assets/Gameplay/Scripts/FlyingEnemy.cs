@@ -21,7 +21,13 @@ public class FlyingEnemy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    Initialise();
+        Initialise();
+        Debug.Log(ToAngle(ToUnitVector(0)));
+        Debug.Log((ToUnitVector(45)));
+        Debug.Log(ToAngle(ToUnitVector(90)));
+        Debug.Log(ToAngle(ToUnitVector(135)));
+        Debug.Log(ToAngle(ToUnitVector(180)));
+        Debug.Log(ToAngle(ToUnitVector(225)));
 	}
 
     private void Initialise()
@@ -32,6 +38,11 @@ public class FlyingEnemy : MonoBehaviour
         aggressiveness = 1f;
     }
 
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(this.transform.position, 5 * ToUnitVector(targetAngle) + OhVec.toVector2(transform.position));
+        Gizmos.DrawLine(this.transform.position, MoveVelocity(currentAngle) + OhVec.toVector2(transform.position));
+    }*/
 
     public void TurnTowards(float angle)
     {
@@ -58,26 +69,19 @@ public class FlyingEnemy : MonoBehaviour
 	    float diff = targetAngle - currentAngle;
         diff = NormaliseAngle(diff);
 
-	    if (diff < 0)
+	    if (turnSpeed >= Mathf.Abs(diff))
 	    {
-	        if (diff + turnSpeed >= 0)
+	        FinishTurning();
+	    }
+	    else
+	    {
+	        if (diff < 0)
 	        {
-	            FinishTurning();
+	            currentAngle -= turnSpeed;
 	        }
 	        else
 	        {
 	            currentAngle += turnSpeed;
-	        }
-	    }
-	    else
-	    {
-	        if (diff - turnSpeed <= 0)
-	        {
-	            FinishTurning();
-	        }
-	        else
-	        {
-	            currentAngle -= turnSpeed;
 	        }
 	    }
 
@@ -96,10 +100,6 @@ public class FlyingEnemy : MonoBehaviour
         return Random.Range(0, 360);
     }
 
-    private float ToAngle(Vector2 vec)
-    {
-        return Mathf.Rad2Deg*Mathf.Atan2(-vec.y, -vec.x);
-    }
 
     private void UpdateAI()
     {
@@ -110,9 +110,19 @@ public class FlyingEnemy : MonoBehaviour
         }
     }
 
+    private float ToAngle(Vector2 vec)
+    {
+        return Mathf.Rad2Deg * Mathf.Atan2(vec.y, vec.x);
+    }
+
+    private Vector2 ToUnitVector(float angle)
+    {
+        return new Vector2(Mathf.Cos(Mathf.Deg2Rad*angle), Mathf.Sin(Mathf.Deg2Rad*angle));
+    }
+
     private Vector2 MoveVelocity(float angle)
     {
-        var dirVec = new Vector2(Mathf.Cos(Mathf.Deg2Rad*angle), Mathf.Sin(Mathf.Deg2Rad*angle));
+        var dirVec = ToUnitVector(angle);
         return dirVec*moveSpeed;
     }
 

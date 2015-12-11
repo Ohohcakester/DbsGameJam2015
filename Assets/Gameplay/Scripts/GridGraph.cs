@@ -15,7 +15,7 @@ public class GridGraph
     public float width;
     public float height;
 
-    private VisibilityGraph visibilityGraph;
+    public VisibilityGraph visibilityGraph { get; private set; }
 
     public void Initialise(bool[,] tiles, float realMinX, float realMinY, float width, float height)
     {
@@ -79,7 +79,7 @@ public class GridGraph
     /// <summary>
     /// Input: Unity Coordinates. Output: Pf Grid Coordinates.
     /// </summary>
-    private void ToPfGridCoordinates(float x, float y, out int gx, out int gy)
+    public void ToPfGridCoordinates(float x, float y, out int gx, out int gy)
     {
         x = (x - realMinX) / width * pfSizeX;
         y = (y - realMinY) / height * pfSizeY;
@@ -147,7 +147,7 @@ public class GridGraph
     /// <summary>
     /// Input: Pf Grid Coordinates. Output: Unity Coordinates.
     /// </summary>
-    private void ToRealCoordinates(int gx, int gy, out float x, out float y)
+    public void ToRealCoordinates(int gx, int gy, out float x, out float y)
     {
         x = width*gx/pfSizeX + realMinX;
         y = height*gy/pfSizeY + realMinY;
@@ -164,5 +164,6 @@ public class GridGraph
         float nextX, nextY;
         ToRealCoordinates(nextPoint.x, nextPoint.y, out nextX, out nextY);
         return new Vector2(nextX - currX, nextY - currY);
+        //return new Vector2(nextPoint.x - sx, nextPoint.y - sy);
     }
 }
