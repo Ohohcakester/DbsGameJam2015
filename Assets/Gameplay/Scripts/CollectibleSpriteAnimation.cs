@@ -25,6 +25,7 @@ public class CollectibleSpriteAnimation : MonoBehaviour {
 				currSpeed = Mathf.Lerp (currSpeed, maxSpeed, Time.timeScale * 0.005f);
 			} else {
 				this.gameObject.SetActive (false);
+				Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
 				//Insert orb brightening script here
 			}
 		}

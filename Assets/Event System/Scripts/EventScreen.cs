@@ -30,14 +30,19 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	public void addAndPop(Event ev){
-		GameObject testEventObj = Instantiate (eventObjRep) as GameObject;
+		GameObject testEventObj = Instantiate (eventObjRep, locArray [0], this.transform.rotation) as GameObject;
+//		Debug.Log (testEventObj.transform.localPosition.ToString ());
 		ev.configureUIEventObject (testEventObj);
 		testEventObj.transform.parent = this.transform;
+		testEventObj.GetComponent<EventRepresenter> ().setPos (locArray [0]);
 
 
 		for (int i = 0; i < eventObjs.Count; i++) {
-			if (i != MAX_EVENT_NUM -1)
-			eventObjs [i].transform.localPosition = locArray [i + 1];
+			if (i != MAX_EVENT_NUM - 1) {
+				//eventObjs [i].transform.localPosition = locArray [i + 1];
+		//		eventObjs [i].transform.localPosition = locArray [i + 1];
+				eventObjs [i].GetComponent<EventRepresenter> ().setPos (locArray [i + 1]);
+			}			
 		}
 
 		if (eventObjs.Count == MAX_EVENT_NUM) {
