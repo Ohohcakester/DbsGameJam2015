@@ -153,17 +153,12 @@ public class GridGraph
         y = height*gy/pfSizeY + realMinY;
     }
 
-    public Vector2 GetMoveDirection(float currX, float currY, float targetX, float targetY)
+    public PathData PathFind(float currX, float currY, float targetX, float targetY)
     {
         int sx, sy, ex, ey;
         ToPfGridCoordinates(currX, currY, out sx, out sy);
         ToPfGridCoordinates(targetX, targetY, out ex, out ey);
 
-
-        var nextPoint = visibilityGraph.Search(sx, sy, ex, ey);
-        float nextX, nextY;
-        ToRealCoordinates(nextPoint.x, nextPoint.y, out nextX, out nextY);
-        return new Vector2(nextX - currX, nextY - currY);
-        //return new Vector2(nextPoint.x - sx, nextPoint.y - sy);
+        return visibilityGraph.Search(sx, sy, ex, ey);
     }
 }

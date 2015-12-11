@@ -14,6 +14,8 @@ public class FlyingEnemy : MonoBehaviour
 
     private MazeManager mazeManager;
 
+    private PathData lastPathData = PathData.Null();
+
     private float nextTurnTime;
 
     private float aggressiveness;
@@ -38,11 +40,11 @@ public class FlyingEnemy : MonoBehaviour
         aggressiveness = 1f;
     }
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.DrawLine(this.transform.position, 5 * ToUnitVector(targetAngle) + OhVec.toVector2(transform.position));
         Gizmos.DrawLine(this.transform.position, MoveVelocity(currentAngle) + OhVec.toVector2(transform.position));
-    }*/
+    }
 
     public void TurnTowards(float angle)
     {
@@ -90,15 +92,23 @@ public class FlyingEnemy : MonoBehaviour
 
     private float DecideNextAngle()
     {
-        if (Random.Range(0f, 1f) < aggressiveness)
+        UpdatePathData();
+        if (!lastPathData.IsNull() && Random.Range(0f, 1f) < aggressiveness)
         {
-            Vector2 playerPos = mazeManager.PlayerPosition();
             Vector2 currentPos = this.transform.position;
-            Vector2 moveDir = mazeManager.gridGraph.GetMoveDirection(currentPos.x, currentPos.y, playerPos.x, playerPos.y);
+            var moveDir = new Vector2(lastPathData.realNextX - currentPos.x, lastPathData.realNextY - currentPos.y);
             return ToAngle(moveDir);
         }
         return Random.Range(0, 360);
     }
+
+    private void UpdatePathData()
+    {
+        Vector2 playerPos = mazeManager.PlayerPosition();
+        Vector2 currentPos = this.transform.position;
+        lastPathData = mazeManager.gridGraph.PathFind(currentPos.x, currentPos.y, playerPos.x, playerPos.y);
+    }
+
 
 
     private void UpdateAI()

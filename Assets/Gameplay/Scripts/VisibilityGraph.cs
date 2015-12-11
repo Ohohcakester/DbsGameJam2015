@@ -75,7 +75,7 @@ public class VisibilityGraph
         return (float) Math.Sqrt(dx*dx + dy*dy);
     }
 
-    public Point Search(int sx, int sy, int ex, int ey)
+    public PathData Search(int sx, int sy, int ex, int ey)
     {
         RemoveInstancesOf(startIndex);
         RemoveInstancesOf(endIndex);
@@ -119,20 +119,40 @@ public class VisibilityGraph
         return GetNextDestination();
     }
 
-    private Point GetNextDestination()
+    private PathData GetNextDestination()
     {
         //Debug.Log(parent[endIndex] == -1);
         if (parent[endIndex] == -1)
         {
-            return Point.Null();
+            return PathData.Null();
         }
 
+        float distance = 0;
+        int nHops = 0;
         int current = endIndex;
         while (parent[current] != startIndex)
         {
+            distance += Distance(current, parent[current]);
+            nHops++;
             current = parent[current];
         }
-        return vertices[current];
+
+        Point nextPoint = vertices[current];
+        distance += Distance(current, parent[current]);
+        nHops++;
+
+        float realNextX, realNextY;
+        graph.ToRealCoordinates(nextPoint.x, nextPoint.y, out realNextX, out realNextY);
+
+        return new PathData
+        {
+            distance = distance,
+            isDirect = (nHops <= 1),
+            x = nextPoint.x,
+            y = nextPoint.y,
+            realNextX = realNextX,
+            realNextY = realNextY
+        };
     }
 
     private bool Relax(Edge edge)
@@ -317,4 +337,24 @@ internal struct Edge
 {
     public int v1;
     public int v2;
+}
+
+public struct PathData
+{
+    public int x;
+    public int y;
+    public float realNextX;
+    public float realNextY;
+    public float distance;
+    public bool isDirect;
+
+    public static PathData Null()
+    {
+        return new PathData { x = -1, y = -1 };
+    }
+
+    public bool IsNull()
+    {
+        return x == -1 && y == -1;
+    }
 }
