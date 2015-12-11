@@ -80,8 +80,63 @@ public class GridGraph
         x = (x - realMinX) / width * pfSizeX;
         y = (y - realMinY) / height * pfSizeY;
 
+        int cx = (int)(x + 0.5f);
+        int cy = (int)(y + 0.5f);
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (j==1 && i == 1)
+                {
+
+                }
+                else {
+                    int px = cx - (3 / 2) + i;
+                    int py = cy - (3 / 2) + j;
+                    if (IsBlockedCoordinate(px,py))
+                    {
+                        gx = px;
+                        gy = py;
+                        return;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j+=4)
+            {
+                int px = cx - (5 / 2) + i;
+                int py = cy - (5 / 2) + j;
+                if (IsBlockedCoordinate(px,py))
+                {
+                    gx = px;
+                    gy = py;
+                    return;
+                }
+            }
+        }
+
+        for (int i = 0; i < 5; i+=4)
+        {
+            for (int j = 0; j < 3; j ++)
+            {
+                int px = cx - (5 / 2) + i;
+                int py = cy - (3 / 2) + j;
+                if (IsBlockedCoordinate(px,py))
+                {
+                    gx = px;
+                    gy = py;
+                    return;
+                }
+            }
+        }
+
         gx = 0;
         gy = 0;
+        return;
     }
 
     /// <summary>
