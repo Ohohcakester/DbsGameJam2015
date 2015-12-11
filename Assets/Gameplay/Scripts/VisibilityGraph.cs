@@ -97,15 +97,17 @@ public class VisibilityGraph
 
             for (int i = 0; i < size; ++i)
             {
-                if (!visited[i] && distances[i] < minDistance)
+                float fValue = distances[i] + Distance(i, endIndex);
+                if (!visited[i] && fValue < minDistance)
                 {
-                    minDistance = distances[i];
+                    minDistance = fValue;
                     current = i;
                 }
             }
 
             if (float.IsPositiveInfinity(minDistance) || current == endIndex)
             {
+                //Debug.Log("Explored: " + (j+1) + " out of " + size);
                 break;
             }
 
