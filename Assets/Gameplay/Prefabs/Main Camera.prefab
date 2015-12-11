@@ -14,6 +14,7 @@ GameObject:
   - 81: {fileID: 8111292}
   - 114: {fileID: 11414902}
   - 114: {fileID: 11450434}
+  - 114: {fileID: 11499666}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -104,6 +105,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 0.1
+--- !u!114 &11499666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e729796679903408cc15c4a49974e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minX: 0
+  minY: 0
+  tileWidth: 0.09142857
+  tileHeight: 0.09142857
+  prefab_platform: {fileID: 157490, guid: 1964e1a4e119f5046add03974a4591f8, type: 2}
+  mazeTextFile: {fileID: 4900000, guid: a21509c1aebc41b499d0d50edc07dcd0, type: 3}
 --- !u!124 &12420450
 Behaviour:
   m_ObjectHideFlags: 1
@@ -117,7 +135,23 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: mazeTextFile
+      value: 
+      objectReference: {fileID: 4900000, guid: a21509c1aebc41b499d0d50edc07dcd0, type: 3}
+    - target: {fileID: 0}
+      propertyPath: prefab_platform
+      value: 
+      objectReference: {fileID: 157490, guid: 1964e1a4e119f5046add03974a4591f8, type: 2}
+    - target: {fileID: 0}
+      propertyPath: tileWidth
+      value: 0.09142857
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tileHeight
+      value: 0.09142857
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120844}
