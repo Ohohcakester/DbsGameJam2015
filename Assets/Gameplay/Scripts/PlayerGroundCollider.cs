@@ -4,17 +4,25 @@ using System.Collections;
 public class PlayerGroundCollider : MonoBehaviour
 {
     [SerializeField]
-    private int PlatformLayer;
+    private string PlatformTag = "Platform";
     public bool OnGround { get; private  set; }
+    private int nPlatforms = 0;
+
+    private void UpdateOnGround()
+    {
+        OnGround = nPlatforms > 0;
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer != PlatformLayer) return;
-        OnGround = true;
+        if (collider.gameObject.tag != PlatformTag) return;
+        nPlatforms++;
+        UpdateOnGround();
     }
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.layer != PlatformLayer) return;
-        OnGround = false;
+        if (collider.gameObject.tag != PlatformTag) return;
+        nPlatforms--;
+        UpdateOnGround();
     }
 }
