@@ -13,11 +13,14 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private float tileHeight;
 
+    [SerializeField]
+    private GameObject prefab_platform;
+
     private float width;
     private float height;
 
     private GridGraph gridGraph;
-    private bool[,] platforms;
+    private Platform[,] platforms;
 
 	// Use this for initialization
 	void Start () {
@@ -29,13 +32,21 @@ public class MazeManager : MonoBehaviour
 	
 	}
 
+    private Platform CreatePlatform(Platform.PLATFORM_TYPE type)
+    {
+        var platformObject = Instantiate(prefab_platform);
+        var platform = platformObject.GetComponent<Platform>();
+        platform.Initialise(type);
+        return platform;
+    }
+
     private void InitialiseGridGraph(String text)
     {
         var lines = text.Split('\n');
         int nCols = lines[0].Split(' ').Length;
         int nRows = lines.Length;
         var isBlocked = new bool[nCols,nRows];
-        platforms = new bool[nCols,nRows];
+        platforms = new Platform[nCols,nRows];
 
         for (int y = 0; y < nRows; ++y)
         {
@@ -46,23 +57,23 @@ public class MazeManager : MonoBehaviour
                 {
                     case "x":
                         isBlocked[x, y] = false;
-                        platforms[x, y] = false;
+                        platforms[x, y] = null;
                         break;
                     case "l":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(Platform.PLATFORM_TYPE.L);
                         break;
                     case "t":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(Platform.PLATFORM_TYPE.T);
                         break;
                     case "r":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(Platform.PLATFORM_TYPE.R);
                         break;
                     case "b":
                         isBlocked[x, y] = true;
-                        platforms[x, y] = false;
+                        platforms[x, y] = CreatePlatform(Platform.PLATFORM_TYPE.B);
                         break;
                 }
             }
