@@ -16,6 +16,9 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab_platform;
 
+    [SerializeField]
+    private TextAsset mazeTextFile;
+
     private float width;
     private float height;
 
@@ -23,14 +26,21 @@ public class MazeManager : MonoBehaviour
     private Platform[,] platforms;
 
 	// Use this for initialization
-	void Start () {
-	    
+	void Start ()
+	{
+	    Initialise();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
+
+    private void Initialise()
+    {
+        if (gridGraph != null) return;
+        InitialiseGridGraph(mazeTextFile.text);
+    }
 
     private Platform CreatePlatform(Platform.PLATFORM_TYPE type)
     {
