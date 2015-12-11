@@ -41,6 +41,7 @@ public class MazeManager : MonoBehaviour
     {
         if (gridGraph != null) return;
         InitialiseGridGraph(mazeTextFile.text);
+        MergeHitBoxes();
     }
 
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
@@ -100,5 +101,43 @@ public class MazeManager : MonoBehaviour
 
         gridGraph = new GridGraph();
         gridGraph.Initialise(isBlocked, minX, minY, width, height);
+    }
+
+
+    void MergeHitBoxes()
+    {
+        int xhead = -1;
+        int yhead = -1;
+        int consecutive = 0;
+        for (int y = 0; y < platforms.GetLength(1); ++y)
+        {
+            for (int x=0; x < platforms.GetLength(0); ++x)
+            {
+                if (platforms[x, y] != null)
+                {
+                    if (xhead >= 0 && yhead >= 0)
+                    {
+                        platforms[x, y].GetComponent<BoxCollider2D>().enabled = false;
+                    }
+                    else
+                    {
+                        xhead = x;
+                        yhead = y;
+                    }
+                    consecutive++;
+                }
+                else
+                {
+                    if (xhead >= 0 && yhead >= 0)
+                    {
+                        platforms[xhead, yhead].GetComponent<BoxCollider2D>().size = new Vector2((consecutive*tileWidth), tileHeight);
+                        platforms[xhead, yhead].GetComponent<BoxCollider2D>().offset = new Vector2(((consecutive*tileWidth))/2.0f-(tileWidth/2), 0);
+                    }                    
+                    xhead = -1;
+                    yhead = -1;
+                    consecutive = 0;
+                }
+            }
+        }
     }
 }
