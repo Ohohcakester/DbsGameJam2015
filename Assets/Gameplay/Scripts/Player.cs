@@ -6,7 +6,12 @@ public class Player : MonoBehaviour
     private const float WalkSpeed = 5;
     private const float JumpSpeed = 10;
     private Rigidbody2D rigidbody2D;
+    private BoxCollider2D boxCollider2D;
     private PlayerGroundCollider groundCollider;
+
+    private Vector2 colliderWidth1;
+    private Vector2 colliderWidth2;
+    private bool flicker;
 
     private Transform playerSprite;
 
@@ -27,14 +32,22 @@ public class Player : MonoBehaviour
     {
         if (rigidbody2D != null) return;
         rigidbody2D = GetComponent<Rigidbody2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
         groundCollider = transform.FindChild("GroundCollider").GetComponent<PlayerGroundCollider>();
 		gController = Camera.main.GetComponent<GameController> ();
         playerSprite = transform.FindChild("PlayerSprite");
+
+        colliderWidth1 = boxCollider2D.size;
+        colliderWidth2 = OhVec.ScaleX(boxCollider2D.size, 0.985f);
     }
 
     // Update is called once per frame
 	void Update ()
 	{
+        if (flicker) boxCollider2D.size = colliderWidth1;
+        else boxCollider2D.size = colliderWidth2;
+        flicker = !flicker;
+
 		if (!isConsuming) {
 			float vx = 0;
 
