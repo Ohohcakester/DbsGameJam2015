@@ -34,7 +34,7 @@ public class EventScreen : MonoBehaviour {
 
 	void Update(){
 		for (int i=0; i<activeEventObjs.Count; i++){
-			if (activeEventObjs [i].GetComponent<EventRepresenter> ().getEvent ().hasExpired) {
+			if (activeEventObjs[i] != null && activeEventObjs [i].GetComponent<EventRepresenter> ().getEvent ().hasExpired) {
 				activeEventObjs [i].GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
 				isActiveSpaceFree [i] = true;
 			}
@@ -70,6 +70,7 @@ public class EventScreen : MonoBehaviour {
 	}
     
 	public Event popSuccess(){
+		Debug.Log ("Pop success");
 		int lastIndex = eventObjs.Count-1;
 		Event returnEvent = eventObjs [lastIndex].GetComponent<EventRepresenter> ().getEvent ();
 
@@ -124,6 +125,7 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	public void removeLast(){
+		Debug.Log ("Remove last");
 		int currSize = eventObjs.Count;
 		Destroy (eventObjs [currSize-1]);
 		eventObjs.RemoveAt (currSize-1);

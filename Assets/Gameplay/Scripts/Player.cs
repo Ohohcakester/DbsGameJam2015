@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     private BoxCollider2D boxCollider2D;
     private PlayerGroundCollider groundCollider;
+	private Animator anim;
 
     private Vector2 colliderWidth1;
     private Vector2 colliderWidth2;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
 
         colliderWidth1 = boxCollider2D.size;
         colliderWidth2 = OhVec.ScaleX(boxCollider2D.size, 0.985f);
+		anim = transform.Find("PlayerSprite").transform.GetComponent<Animator> ();
     }
 
     // Update is called once per frame
@@ -66,14 +68,23 @@ public class Player : MonoBehaviour
 			}
 
 
-			if (Input.GetKeyDown (KeyCode.LeftControl) && IsOnPlatform ()) {
+			if (Input.GetKeyDown (KeyCode.LeftControl) && IsOnPlatform () && (gController.getCurrentOrbScore() != 0)) {
 				isConsuming = true;
 				startConsumingTime = Time.time;
 				vx = 0;
+				anim.Play ("FishTryingToEat");
 			}
+
+			if (vx == 0) {
+				anim.Play ("FishIdle");
+			} else {
+				anim.Play ("FishWalk");
+			}
+
 			rigidbody2D.velocity = OhVec.SetX (rigidbody2D.velocity, vx);
 
 		} else if (Time.time - startConsumingTime >= consumeDelay) {
+			anim.Play ("FishEat");
 			isConsuming = false;
 			gController.transferOrbScoreToTotal ();
 		}

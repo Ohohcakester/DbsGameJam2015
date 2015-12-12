@@ -16,6 +16,10 @@ public class GameController : MonoBehaviour {
         Initialise();
     }
 
+	public int getCurrentOrbScore(){
+		return currentOrbScore;
+	}
+
     private void Initialise()
     {
         if (sequenceManager != null) return;
