@@ -12,7 +12,9 @@ public class Player : MonoBehaviour
 
 
 	public bool noTarget { get; private set;}
+	private float noTargetEndTime;
 	public bool isStunned { get; private set;}
+	private float stunEndTime;
 
     private Vector2 colliderWidth1;
     private Vector2 colliderWidth2;
@@ -121,6 +123,19 @@ public class Player : MonoBehaviour
 				hasFinishedConsuming = true;
 				RegenerateOrb ();
 			}
+		} else {
+			rigidbody2D.velocity = OhVec.SetX (rigidbody2D.velocity, 0);
+			anim.Play ("FishEat"); //replace with stunned animation
+			if (Time.time >= stunEndTime) {
+				isStunned = false;
+				RegenerateOrb ();
+			}
+		}
+
+		if (noTarget) {
+			if (Time.time >= noTargetEndTime) {
+				noTarget = false;
+			}
 		}
 	}
 
@@ -155,10 +170,19 @@ public class Player : MonoBehaviour
 		if (size < 3) {
 			orbCtrl.growAbit ();
 		} else if (size < 5) {
-			orbCtrl.growMedium ();
+//			orbCtrl.growMedium ();
 		} else {
-			orbCtrl.growAlot ();
+//			orbCtrl.growAlot ();
 		}
+	}
+
+
+
+	public void stun(float time){
+		isStunned = true;
+		noTarget = true;
+		stunEndTime = Time.time + time;
+		noTargetEndTime = Time.time + 2.0f + time;
 	}
 
 }

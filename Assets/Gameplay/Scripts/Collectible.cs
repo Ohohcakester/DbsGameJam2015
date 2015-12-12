@@ -10,62 +10,50 @@ public class Collectible : MonoBehaviour
 	private float nextRespawnTime;
 	public int lightAmount = 1;
 
-    private Vector3 pos1;
-    private Vector3 pos2;
-    private bool flicker;
-
 	private void OnTriggerEnter2D(Collider2D col){
-		if (!isCollected && col.tag == "Player") {
-		    nextRespawnTime = Time.time + RespawnTime();
+		Debug.Log (col.ToString ());
+		if (!isCollected && col.gameObject.tag == "Player") {
+			nextRespawnTime = Time.time + RespawnTime ();
 			isCollected = true;
-			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject, lightAmount);
+			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().chasePlayer (col.gameObject, lightAmount);
 
-//			Debug.Log (col.ToString ());
 			Player plyr = col.GetComponent<Player> ();
 			if (plyr != null) {
 				plyr.GrowOrb (lightAmount);
+			} else {
+				//			Debug.Log ("Cant retrieve plyr");
+				plyr = col.transform.parent.GetComponent<Player> ();
+				//			Debug.Log ("Successfully retrieved" + plyr.ToString ());
+				plyr.GrowOrb (lightAmount);
 			}
 
-		//	Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
-	//		GameObject.Find ("TotalScoreScreen(Clone)").GetComponent<ScoreDisplay> ().addScore (1);
+			//	Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
+			//		GameObject.Find ("TotalScoreScreen(Clone)").GetComponent<ScoreDisplay> ().addScore (1);
+		} else {
+			if (!isCollected) {
+				Debug.Log (col.gameObject.tag);
+			}
 		}
 	}
 
-	public void initialize()
-	{
-	    if (collectibleSpriteObj != null) return;
-
+	public void initialize(){
 		collectibleSpriteObj = Instantiate (collectibleSpriteObjPrefab, this.transform.position, this.transform.rotation) as GameObject;
 		collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
 	    gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
-
-	    pos1 = this.transform.position;
-	    pos2 = pos1 + new Vector3(0, 10000f, 0);
 	}
 
 	void Start(){
 		initialize ();
 	}
 
-    private void Update()
-    {
-        if (isCollected && Time.time >= nextRespawnTime)
-        {
-            collectibleSpriteObj.transform.position = pos1;
-            collectibleSpriteObj.SetActive(true);
-            isCollected = false;
-            collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().stopChasing();
-        }
-    }
-
-    void FixedUpdate() {
-        if (!isCollected)       
-        {
-            if (flicker) transform.position = pos1;
-            else transform.position = pos2;
-            flicker = !flicker;
-        }
-    }
+	void Update(){
+		if (isCollected && Time.time >= nextRespawnTime) {
+			collectibleSpriteObj.transform.position = this.transform.position;
+			collectibleSpriteObj.SetActive (true);
+			isCollected = false;
+			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
+		}
+	}
 
     private float RespawnTime()
     {
