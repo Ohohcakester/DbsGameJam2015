@@ -75,10 +75,9 @@ class SequenceManager
 
     private void UpdateNextEventHappenTime()
     {
-        if (Time.time <= nextEventHappenTime) return;
         if (eventScreen.getCurrentSize() <= 0) return;
         Event ev = eventScreen.peekNextMaybeEvent(); // pop from queue
-        nextEventHappenTime += Time.time + EventHappenDelay(ev.getEventType());
+        nextEventHappenTime = Time.time + EventHappenDelay(ev.getEventType());
     }
 
     private void UpdateAddEvents()
@@ -164,7 +163,7 @@ class SequenceManager
         Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
         if (eventScreen.getCurrentSize() <= 0)
         {
-            nextEventHappenTime += Time.time + EventHappenDelay(evType);
+            nextEventHappenTime = Time.time + EventHappenDelay(evType);
         }
         eventScreen.addEventToScreen(new Event(evType));
         
@@ -177,12 +176,12 @@ class SequenceManager
 
     private float EventHappenDelay(OrbEventEnumerator.Event eventType)
     {
-        return 3.5f;
+        return 1.5f;
     }
 
     private float EventDuration(Event ev)
     {
-        return 5f;
+        return 3.5f;
     }
 
     private void AdjustLuck(OrbEventEnumerator.Event ev)
