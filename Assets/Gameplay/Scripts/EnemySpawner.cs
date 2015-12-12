@@ -10,7 +10,7 @@ public class EnemySpawner
     private float safeModificationRange = 30f;
 
     private float nextWalkingEnemyDelete;
-    private float walkingEnemyDeleteInterval = 9f;
+    private float walkingEnemyDeleteInterval = 8f;
 
     public EnemySpawner(GameVariables gameVariables)
     {

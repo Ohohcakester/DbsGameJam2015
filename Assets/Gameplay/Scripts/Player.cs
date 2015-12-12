@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    private const float WalkSpeed = 5;
-    private const float JumpSpeed = 10;
+    private const float WalkSpeed = 3;
+    private const float JumpSpeed = 7;
     private Rigidbody2D rigidbody2D;
     private BoxCollider2D boxCollider2D;
     private PlayerGroundCollider groundCollider;

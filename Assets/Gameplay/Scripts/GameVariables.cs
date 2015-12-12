@@ -28,19 +28,19 @@ public class GameVariables
     {
         baseDetectionRange = 10;
         baseDetectionDistance = 10;
-        nEnemies = 5;
-        nCrabs = 8;
+        nEnemies = 3;
+        nCrabs = 5;
         multiplier = 1f;
         undercurrent = 0f;
         itemRespawnTime = 25f;
 
         turnSpeed = 7.7f;
-        moveSpeed = 5.2f;
+        moveSpeed = 3.2f;
         baseAggressiveness = 0.1f;
         decisionTime = 0f;
         decisionTimeExtra = 0.5f;
 
-        walkingEnemySpeed = 1.4f;
+        walkingEnemySpeed = 0.9f;
     }
 
     public void ApplyDifficultyChange(float orbSize)

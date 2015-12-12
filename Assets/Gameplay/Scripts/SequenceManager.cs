@@ -371,16 +371,16 @@ class SequenceManager
                 gameVariables.multiplier *= 0.8f;
                 break;
             case Type.MoreJellyfish:
-                gameVariables.nEnemies += 3;
+                gameVariables.nEnemies += 2;
                 break;
             case Type.MoreCrabs:
                 gameVariables.nCrabs += 4;
                 break;
             case Type.LessJellyfish:
-                gameVariables.nEnemies -= 3;
+                gameVariables.nEnemies -= 2;
                 break;
             case Type.LessCrabs:
-                gameVariables.nCrabs -= 4;
+                gameVariables.nCrabs -= 3;
                 break;
             case Type.UndercurrentLeft:
                 gameVariables.undercurrent -= 0.5f;
@@ -401,10 +401,10 @@ class SequenceManager
                 gameVariables.baseAggressiveness = 0.3f;
                 break;
             case Type.FastJellyfish:
-                gameVariables.moveSpeed = 6f;
+                gameVariables.moveSpeed = 4f;
                 break;
             case Type.FastCrabs:
-                gameVariables.walkingEnemySpeed = 2.8f;
+                gameVariables.walkingEnemySpeed = 1.9f;
                 break;
         }
     }
