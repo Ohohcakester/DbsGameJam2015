@@ -20,6 +20,7 @@ class SequenceManager
     {
         gameController = Camera.main.GetComponent<GameController>();
         gameVariables = new GameVariables();
+        activeEvents = new List<ActiveEvent>();
     }
 
     public void Update()
@@ -37,16 +38,18 @@ class SequenceManager
             if (Time.time > nextEventHappenTime)
             {
                 Event ev = null; // pop from queue
-                if (WillEventHappenRandom(ev.getEventType()))
+                if (ev != null)
                 {
-                    StartEvent(ev);
-                    AdjustLuck(ev.getEventType());
+                    if (WillEventHappenRandom(ev.getEventType()))
+                    {
+                        StartEvent(ev);
+                        AdjustLuck(ev.getEventType());
+                    }
+                    else
+                    {
+                        // Don't Start Event
+                    }
                 }
-                else
-                {
-                    // Don't Start Event
-                }
-
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Event = Orb.Event;
 
 public class Manager : MonoBehaviour {
 //	public GameObject eventObjRep;
