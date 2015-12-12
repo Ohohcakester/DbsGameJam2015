@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     private PlayerGroundCollider groundCollider;
 	private Animator anim;
-
+    private GameVariables gameVariables;
 
 	public bool noTarget { get; private set;}
 	private float noTargetEndTime;
@@ -50,7 +50,8 @@ public class Player : MonoBehaviour
         colliderWidth1 = boxCollider2D.size;
         colliderWidth2 = OhVec.ScaleX(boxCollider2D.size, 0.985f);
 		anim = transform.Find("PlayerSprite").transform.GetComponent<Animator> ();
-		orbCtrl = transform.GetComponentInChildren<OrbController> ();
+        orbCtrl = transform.GetComponentInChildren<OrbController>();
+        gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
 
 		isStunned = false;
 		noTarget = false;
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
 
 		if (!isStunned) {
 			if (!isConsuming) {
-				float vx = 0;
+				float vx = gameVariables.undercurrent;
 
 				if (Input.GetKey (KeyCode.LeftArrow)) {
 					vx -= WalkSpeed;

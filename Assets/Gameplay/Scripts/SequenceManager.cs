@@ -383,10 +383,10 @@ class SequenceManager
                 gameVariables.nCrabs -= 3;
                 break;
             case Type.UndercurrentLeft:
-                gameVariables.undercurrent -= 0.5f;
+                gameVariables.undercurrent -= 1.1f;
                 break;
             case Type.UndercurrentRight:
-                gameVariables.undercurrent += 0.5f;
+                gameVariables.undercurrent += 1.1f;
                 break;
             case Type.EnemiesRun:
                 gameVariables.moveSpeed *= -1;

@@ -11,7 +11,7 @@ public class Collectible : MonoBehaviour
 	public int lightAmount = 1;
 
 	private void OnTriggerEnter2D(Collider2D col){
-		Debug.Log (col.ToString ());
+		//Debug.Log (col.ToString ());
 		if (!isCollected && col.gameObject.tag == "Player") {
 			nextRespawnTime = Time.time + RespawnTime ();
 			isCollected = true;
@@ -31,7 +31,7 @@ public class Collectible : MonoBehaviour
 			//		GameObject.Find ("TotalScoreScreen(Clone)").GetComponent<ScoreDisplay> ().addScore (1);
 		} else {
 			if (!isCollected) {
-				Debug.Log (col.gameObject.tag);
+				//Debug.Log (col.gameObject.tag);
 			}
 		}
 	}

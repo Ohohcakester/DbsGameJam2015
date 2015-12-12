@@ -156,6 +156,7 @@ GameObject:
   - 114: {fileID: 11435320}
   - 50: {fileID: 5080888}
   - 114: {fileID: 11450252}
+  - 58: {fileID: 5873400}
   m_Layer: 0
   m_Name: CrabbySprite
   m_TagString: Untagged
@@ -359,7 +360,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.2650723, y: -0.3166901, z: 0}
+  m_LocalPosition: {x: -7.6356945, y: -7.575201, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418938}
@@ -454,6 +455,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &5873400
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147034}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4
 --- !u!61 &6162748
 BoxCollider2D:
   m_ObjectHideFlags: 1
