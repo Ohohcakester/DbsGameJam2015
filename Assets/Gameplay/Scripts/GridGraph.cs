@@ -100,17 +100,21 @@ public class GridGraph
                IsBlockedPfTile(pfx-1, pfy-1);
     }
 
-    public bool IsBlockedActual(float x, float y)
+    public bool IsBlocked(int gx, int gy)
     {
-        int gx = (int)((x - realMinX)/width*sizeX);
-        int gy = (int)((y - realMinY)/height*sizeY);
-       
         if (gx < 0) return true;
         if (gy < 0) return true;
         if (gx >= sizeX) return true;
         if (gy >= sizeY) return true;
 
         return tileGrid[gx, gy];
+    }
+
+    public bool IsBlockedActual(float x, float y)
+    {
+        int gx = (int)((x - realMinX)/width*sizeX);
+        int gy = (int)((y - realMinY)/height*sizeY);
+        return IsBlocked(gx, gy);
     }
 
     /// <summary>

@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 public class MazeManager : MonoBehaviour
 {
@@ -26,6 +25,9 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab_walkingEnemy;
 
+    [SerializeField]
+    private GameObject prefab_collectible;
+
     private Player player;
     private Vector2 lastPlayerPosition;
 
@@ -39,6 +41,8 @@ public class MazeManager : MonoBehaviour
 
     public GridGraph gridGraph { get; private set; }
     private Platform[,] platforms;
+
+    private List<Collectible> collectibles;
 
 	// Use this for initialization
 	void Start ()
@@ -130,6 +134,15 @@ public class MazeManager : MonoBehaviour
         return enemyObject.GetComponent<WalkingEnemy>();
     }
 
+    public Collectible InstantiateCollectible(int x, int y)
+    {
+        float actualX, actualY;
+        ToActual(x, y, out actualX, out actualY);
+
+        var collectibleObject = Instantiate(prefab_collectible, new Vector3(actualX, actualY, 0), prefab_collectible.transform.rotation) as GameObject;
+        return collectibleObject.GetComponent<Collectible>();
+    }
+
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
     {
         float actualX = minX + tileWidth * (x + 0.5f);
@@ -190,6 +203,7 @@ public class MazeManager : MonoBehaviour
 
         CreateCornerPlatforms(nRows, nCols);
         CreateSeaBed(nCols);
+        SpawnCollectibles(nCols, nRows);
     }
 
     public Vector2 PlayerPosition()
@@ -262,6 +276,29 @@ public class MazeManager : MonoBehaviour
         for (int i = -20; i < nCols+3; i=i+7)
         {
             CreatePlatform(i, -1, Platform.PLATFORM_TYPE.G).GetComponent<Collider2D>().enabled = false;
+        }
+    }
+
+    private void SpawnCollectibles(int sizeX, int sizeY)
+    {
+        collectibles = new List<Collectible>();
+        bool[,] hasCollectible = new bool[sizeX, sizeY];
+
+        for (int y = 1; y < sizeY; ++y)
+        {
+            for (int x = 0; x < sizeX; ++x)
+            {
+                if (gridGraph.IsBlocked(x, y)) continue;
+                if (!gridGraph.IsBlocked(x, y - 1)) continue;
+                if (x - 1 >= 0 && hasCollectible[x - 1, y]) continue;
+                if (y - 1 >= 0 && hasCollectible[x, y-1]) continue;
+                if (x + 1 < sizeX && hasCollectible[x + 1, y]) continue;
+                if (y + 1 < sizeY && hasCollectible[x, y+1]) continue;
+
+                hasCollectible[x, y] = true;
+                var collectible = InstantiateCollectible(x, y);
+                collectibles.Add(collectible);
+            }
         }
     }
 }
