@@ -115,7 +115,9 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	public void removeLastActive(){
+		Debug.Log (activeEventObjs.Count);
 		GameObject lastActive = activeEventObjs [activeEventObjs.Count - 1];
+//		Debug.Log (lastActive.ToString ());
 		activeEventObjs.Remove (lastActive);
 		lastActive.GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
 	//	Destroy (lastActive);
@@ -123,8 +125,8 @@ public class EventScreen : MonoBehaviour {
 
 	public void removeLast(){
 		int currSize = eventObjs.Count;
-		Destroy (eventObjs [currSize]);
-		eventObjs.RemoveAt (currSize);
+		Destroy (eventObjs [currSize-1]);
+		eventObjs.RemoveAt (currSize-1);
 
 		for (int i = 0; i < eventObjs.Count; i++) {
 			if (i != MAX_EVENT_NUM - 1) {
