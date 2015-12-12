@@ -18,12 +18,18 @@ public class MazeManager : MonoBehaviour
     private GameObject prefab_platform;
 
     [SerializeField]
+    private GameObject prefab_player;
+
+    private Player player;
+    private Vector2 lastPlayerPosition;
+
+    [SerializeField]
     private TextAsset mazeTextFile;
 
     private float width;
     private float height;
 
-    private GridGraph gridGraph;
+    public GridGraph gridGraph { get; private set; }
     private Platform[,] platforms;
 
 	// Use this for initialization
@@ -37,10 +43,57 @@ public class MazeManager : MonoBehaviour
 	    
 	}
 
+    /*private void OnDrawGizmos()
+    {
+        if (gridGraph == null) return;
+        if (gridGraph.visibilityGraph == null) return;
+        var path = gridGraph.visibilityGraph.getLastPath();
+        if (path != null)
+        {
+            for (int i = 0; i < path.Count - 1; ++i)
+            {
+                var s = path[i];
+                var t = path[i + 1];
+                float x1, x2, y1, y2;
+                gridGraph.ToRealCoordinates(s.x, s.y, out x1, out y1);
+                gridGraph.ToRealCoordinates(t.x, t.y, out x2, out y2);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(new Vector3(x1, y1, 0), new Vector3(x2, y2, 0));
+            }
+        }
+        Gizmos.color = Color.black;
+        for (int y = 0; y < gridGraph.pfSizeY; ++y)
+        {
+            for (int x = 0; x < gridGraph.pfSizeX; ++x)
+            {
+                if (gridGraph.IsBlockedPfTile(x, y))
+                {
+                    float x1, x2, y1, y2;
+                    gridGraph.ToRealCoordinates(x, y, out x1, out y1);
+                    gridGraph.ToRealCoordinates(x + 1, y + 1, out x2, out y2);
+                    Gizmos.DrawLine(new Vector3(x1, y1, 0), new Vector3(x2, y2, 0));
+                    Gizmos.DrawLine(new Vector3(x1, y2, 0), new Vector3(x2, y1, 0));
+
+                }
+            }
+        }
+    }*/
+
     private void Initialise()
     {
         if (gridGraph != null) return;
         InitialiseGridGraph(mazeTextFile.text);
+        InstantiatePlayer(15,15);
+    }
+
+    private void InstantiatePlayer(float x, float y)
+    {
+        float actualX = minX + tileWidth * (x + 0.5f);
+        float actualY = minY + tileHeight * (y + 0.5f);
+
+        var playerObject = Instantiate(prefab_player, new Vector3(actualX, actualY, 0), prefab_player.transform.rotation) as GameObject;
+        player = playerObject.GetComponent<Player>();
+        Camera.main.GetComponent<CameraFollow>().setPlayer(playerObject);
         MergeHitBoxes();
     }
 
@@ -103,6 +156,12 @@ public class MazeManager : MonoBehaviour
         gridGraph.Initialise(isBlocked, minX, minY, width, height);
     }
 
+    public Vector2 PlayerPosition()
+    {
+        // add iff clause
+        lastPlayerPosition = player.transform.position;
+        return lastPlayerPosition;
+    }
 
     void MergeHitBoxes()
     {

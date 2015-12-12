@@ -75,8 +75,10 @@ public class VisibilityGraph
         return (float) Math.Sqrt(dx*dx + dy*dy);
     }
 
-    public Point Search(int sx, int sy, int ex, int ey)
+    public PathData Search(int sx, int sy, int ex, int ey)
     {
+        RemoveInstancesOf(startIndex);
+        RemoveInstancesOf(endIndex);
         InitialiseStartAndEnd(sx, sy, ex, ey);
 
         for (int i = 0; i < size; ++i)
@@ -88,22 +90,24 @@ public class VisibilityGraph
         distances[startIndex] = 0;
         
         // Start algorithm
-        while (true)
+        for (int j = 0; j < size; ++j)
         {
             float minDistance = float.PositiveInfinity;
             int current = -1;
 
             for (int i = 0; i < size; ++i)
             {
-                if (distances[i] < minDistance)
+                float fValue = distances[i] + Distance(i, endIndex);
+                if (!visited[i] && fValue < minDistance)
                 {
-                    minDistance = distances[i];
+                    minDistance = fValue;
                     current = i;
                 }
             }
 
             if (float.IsPositiveInfinity(minDistance) || current == endIndex)
             {
+                //Debug.Log("Explored: " + (j+1) + " out of " + size);
                 break;
             }
 
@@ -117,19 +121,40 @@ public class VisibilityGraph
         return GetNextDestination();
     }
 
-    private Point GetNextDestination()
+    private PathData GetNextDestination()
     {
+        //Debug.Log(parent[endIndex] == -1);
         if (parent[endIndex] == -1)
         {
-            return Point.Null();
+            return PathData.Null();
         }
 
+        float distance = 0;
+        int nHops = 0;
         int current = endIndex;
         while (parent[current] != startIndex)
         {
+            distance += Distance(current, parent[current]);
+            nHops++;
             current = parent[current];
         }
-        return vertices[current];
+
+        Point nextPoint = vertices[current];
+        distance += Distance(current, parent[current]);
+        nHops++;
+
+        float realNextX, realNextY;
+        graph.ToRealCoordinates(nextPoint.x, nextPoint.y, out realNextX, out realNextY);
+
+        return new PathData
+        {
+            distance = distance,
+            isDirect = (nHops <= 1),
+            x = nextPoint.x,
+            y = nextPoint.y,
+            realNextX = realNextX,
+            realNextY = realNextY
+        };
     }
 
     private bool Relax(Edge edge)
@@ -183,7 +208,7 @@ public class VisibilityGraph
         edgeList[v2].Add(new Edge { v1 = v2, v2 = v1 });
     }
 
-    protected void removeInstancesOf(int index)
+    protected void RemoveInstancesOf(int index)
     {
         Predicate<Edge> hasIndex = (edge) => edge.v1 == index || edge.v2 == index;
         foreach (var edges in edgeList)
@@ -277,6 +302,20 @@ public class VisibilityGraph
         }
         return true;
     }
+
+    public List<Point> getLastPath()
+    {
+        if (vertices[endIndex].IsNull()) return null;
+        if (parent[endIndex] == -1) return null;
+        var list = new List<Point>();
+        int current = endIndex;
+        while (current != -1)
+        {
+            list.Add(vertices[current]);
+            current = parent[current];
+        }
+        return list;
+    }
 }
 
 
@@ -300,4 +339,24 @@ internal struct Edge
 {
     public int v1;
     public int v2;
+}
+
+public struct PathData
+{
+    public int x;
+    public int y;
+    public float realNextX;
+    public float realNextY;
+    public float distance;
+    public bool isDirect;
+
+    public static PathData Null()
+    {
+        return new PathData { x = -1, y = -1 };
+    }
+
+    public bool IsNull()
+    {
+        return x == -1 && y == -1;
+    }
 }

@@ -4,13 +4,17 @@ using System.Collections;
 public class FlyingEnemy : MonoBehaviour
 {
     private float currentAngle;
-    private float turnSpeed = 5.7f;
+    private float turnSpeed = 7.7f;
     private float targetAngle;
     private bool isTurning;
 
-    private float moveSpeed = 3f;
+    private float moveSpeed = 5f;
 
     private Rigidbody2D rigidbody2D;
+
+    private MazeManager mazeManager;
+
+    private PathData lastPathData = PathData.Null();
 
     private float nextTurnTime;
 
@@ -19,15 +23,22 @@ public class FlyingEnemy : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    Initialise();
+        Initialise();
 	}
 
     private void Initialise()
     {
         if (rigidbody2D != null) return;
         rigidbody2D = GetComponent<Rigidbody2D>();
+        mazeManager = Camera.main.GetComponent<MazeManager>();
+        aggressiveness = 1f;
     }
 
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(this.transform.position, 5 * ToUnitVector(targetAngle) + OhVec.toVector2(transform.position));
+        Gizmos.DrawLine(this.transform.position, MoveVelocity(currentAngle) + OhVec.toVector2(transform.position));
+    }*/
 
     public void TurnTowards(float angle)
     {
@@ -53,28 +64,20 @@ public class FlyingEnemy : MonoBehaviour
 
 	    float diff = targetAngle - currentAngle;
         diff = NormaliseAngle(diff);
-        Debug.Log(diff);
 
-	    if (diff < 0)
+	    if (turnSpeed >= Mathf.Abs(diff))
 	    {
-	        if (diff + turnSpeed >= 0)
+	        FinishTurning();
+	    }
+	    else
+	    {
+	        if (diff < 0)
 	        {
-	            FinishTurning();
+	            currentAngle -= turnSpeed;
 	        }
 	        else
 	        {
 	            currentAngle += turnSpeed;
-	        }
-	    }
-	    else
-	    {
-	        if (diff - turnSpeed <= 0)
-	        {
-	            FinishTurning();
-	        }
-	        else
-	        {
-	            currentAngle -= turnSpeed;
 	        }
 	    }
 
@@ -83,25 +86,57 @@ public class FlyingEnemy : MonoBehaviour
 
     private float DecideNextAngle()
     {
-        if (Random.Range(0f, 1f) < aggressiveness)
+        UpdatePathData();
+        if (!lastPathData.IsNull() && Random.Range(0f, 1f) < aggressiveness)
         {
-            return 90;
+            Vector2 currentPos = this.transform.position;
+            Vector2 moveDir;
+            if (lastPathData.isDirect)
+            {
+                Vector2 playerPos = mazeManager.PlayerPosition();
+                moveDir = new Vector2(playerPos.x - currentPos.x, playerPos.y - currentPos.y);
+            }
+            else
+            {
+                moveDir = new Vector2(lastPathData.realNextX - currentPos.x, lastPathData.realNextY - currentPos.y);
+            }
+            return ToAngle(moveDir);
         }
         return Random.Range(0, 360);
     }
+
+    private void UpdatePathData()
+    {
+        Vector2 playerPos = mazeManager.PlayerPosition();
+        Vector2 currentPos = this.transform.position;
+        lastPathData = mazeManager.gridGraph.PathFind(currentPos.x, currentPos.y, playerPos.x, playerPos.y);
+    }
+
+
 
     private void UpdateAI()
     {
         if (Time.time > nextTurnTime)
         {
             TurnTowards(DecideNextAngle());
-            nextTurnTime = Time.time + Random.Range(1, 2);
+            if (!lastPathData.IsNull() && lastPathData.isDirect) nextTurnTime = Time.time;
+            else nextTurnTime = Time.time + Random.Range(0, 0.5f);
         }
+    }
+
+    private float ToAngle(Vector2 vec)
+    {
+        return Mathf.Rad2Deg * Mathf.Atan2(vec.y, vec.x);
+    }
+
+    private Vector2 ToUnitVector(float angle)
+    {
+        return new Vector2(Mathf.Cos(Mathf.Deg2Rad*angle), Mathf.Sin(Mathf.Deg2Rad*angle));
     }
 
     private Vector2 MoveVelocity(float angle)
     {
-        var dirVec = new Vector2(Mathf.Cos(Mathf.Deg2Rad*angle), Mathf.Sin(Mathf.Deg2Rad*angle));
+        var dirVec = ToUnitVector(angle);
         return dirVec*moveSpeed;
     }
 

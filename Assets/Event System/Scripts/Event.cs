@@ -32,6 +32,9 @@ public class Event{
 
 //	public void 
 
+	public OrbEventEnumerator.Event getEventType() {
+		return this.eventType;
+	}
 
 	public OrbEventEnumerator.Event getRandomEvent(){
 		int dieRoll = Random.Range (0, 100);

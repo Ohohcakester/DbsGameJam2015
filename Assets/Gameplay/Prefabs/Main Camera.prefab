@@ -121,6 +121,7 @@ MonoBehaviour:
   tileWidth: 0.8
   tileHeight: 0.8
   prefab_platform: {fileID: 157490, guid: 1964e1a4e119f5046add03974a4591f8, type: 2}
+  prefab_player: {fileID: 164708, guid: c47b4b41d97f5994eace1f267b057fc5, type: 2}
   mazeTextFile: {fileID: 4900000, guid: a21509c1aebc41b499d0d50edc07dcd0, type: 3}
 --- !u!124 &12420450
 Behaviour:
@@ -152,6 +153,10 @@ Prefab:
       propertyPath: tileHeight
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: prefab_player
+      value: 
+      objectReference: {fileID: 164708, guid: c47b4b41d97f5994eace1f267b057fc5, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120844}

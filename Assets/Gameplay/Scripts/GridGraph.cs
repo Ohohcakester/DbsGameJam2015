@@ -15,10 +15,12 @@ public class GridGraph
     public float width;
     public float height;
 
-    private VisibilityGraph visibilityGraph;
+    public VisibilityGraph visibilityGraph { get; private set; }
 
     public void Initialise(bool[,] tiles, float realMinX, float realMinY, float width, float height)
     {
+        scale = 3;
+
         this.realMinX = realMinX;
         this.realMinY = realMinY;
         this.width = width;
@@ -77,10 +79,11 @@ public class GridGraph
     /// <summary>
     /// Input: Unity Coordinates. Output: Pf Grid Coordinates.
     /// </summary>
-    private void ToPfGridCoordinates(float x, float y, out int gx, out int gy)
+    public void ToPfGridCoordinates(float x, float y, out int gx, out int gy)
     {
         x = (x - realMinX) / width * pfSizeX;
         y = (y - realMinY) / height * pfSizeY;
+        
 
         int cx = (int)(x + 0.5f);
         int cy = (int)(y + 0.5f);
@@ -96,7 +99,7 @@ public class GridGraph
                 else {
                     int px = cx - (3 / 2) + i;
                     int py = cy - (3 / 2) + j;
-                    if (IsBlockedCoordinate(px,py))
+                    if (!IsBlockedCoordinate(px,py))
                     {
                         gx = px;
                         gy = py;
@@ -112,7 +115,7 @@ public class GridGraph
             {
                 int px = cx - (5 / 2) + i;
                 int py = cy - (5 / 2) + j;
-                if (IsBlockedCoordinate(px,py))
+                if (!IsBlockedCoordinate(px,py))
                 {
                     gx = px;
                     gy = py;
@@ -127,7 +130,7 @@ public class GridGraph
             {
                 int px = cx - (5 / 2) + i;
                 int py = cy - (3 / 2) + j;
-                if (IsBlockedCoordinate(px,py))
+                if (!IsBlockedCoordinate(px,py))
                 {
                     gx = px;
                     gy = py;
@@ -144,21 +147,18 @@ public class GridGraph
     /// <summary>
     /// Input: Pf Grid Coordinates. Output: Unity Coordinates.
     /// </summary>
-    private void ToRealCoordinates(int gx, int gy, out float x, out float y)
+    public void ToRealCoordinates(int gx, int gy, out float x, out float y)
     {
         x = width*gx/pfSizeX + realMinX;
         y = height*gy/pfSizeY + realMinY;
     }
 
-    public Vector2 GetMoveDirection(float currX, float currY, float targetX, float targetY)
+    public PathData PathFind(float currX, float currY, float targetX, float targetY)
     {
         int sx, sy, ex, ey;
         ToPfGridCoordinates(currX, currY, out sx, out sy);
         ToPfGridCoordinates(targetX, targetY, out ex, out ey);
 
-        var nextPoint = visibilityGraph.Search(sx, sy, ex, ey);
-        float nextX, nextY;
-        ToRealCoordinates(nextPoint.x, nextPoint.y, out nextX, out nextY);
-        return new Vector2(nextX - currX, nextY - currY);
+        return visibilityGraph.Search(sx, sy, ex, ey);
     }
 }

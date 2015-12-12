@@ -8,12 +8,16 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     private PlayerGroundCollider groundCollider;
 
+    private Transform playerSprite;
+
 	GameController gController;
 	private bool isConsuming = false;
 	private float startConsumingTime;
 	private float consumeDelay = 2.0f;
 
-	// Use this for initialization
+    public bool facingRight { get; private set; }
+
+    // Use this for initialization
 	void Start ()
 	{
 	    Initialise();
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         groundCollider = transform.FindChild("GroundCollider").GetComponent<PlayerGroundCollider>();
 		gController = Camera.main.GetComponent<GameController> ();
+        playerSprite = transform.FindChild("PlayerSprite");
     }
 
     // Update is called once per frame
@@ -35,9 +40,11 @@ public class Player : MonoBehaviour
 
 			if (Input.GetKey (KeyCode.LeftArrow)) {
 				vx -= WalkSpeed;
+			    FaceDirection(true);
 			}
 			if (Input.GetKey (KeyCode.RightArrow)) {
-				vx += WalkSpeed;
+                vx += WalkSpeed;
+                FaceDirection(false);
 			}
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (IsOnPlatform ()) {
@@ -58,6 +65,14 @@ public class Player : MonoBehaviour
 			gController.transferOrbScoreToTotal ();
 		}
 	}
+
+    private void FaceDirection(bool right)
+    {
+        facingRight = right;
+
+        if ((playerSprite.localScale.x < 0) != right)
+            playerSprite.localScale = OhVec.FlipX(playerSprite.localScale);
+    }
 
     private bool IsOnPlatform()
     {

@@ -7,18 +7,17 @@ public class CameraFollow : MonoBehaviour {
 	public float panSpeed = 0.1f;
 
 	public void setPlayer (GameObject plyr){
-		player = plyr;
+        this.player = plyr;
 	}
 
 	void Start(){
-		player = GameObject.Find ("Player");
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (player != null) {
 			targetPos = player.transform.position;
-			this.transform.position = Vector3.Lerp(this.transform.position, OhVec.toVector3 (targetPos, -10f), Time.timeScale*panSpeed);
+			this.transform.position = Vector3.Lerp(this.transform.position, OhVec.toVector3 (targetPos, -10f), panSpeed);
 		}
 	}
 }
