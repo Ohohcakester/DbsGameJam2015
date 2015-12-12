@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     private PlayerGroundCollider groundCollider;
 
+    private Transform playerSprite;
+
 	GameController gController;
 	private bool isConsuming = false;
 	private float startConsumingTime;
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         groundCollider = transform.FindChild("GroundCollider").GetComponent<PlayerGroundCollider>();
 		gController = Camera.main.GetComponent<GameController> ();
+        playerSprite = transform.FindChild("PlayerSprite");
     }
 
     // Update is called once per frame
@@ -67,8 +70,8 @@ public class Player : MonoBehaviour
     {
         facingRight = right;
 
-        if ((transform.localScale.x < 0) != right)
-            transform.localScale = OhVec.FlipX(transform.localScale);
+        if ((playerSprite.localScale.x < 0) != right)
+            playerSprite.localScale = OhVec.FlipX(playerSprite.localScale);
     }
 
     private bool IsOnPlatform()
