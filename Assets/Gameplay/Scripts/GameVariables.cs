@@ -17,6 +17,8 @@ public class GameVariables
     public float decisionTime = 0f;
     public float decisionTimeExtra = 0.5f;
 
+    public float walkingEnemySpeed = 1.4f;
+
     public void ResetGameBuffs()
     {
 

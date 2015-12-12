@@ -84,7 +84,7 @@ public class EventScreen : MonoBehaviour {
 	}
     
 	public Event popSuccess(){
-		Debug.Log ("Pop success : " + Time.time);
+		//Debug.Log ("Pop success : " + Time.time);
 		int lastIndex = eventObjs.Count-1;
 		Event returnEvent = eventObjs [lastIndex].GetComponent<EventRepresenter> ().getEvent ();
 
@@ -138,7 +138,7 @@ public class EventScreen : MonoBehaviour {
 	}*/
 
 	public void removeLast(){
-		Debug.Log ("Removed Last : " + Time.time);
+		//Debug.Log ("Removed Last : " + Time.time);
 		int currSize = eventObjs.Count;
 		Destroy (eventObjs [currSize-1]);
 		eventObjs.RemoveAt (currSize-1);

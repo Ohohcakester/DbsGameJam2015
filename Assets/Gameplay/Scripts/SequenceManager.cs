@@ -61,7 +61,7 @@ class SequenceManager
         Event ev = eventScreen.peekNextMaybeEvent(); // pop from queue
         if (ev == null) return;
 
-        Debug.Log("Run ==> " + ev.getEventType());
+        //Debug.Log("Run ==> " + ev.getEventType());
         if (WillEventHappenRandom(ev.getEventType()))
         {
             StartEvent(ev);
@@ -165,7 +165,7 @@ class SequenceManager
                 case 1: evType = OrbEventEnumerator.Event.Multiplier; break;
             }
         }
-        Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
+        //Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
         if (eventScreen.getCurrentSize() <= 0)
         {
             nextEventHappenTime = Time.time + EventHappenDelay(evType);
