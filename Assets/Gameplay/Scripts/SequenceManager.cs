@@ -7,7 +7,9 @@ class SequenceManager
 {
     private GameController gameController;
     private EventScreen eventScreen;
+    private EnemySpawner enemySpawner;
     public GameVariables gameVariables { get; private set; }
+    
 
     private float startTime;
     private float endTime;
@@ -23,6 +25,7 @@ class SequenceManager
     {
         gameController = Camera.main.GetComponent<GameController>();
         gameVariables = new GameVariables();
+        enemySpawner = new EnemySpawner(gameVariables);
         activeEvents = new List<ActiveEvent>();
         eventScreen = Camera.main.GetComponent<UISummoner>().getEventScreen();
 
@@ -47,6 +50,8 @@ class SequenceManager
         }
 
         UpdateAddEvents();
+
+        enemySpawner.Update();
     }
 
     private void UpdateEventPop()

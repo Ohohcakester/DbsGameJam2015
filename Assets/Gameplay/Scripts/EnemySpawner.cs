@@ -8,8 +8,9 @@ public class EnemySpawner
     private List<FlyingEnemyContainer> flyingEnemies;
     private float safeModificationRange = 30f;
 
-    public EnemySpawner()
+    public EnemySpawner(GameVariables gameVariables)
     {
+        this.gameVariables = gameVariables;
         mazeManager = Camera.main.GetComponent<MazeManager>();
         flyingEnemies = new List<FlyingEnemyContainer>();
     }
