@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Event = Orb.Event;
 
 public class EventRepresenter : MonoBehaviour {
 	private Vector2 targetPos;
 	private float speed = 0.1f;
 	private Event ev;
 	private bool isSelfDestructing = false;
+	
+	private OrbEventEnumerator.Event evType;
 
 	// Update is called once per frame
 	void Update () {
@@ -34,5 +37,12 @@ public class EventRepresenter : MonoBehaviour {
 
 	public Event getEvent(){
 		return ev;
+	}
+	public void includeEvent(OrbEventEnumerator.Event _event){
+		evType = _event;
+	}
+
+	public OrbEventEnumerator.Event getEventType(){
+		return evType;
 	}
 }
