@@ -67,7 +67,25 @@ class SequenceManager
             // Don't Start Event
             eventScreen.removeLast();
         }
+
+        UpdateNextEventHappenTime();
     }
+
+
+    private void UpdateNextEventHappenTime()
+    {
+        if (Time.time <= nextEventHappenTime) return;
+        if (eventScreen.getCurrentSize() <= 0) return;
+        Event ev = eventScreen.peekNextMaybeEvent(); // pop from queue
+        nextEventHappenTime += Time.time + EventHappenDelay(ev.getEventType());
+    }
+
+    private float EventHappenDelay(OrbEventEnumerator.Event eventType)
+    {
+        return 15f;
+    }
+
+
 
     private void UpdateAddEvents()
     {
