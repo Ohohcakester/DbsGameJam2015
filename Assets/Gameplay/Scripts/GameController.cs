@@ -6,11 +6,22 @@ public class GameController : MonoBehaviour {
 	ScoreDisplay totalScoreScript;
 	Animator orbScoreAnimator;
 	GameObject orbScoreOrb;
+    private SequenceManager sequenceManager;
 		
 	int currentOrbScore = 0;
 	int currentTotalScore = 0;
 
-	public void setOrbScoreScript (ScoreDisplay script){
+    private void Start()
+    {
+        sequenceManager = new SequenceManager();
+    }
+
+    private void Update()
+    {
+        sequenceManager.Update();
+    }
+
+    public void setOrbScoreScript (ScoreDisplay script){
 		orbScoreScript = script;
 //		Debug.Log (orbScoreScript.ToString ());
 	}

@@ -29,6 +29,8 @@ public class MazeManager : MonoBehaviour
     private float width;
     private float height;
 
+    private Platform[] cornerPlatforms = new Platform[4];
+
     public GridGraph gridGraph { get; private set; }
     private Platform[,] platforms;
 
@@ -154,6 +156,8 @@ public class MazeManager : MonoBehaviour
 
         gridGraph = new GridGraph();
         gridGraph.Initialise(isBlocked, minX, minY, width, height);
+
+        CreateCornerPlatforms(nRows, nCols);
     }
 
     public Vector2 PlayerPosition()
@@ -199,4 +203,25 @@ public class MazeManager : MonoBehaviour
             }
         }
     }
+
+    void CreateCornerPlatforms(int nRows, int nCols)
+    {
+        cornerPlatforms[0] = CreatePlatform(-1, -1, Platform.PLATFORM_TYPE.B); // bottom left
+        cornerPlatforms[1] = CreatePlatform(-1, nRows, Platform.PLATFORM_TYPE.B); // top left
+        cornerPlatforms[2] = CreatePlatform(nCols, -1, Platform.PLATFORM_TYPE.B); // bottom right
+        cornerPlatforms[3] = CreatePlatform(nCols, nRows, Platform.PLATFORM_TYPE.B); // top right
+
+        cornerPlatforms[0].GetComponent<BoxCollider2D>().size = new Vector2((platforms.GetLength(0) * tileWidth + (2*tileWidth)), tileHeight);
+        cornerPlatforms[0].GetComponent<BoxCollider2D>().offset = new Vector2(((platforms.GetLength(0) * tileWidth + (2 * tileWidth))) / 2.0f - (tileWidth / 2), 0);
+
+        cornerPlatforms[3].GetComponent<BoxCollider2D>().size = new Vector2((platforms.GetLength(0) * tileWidth + (2 * tileWidth)), tileHeight);
+        cornerPlatforms[3].GetComponent<BoxCollider2D>().offset = new Vector2(-((platforms.GetLength(0) * tileWidth + (0 * tileWidth))) / 2.0f - (tileWidth / 2), 0);
+
+        cornerPlatforms[1].GetComponent<BoxCollider2D>().size = new Vector2(tileWidth, (platforms.GetLength(1) * tileHeight + (2 * tileHeight)));
+        cornerPlatforms[1].GetComponent<BoxCollider2D>().offset = new Vector2(0, -((platforms.GetLength(1) * tileWidth + (0 * tileWidth))) / 2.0f - (tileWidth / 2));
+
+        cornerPlatforms[2].GetComponent<BoxCollider2D>().size = new Vector2(tileWidth, (platforms.GetLength(1) * tileHeight + (2 * tileHeight)));
+        cornerPlatforms[2].GetComponent<BoxCollider2D>().offset = new Vector2(0, ((platforms.GetLength(1) * tileWidth + (2 * tileWidth))) / 2.0f - (tileWidth / 2));
+    }
+
 }
