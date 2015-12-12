@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Event = Orb.Event;
 
 public class EventScreen : MonoBehaviour {
 	private int MAX_EVENT_NUM = 6;
@@ -30,6 +31,25 @@ public class EventScreen : MonoBehaviour {
 		}
 	}
 
+	void Update(){
+		for (int i=0; i<activeEventObjs.Count; i++){
+			if (activeEventObjs [i].GetComponent<EventRepresenter> ().getEvent ().hasExpired) {
+				activeEventObjs [i].GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
+				isActiveSpaceFree [i] = true;
+			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.F1)) {
+			Event ev = new Event ();
+			if (getCurrentSize () < 6) {
+				addEventToScreen (ev);
+			} else {
+				popSuccess ();
+				addEventToScreen (ev);
+			}
+		}
+	}
+
 	public void addEventToScreen(Event ev){
 //		Debug.Log ("Adding new Event " + ev.ToString ());
 		int currIndex = eventObjs.Count;
@@ -44,6 +64,7 @@ public class EventScreen : MonoBehaviour {
 		ev.configureUIEventObject (testEventObj);
 		testEventObj.transform.parent = this.transform;
 		testEventObj.GetComponent<EventRepresenter> ().setPos (locArray [0]);
+		testEventObj.GetComponent<EventRepresenter> ().includeEvent(ev);
 		eventObjs.Insert (0, testEventObj);
 	}
 
@@ -76,7 +97,7 @@ public class EventScreen : MonoBehaviour {
 	//	}
 	}
 */
-	public Event pop(){
+	public Event popSuccess(){
 		int lastIndex = eventObjs.Count-1;
 		Event returnEvent = eventObjs [lastIndex].GetComponent<EventRepresenter> ().getEvent ();
 
@@ -94,16 +115,32 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	public void setLatestEventToActive(){
+		int index = -1;
+		for (int i = 0; i < 3; i++) {
+			if (isActiveSpaceFree [i]) {
+				index = i;
+				isActiveSpaceFree [i] = false;
+				break;
+			}
+		}
+
+		int lastIndex = eventObjs.Count - 1;
+		if (index != -1) {
+			//	Debug.Log (index);
+			eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [index]);
+		} else {
+			Debug.Log ("Too many active buffs!");
+		}
+		/*
 		if (activeEventObjs.Count < 3) {
 			shiftActiveEvents ();
 		} else {
 			removeLastActive ();
 			shiftActiveEvents ();
 		}
-		int lastIndex = eventObjs.Count-1;
-
-		eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [0]);
-		activeEventObjs.Insert (0,eventObjs [lastIndex]);
+*/
+//		eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [0]);
+		activeEventObjs.Add (eventObjs [lastIndex]);
 		eventObjs.RemoveAt (lastIndex );
 
 	}
@@ -140,15 +177,4 @@ public class EventScreen : MonoBehaviour {
 		return eventObjs.Count;
 	}
 
-	void Update(){
-		Event ev = new Event ();
-		if (Input.GetKeyDown (KeyCode.F1)) {
-			if (getCurrentSize () < 6) {
-				addEventToScreen (ev);
-			} else {
-				pop ();
-				addEventToScreen (ev);
-			}
-		}
-	}
 }
