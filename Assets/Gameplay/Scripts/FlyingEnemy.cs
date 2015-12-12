@@ -18,6 +18,10 @@ public class FlyingEnemy : MonoBehaviour
 
     private float nextTurnTime;
 
+    private bool isAggressive;
+    private float endAggressionTime;
+    private float aggressionDuration = 8f;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -92,10 +96,28 @@ public class FlyingEnemy : MonoBehaviour
         return OhVec.Distance2D(OhVec.toVector2(transform.position), mazeManager.PlayerPosition());
     }
 
+    private void TriggerAggression()
+    {
+        isAggressive = true;
+        endAggressionTime = Time.time + aggressionDuration;
+    }
+
     private float Aggressiveness()
     {
         float a = gameVariables.baseAggressiveness;
-        
+
+        if (isAggressive)
+        {
+            if (Time.time >= endAggressionTime)
+            {
+                isAggressive = false;
+            }
+            else
+            {
+                Pow(0.35f, ref a);
+            }
+        }
+
         if (StraightLineDistanceToPlayer() < gameVariables.baseDetectionRange) Pow(0.25f, ref a);
         if (!lastPathData.IsNull())
         {
@@ -117,6 +139,7 @@ public class FlyingEnemy : MonoBehaviour
                 Vector2 moveDir;
                 if (lastPathData.isDirect)
                 {
+                    TriggerAggression();
                     Vector2 playerPos = mazeManager.PlayerPosition();
                     moveDir = new Vector2(playerPos.x - currentPos.x, playerPos.y - currentPos.y);
                 }
