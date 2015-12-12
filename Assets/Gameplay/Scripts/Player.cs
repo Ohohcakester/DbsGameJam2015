@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+    private const float NOTARGET_TIME = 5f;
+
     private const float WalkSpeed = 3;
     private const float JumpSpeed = 7;
     private Rigidbody2D rigidbody2D;
@@ -183,7 +185,7 @@ public class Player : MonoBehaviour
 		isStunned = true;
 		noTarget = true;
 		stunEndTime = Time.time + time;
-		noTargetEndTime = Time.time + 2.0f + time;
+		noTargetEndTime = Time.time + NOTARGET_TIME + time;
 	}
 
 }

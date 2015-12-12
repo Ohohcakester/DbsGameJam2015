@@ -213,6 +213,12 @@ public class MazeManager : MonoBehaviour
         return lastPlayerPosition;
     }
 
+    public bool PlayerNoTarget()
+    {
+        if (player == null) return true;
+        return player.noTarget;
+    }
+
     void MergeHitBoxes()
     {
         int xhead = -1;

@@ -104,6 +104,13 @@ public class FlyingEnemy : MonoBehaviour
 
     private float Aggressiveness()
     {
+        if (mazeManager.PlayerNoTarget())
+        {
+            isAggressive = false;
+            return -1;
+        }
+
+
         float a = gameVariables.baseAggressiveness;
 
         if (isAggressive)
