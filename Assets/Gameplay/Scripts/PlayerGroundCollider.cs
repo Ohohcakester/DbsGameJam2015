@@ -10,7 +10,6 @@ public class PlayerGroundCollider : MonoBehaviour
 
     private void UpdateOnGround()
     {
-        Debug.Log(nPlatforms);
         OnGround = nPlatforms > 0;
     }
 

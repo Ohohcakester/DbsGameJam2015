@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using Event = Orb.Event;
 
 public class EventScreen : MonoBehaviour {
-	private int MAX_EVENT_NUM = 6;
+    public const int MAX_EVENT_NUM = 6;
+    public const int MAX_ACTIVE_EVENT_NUM = 3;
 
 	private Vector2[] locArray = new Vector2[6];
 	private Vector2[] buffLocArray = new Vector2[4];
@@ -67,52 +68,20 @@ public class EventScreen : MonoBehaviour {
 		testEventObj.GetComponent<EventRepresenter> ().includeEvent(ev);
 		eventObjs.Insert (0, testEventObj);
 	}
-
-	/*
-	public OrbEventEnumerator.Event addAndPop(Event ev){
-		GameObject testEventObj = Instantiate (eventObjRep, locArray [0], this.transform.rotation) as GameObject;
-		ev.configureUIEventObject (testEventObj);
-		testEventObj.transform.parent = this.transform;
-		testEventObj.GetComponent<EventRepresenter> ().setPos (locArray [0]);
-
-
-		for (int i = 0; i < eventObjs.Count; i++) {
-			if (i != MAX_EVENT_NUM - 1) {
-				eventObjs [i].GetComponent<EventRepresenter> ().setPos (locArray [i + 1]);
-			}			
-		}
-
-
-		eventObjs.Insert (0, testEventObj);
-
-		testEventObj.transform.localPosition = locArray [0];
-
-		//	if (eventObjs.Count == MAX_EVENT_NUM + 1) {
-
-		int lastIndex = eventObjs.Count;
-		OrbEventEnumerator.Event returnEvent = eventObjs [lastIndex ].GetComponent<EventRepresenter> ().getEvent ();
-		Destroy (eventObjs [lastIndex ]);
-		eventObjs.RemoveAt (lastIndex );
-		return returnEvent;
-	//	}
-	}
-*/
+    
 	public Event popSuccess(){
 		int lastIndex = eventObjs.Count-1;
 		Event returnEvent = eventObjs [lastIndex].GetComponent<EventRepresenter> ().getEvent ();
 
-		/*
-		//Destroy (eventObjs [lastIndex ]);
-		Vector2 offset = new Vector2(-7.3f, 0);
-		Vector2 deathPos = locArray [5] + offset;
-			
-		eventObjs [lastIndex].GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (deathPos);
-		eventObjs.RemoveAt (lastIndex );
-		*/
-
 		setLatestEventToActive ();
 		return returnEvent;
 	}
+
+    public Event peekNextMaybeEvent()
+    {
+        int lastIndex = eventObjs.Count - 1;
+        return eventObjs[lastIndex].GetComponent<EventRepresenter>().getEvent();
+    }
 
 	public void setLatestEventToActive(){
 		int index = -1;
@@ -131,14 +100,7 @@ public class EventScreen : MonoBehaviour {
 		} else {
 			Debug.Log ("Too many active buffs!");
 		}
-		/*
-		if (activeEventObjs.Count < 3) {
-			shiftActiveEvents ();
-		} else {
-			removeLastActive ();
-			shiftActiveEvents ();
-		}
-*/
+
 //		eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [0]);
 		activeEventObjs.Add (eventObjs [lastIndex]);
 		eventObjs.RemoveAt (lastIndex );
@@ -153,7 +115,9 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	public void removeLastActive(){
+		Debug.Log (activeEventObjs.Count);
 		GameObject lastActive = activeEventObjs [activeEventObjs.Count - 1];
+//		Debug.Log (lastActive.ToString ());
 		activeEventObjs.Remove (lastActive);
 		lastActive.GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
 	//	Destroy (lastActive);
@@ -161,8 +125,8 @@ public class EventScreen : MonoBehaviour {
 
 	public void removeLast(){
 		int currSize = eventObjs.Count;
-		Destroy (eventObjs [currSize]);
-		eventObjs.RemoveAt (currSize);
+		Destroy (eventObjs [currSize-1]);
+		eventObjs.RemoveAt (currSize-1);
 
 		for (int i = 0; i < eventObjs.Count; i++) {
 			if (i != MAX_EVENT_NUM - 1) {
@@ -176,5 +140,10 @@ public class EventScreen : MonoBehaviour {
 //		Debug.Log ("Size is " + eventObjs.Count);
 		return eventObjs.Count;
 	}
+
+    public int getNumActiveEvents()
+    {
+        return activeEventObjs.Count;
+    }
 
 }

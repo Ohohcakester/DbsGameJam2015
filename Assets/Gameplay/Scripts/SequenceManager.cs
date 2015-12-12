@@ -6,9 +6,12 @@ using Event = Orb.Event;
 class SequenceManager
 {
     private GameController gameController;
+    private EventScreen eventScreen;
     public GameVariables gameVariables { get; private set; }
 
     private float startTime;
+    private float endTime;
+    private float stopEventsTime;
     private float nextEventHappenTime;
     private float luck;
 
@@ -21,6 +24,11 @@ class SequenceManager
         gameController = Camera.main.GetComponent<GameController>();
         gameVariables = new GameVariables();
         activeEvents = new List<ActiveEvent>();
+        eventScreen = Camera.main.GetComponent<UISummoner>().getEventScreen();
+
+        startTime = Time.time;
+        endTime = Time.time + 300;
+        stopEventsTime = Time.time + 220;
     }
 
     public void Update()
@@ -29,34 +37,60 @@ class SequenceManager
         previousFrameTime = Time.time;
         RunEvents();
 
-        if (HasMaxEvents())
+        if (eventScreen.getNumActiveEvents() >= EventScreen.MAX_ACTIVE_EVENT_NUM || HasMaxActiveEvents())
         {
             nextEventHappenTime += dTime;
         }
         else
         {
-            if (Time.time > nextEventHappenTime)
-            {
-                Event ev = null; // pop from queue
-                if (ev != null)
-                {
-                    if (WillEventHappenRandom(ev.getEventType()))
-                    {
-                        StartEvent(ev);
-                        AdjustLuck(ev.getEventType());
-                    }
-                    else
-                    {
-                        // Don't Start Event
-                    }
-                }
-            }
+            UpdateEventPop();
         }
+
+        UpdateAddEvents();
     }
 
-    private bool HasMaxEvents()
+    private void UpdateEventPop()
     {
-        return activeEvents.Count >= 3;
+        if (Time.time <= nextEventHappenTime) return;
+        if (eventScreen.getCurrentSize() <= 0) return;
+        Event ev = eventScreen.peekNextMaybeEvent(); // pop from queue
+        if (ev == null) return;
+
+        Debug.Log("Run ==> " + ev.getEventType());
+        if (WillEventHappenRandom(ev.getEventType()))
+        {
+            StartEvent(ev);
+            eventScreen.popSuccess();
+            AdjustLuck(ev.getEventType());
+        }
+        else
+        {
+            // Don't Start Event
+            eventScreen.removeLast();
+        }
+
+        UpdateNextEventHappenTime();
+    }
+
+
+    private void UpdateNextEventHappenTime()
+    {
+        if (Time.time <= nextEventHappenTime) return;
+        if (eventScreen.getCurrentSize() <= 0) return;
+        Event ev = eventScreen.peekNextMaybeEvent(); // pop from queue
+        nextEventHappenTime += Time.time + EventHappenDelay(ev.getEventType());
+    }
+
+    private void UpdateAddEvents()
+    {
+        if (eventScreen.getCurrentSize() >= EventScreen.MAX_EVENT_NUM) return;
+        if (Time.time >= stopEventsTime) return;
+        AddNewEvent();
+    }
+
+    private bool HasMaxActiveEvents()
+    {
+        return activeEvents.Count >= EventScreen.MAX_ACTIVE_EVENT_NUM;
     }
 
     private void RunEvents()
@@ -67,19 +101,16 @@ class SequenceManager
             if (Time.time > activeEvent.expireTime)
             {
                 activeEvent.Expire();
+                activeEvent.ev.expire();
             }
         }
+        ClearInactiveEvents();
     }
 
     private void StartEvent(Event ev)
     {
         ActiveEvent activeEvent = new ActiveEvent(ev, EventDuration(ev));
         activeEvents.Add(activeEvent);
-    }
-
-    private float EventDuration(Event ev)
-    {
-        return 10f;
     }
 
     private void ClearInactiveEvents()
@@ -106,26 +137,55 @@ class SequenceManager
         return Random.Range(0, 1f) < Sigmoid(value);
     }
 
+    public void AddNewEvent()
+    {
+        OrbEventEnumerator.Event evType = OrbEventEnumerator.Event.Test3;
+
+        if (SigmoidRandom(luck))
+        {
+            // Negative Things
+            int choice = Random.Range(0, 2);
+            switch (choice)
+            {
+                case 0: evType = OrbEventEnumerator.Event.Crabby; break;
+                case 1: evType = OrbEventEnumerator.Event.Jelly; break;
+            }
+        }
+        else
+        {
+            // Positive Things
+            int choice = Random.Range(0, 2);
+            switch (choice)
+            {
+                case 0: evType = OrbEventEnumerator.Event.Meteor; break;
+                case 1: evType = OrbEventEnumerator.Event.Multiplier; break;
+            }
+        }
+        Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
+        if (eventScreen.getCurrentSize() <= 0)
+        {
+            nextEventHappenTime += Time.time + EventHappenDelay(evType);
+        }
+        eventScreen.addEventToScreen(new Event(evType));
+        
+    }
+
     private bool WillEventHappenRandom(OrbEventEnumerator.Event ev)
     {
         return Random.Range(0, 1f) < 0.5f;
     }
 
-    public void AddNewEvent()
+    private float EventHappenDelay(OrbEventEnumerator.Event eventType)
     {
-        if (SigmoidRandom(luck))
-        {
-            // Negative Things
-            
-        }
-        else
-        {
-            // Positive Things
-
-        }
+        return 3.5f;
     }
 
-    public void AdjustLuck(OrbEventEnumerator.Event ev)
+    private float EventDuration(Event ev)
+    {
+        return 5f;
+    }
+
+    private void AdjustLuck(OrbEventEnumerator.Event ev)
     {
         switch (ev)
         {
