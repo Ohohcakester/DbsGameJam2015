@@ -13,10 +13,12 @@ public class Platform : MonoBehaviour {
     private Sprite r;
     [SerializeField]
     private Sprite b;
+    [SerializeField]
+    private Sprite g;
 
     public enum PLATFORM_TYPE
     {
-        L,T,R,B
+        L,T,R,B,G
     }
 
     public void Initialise(PLATFORM_TYPE type)
@@ -42,6 +44,12 @@ public class Platform : MonoBehaviour {
                 break;
             case PLATFORM_TYPE.B:
                 this.GetComponent<SpriteRenderer>().sprite = b;
+                break;
+            case PLATFORM_TYPE.G:
+                this.GetComponent<SpriteRenderer>().sprite = g;
+                break;
+            default:
+                this.GetComponent<SpriteRenderer>().sprite = g;
                 break;
         }
     }

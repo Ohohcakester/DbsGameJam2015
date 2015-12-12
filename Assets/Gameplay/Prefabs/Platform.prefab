@@ -60,6 +60,7 @@ MonoBehaviour:
   t1: {fileID: 21300004, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
   r: {fileID: 21300006, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
   b: {fileID: 21300008, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
+  g: {fileID: 21300000, guid: 41811f3acee437c4ea805e241a966f3b, type: 3}
 --- !u!212 &21220094
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -134,6 +135,11 @@ Prefab:
       propertyPath: t1
       value: 
       objectReference: {fileID: 21300004, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: g
+      value: 
+      objectReference: {fileID: 21300000, guid: 41811f3acee437c4ea805e241a966f3b,
         type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

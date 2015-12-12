@@ -106,6 +106,7 @@ public class MazeManager : MonoBehaviour
         player = playerObject.GetComponent<Player>();
         Camera.main.GetComponent<CameraFollow>().setPlayer(playerObject);
         MergeHitBoxes();
+        
     }
 
     public FlyingEnemy InstantiateFlyingEnemy(int x, int y)
@@ -176,6 +177,7 @@ public class MazeManager : MonoBehaviour
         gridGraph.Initialise(isBlocked, minX, minY, width, height);
 
         CreateCornerPlatforms(nRows, nCols);
+        CreateSeaBed(nCols);
     }
 
     public Vector2 PlayerPosition()
@@ -224,9 +226,9 @@ public class MazeManager : MonoBehaviour
 
     void CreateCornerPlatforms(int nRows, int nCols)
     {
-        cornerPlatforms[0] = CreatePlatform(-1, -1, Platform.PLATFORM_TYPE.B); // bottom left
+        cornerPlatforms[0] = CreatePlatform(-1, -1, Platform.PLATFORM_TYPE.G); // bottom left
         cornerPlatforms[1] = CreatePlatform(-1, nRows, Platform.PLATFORM_TYPE.B); // top left
-        cornerPlatforms[2] = CreatePlatform(nCols, -1, Platform.PLATFORM_TYPE.B); // bottom right
+        cornerPlatforms[2] = CreatePlatform(nCols, -1, Platform.PLATFORM_TYPE.G); // bottom right
         cornerPlatforms[3] = CreatePlatform(nCols, nRows, Platform.PLATFORM_TYPE.B); // top right
 
         cornerPlatforms[0].GetComponent<BoxCollider2D>().size = new Vector2((platforms.GetLength(0) * tileWidth + (2*tileWidth)), tileHeight);
@@ -242,4 +244,12 @@ public class MazeManager : MonoBehaviour
         cornerPlatforms[2].GetComponent<BoxCollider2D>().offset = new Vector2(0, ((platforms.GetLength(1) * tileWidth + (2 * tileWidth))) / 2.0f - (tileWidth / 2));
     }
 
+
+    void CreateSeaBed(int nCols)
+    {
+        for (int i = -20; i < nCols+3; i=i+7)
+        {
+            CreatePlatform(i, -1, Platform.PLATFORM_TYPE.G).GetComponent<Collider2D>().enabled = false;
+        }
+    }
 }
