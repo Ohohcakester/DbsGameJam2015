@@ -15,6 +15,8 @@ public class GridGraph
     public float width;
     public float height;
 
+    private List<Point> emptyBlockList; 
+
     public VisibilityGraph visibilityGraph { get; private set; }
 
     public void Initialise(bool[,] tiles, float realMinX, float realMinY, float width, float height)
@@ -33,6 +35,28 @@ public class GridGraph
         pfGrid = new bool[pfSizeX,pfSizeY];
         ConfigurePfGrid();
         visibilityGraph = new VisibilityGraph(this);
+        InitialiseEmptyBlockList();
+    }
+
+    private void InitialiseEmptyBlockList()
+    {
+        emptyBlockList = new List<Point>();
+        for (int y = 0; y < sizeY; ++y)
+        {
+            for (int x = 0; x < sizeX; ++x)
+            {
+                if (!tileGrid[x, y])
+                {
+                    emptyBlockList.Add(new Point {x = x, y = y});
+                }
+            }
+        }
+    }
+
+    public Point RandomEmptyBlock()
+    {
+        int choice = Random.Range(0, emptyBlockList.Count);
+        return emptyBlockList[choice];
     }
 
     private void ConfigurePfGrid()

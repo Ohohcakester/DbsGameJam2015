@@ -9,12 +9,12 @@ public class EventScreen : MonoBehaviour {
 
 	private Vector2[] locArray = new Vector2[6];
 	private Vector2[] buffLocArray = new Vector2[4];
-	private bool[] isActiveSpaceFree = { true, true, true }; 
+//	private bool[] isActiveSpaceFree = { true, true, true }; 
+
 	public GameObject eventObjRep;
-	private int currentEventIndex = 0;
 	private List<GameObject> eventObjs = new List<GameObject>();
 
-	private List<GameObject> activeEventObjs = new List<GameObject> ();
+	private GameObject[] activeEventObjs = new GameObject[3];
 
 
 	// Use this for initialization
@@ -33,12 +33,26 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	void Update(){
-		for (int i=0; i<activeEventObjs.Count; i++){
-			if (activeEventObjs [i].GetComponent<EventRepresenter> ().getEvent ().hasExpired) {
-				activeEventObjs [i].GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
-				isActiveSpaceFree [i] = true;
-			}
+		
+		//Debug.Log ((activeEventObjs [0] == null) + "," + (activeEventObjs [1] == null) + "," + (activeEventObjs [2] == null));
+		
+		for (int i = 0; i < activeEventObjs.Length; ++i) {
+			var activeEvent = activeEventObjs [i];
+			if (activeEvent == null) continue;
+			if (!activeEvent.GetComponent<EventRepresenter> ().getEvent ().hasExpired) continue;
+
+			activeEvent.GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
+			activeEventObjs [i] = null;
 		}
+
+		//Debug.Log (getNumActiveEvents ());
+		/*foreach (var key in activeEventObjs) {
+			if (key != null && key.GetComponent<EventRepresenter> ().getEvent ().hasExpired) {
+				key.GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
+				Debug.Log ("Destroying an active buff");
+				Destroy (key);
+			}
+		}*/
 
 		if (Input.GetKeyDown (KeyCode.F1)) {
 			Event ev = new Event ();
@@ -52,7 +66,7 @@ public class EventScreen : MonoBehaviour {
 	}
 
 	public void addEventToScreen(Event ev){
-//		Debug.Log ("Adding new Event " + ev.ToString ());
+//		Debug.Log (eventObjs.Count);
 		int currIndex = eventObjs.Count;
 		for (int i = 0; i < currIndex; i++) {
 			eventObjs [i].GetComponent<EventRepresenter> ().setPos (locArray [i+1]);
@@ -70,6 +84,7 @@ public class EventScreen : MonoBehaviour {
 	}
     
 	public Event popSuccess(){
+		Debug.Log ("Pop success : " + Time.time);
 		int lastIndex = eventObjs.Count-1;
 		Event returnEvent = eventObjs [lastIndex].GetComponent<EventRepresenter> ().getEvent ();
 
@@ -84,16 +99,16 @@ public class EventScreen : MonoBehaviour {
     }
 
 	public void setLatestEventToActive(){
+		int lastIndex = eventObjs.Count - 1;
 		int index = -1;
 		for (int i = 0; i < 3; i++) {
-			if (isActiveSpaceFree [i]) {
+			if (activeEventObjs [i] == null) {
 				index = i;
-				isActiveSpaceFree [i] = false;
+				activeEventObjs [i] = eventObjs[lastIndex];
 				break;
 			}
 		}
 
-		int lastIndex = eventObjs.Count - 1;
 		if (index != -1) {
 			//	Debug.Log (index);
 			eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [index]);
@@ -102,28 +117,28 @@ public class EventScreen : MonoBehaviour {
 		}
 
 //		eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [0]);
-		activeEventObjs.Add (eventObjs [lastIndex]);
 		eventObjs.RemoveAt (lastIndex );
 
 	}
 
-	public void shiftActiveEvents()
+	/*public void shiftActiveEvents()
 	{
-		for (int i = 0; i < activeEventObjs.Count; i++) {
+		for (int i = 0; i < activeEventObjs.Length; i++) {
 			activeEventObjs [i].GetComponent<EventRepresenter> ().setPos (buffLocArray [i + 1]);
 		}
-	}
+	}*/
 
-	public void removeLastActive(){
-		Debug.Log (activeEventObjs.Count);
-		GameObject lastActive = activeEventObjs [activeEventObjs.Count - 1];
+	/*public void removeLastActive(){
+		Debug.Log (activeEventObjs.Length);
+		GameObject lastActive = activeEventObjs [activeEventObjs.Length - 1];
 //		Debug.Log (lastActive.ToString ());
 		activeEventObjs.Remove (lastActive);
 		lastActive.GetComponent<EventRepresenter> ().moveTowardsThenDestroySelf (buffLocArray [3]);
 	//	Destroy (lastActive);
-	}
+	}*/
 
 	public void removeLast(){
+		Debug.Log ("Removed Last : " + Time.time);
 		int currSize = eventObjs.Count;
 		Destroy (eventObjs [currSize-1]);
 		eventObjs.RemoveAt (currSize-1);
@@ -143,7 +158,13 @@ public class EventScreen : MonoBehaviour {
 
     public int getNumActiveEvents()
     {
-        return activeEventObjs.Count;
+		int totalActive = 0;
+		for (int i = 0; i < 3; i++) {
+			if (activeEventObjs [i] != null) {
+				totalActive++;
+			}
+		}
+		return totalActive;
     }
 
 }
