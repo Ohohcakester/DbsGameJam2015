@@ -9,7 +9,7 @@ public class GameVariables
     public int nCrabs = 8;
     public float multiplier = 1f;
     public float undercurrent = 0f;
-    public float itemRespawnRate;
+    public float itemRespawnTime = 25f;
 
     public float turnSpeed = 7.7f;
     public float moveSpeed = 6f;

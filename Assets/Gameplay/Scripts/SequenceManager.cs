@@ -174,6 +174,16 @@ class SequenceManager
         
     }
 
+    private void ApplyBuffs()
+    {
+        gameVariables.ResetGameBuffs();
+        foreach (var activeEvent in activeEvents)
+        {
+            ApplyEffect(activeEvent.ev.getEventType());
+        }
+        gameVariables.ApplyDifficultyChange(Time.time - startTime);
+    }
+
     private bool WillEventHappenRandom(OrbEventEnumerator.Event ev)
     {
         return Random.Range(0, 1f) < 0.5f;
@@ -195,16 +205,6 @@ class SequenceManager
         {
         }
         luck += 0;
-    }
-
-    private void ApplyBuffs()
-    {
-        gameVariables.ResetGameBuffs();
-        foreach (var activeEvent in activeEvents)
-        {
-            ApplyEffect(activeEvent.ev.getEventType());
-        }
-        gameVariables.ApplyDifficultyChange(Time.time - startTime);
     }
 
     private void ApplyEffect(OrbEventEnumerator.Event buff)

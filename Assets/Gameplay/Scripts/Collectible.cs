@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Collectible : MonoBehaviour {
+public class Collectible : MonoBehaviour
+{
+    private GameVariables gameVariables;
 	public GameObject collectibleSpriteObjPrefab;
 	private bool isCollected = false;
 	private GameObject collectibleSpriteObj;
@@ -14,7 +16,7 @@ public class Collectible : MonoBehaviour {
 //		Debug.Log ("trig");
 		if (!isCollected && col.tag == "Player") {
 			lastCollectedTime = Time.time;
-			nextRespawnTime = Time.time + Random.Range (baseRespawnTime - (baseRespawnTime * 0.3f), baseRespawnTime + (baseRespawnTime * 0.3f));
+		    nextRespawnTime = Time.time + RespawnTime();
 			isCollected = true;
 		//	collectibleSpriteObj.SetActive (false);
 			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject);
@@ -27,6 +29,7 @@ public class Collectible : MonoBehaviour {
 	public void initialize(){
 		collectibleSpriteObj = Instantiate (collectibleSpriteObjPrefab, this.transform.position, this.transform.rotation) as GameObject;
 		collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
+	    gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
 	}
 
 	void Start(){
@@ -41,4 +44,9 @@ public class Collectible : MonoBehaviour {
 			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
 		}
 	}
+
+    private float RespawnTime()
+    {
+        return gameVariables.itemRespawnTime + Random.Range(-3f, 3f);
+    }
 }
