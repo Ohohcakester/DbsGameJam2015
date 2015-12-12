@@ -8,7 +8,7 @@ public class FlyingEnemy : MonoBehaviour
     private float targetAngle;
     private bool isTurning;
 
-    private float moveSpeed = 6f;
+    private float moveSpeed = 5f;
 
     private Rigidbody2D rigidbody2D;
 
