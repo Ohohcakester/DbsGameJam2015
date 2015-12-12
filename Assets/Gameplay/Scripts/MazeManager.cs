@@ -20,7 +20,7 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab_player;
 
-    private Player player;
+    public Player player;
     private Vector2 lastPlayerPosition;
 
     [SerializeField]
