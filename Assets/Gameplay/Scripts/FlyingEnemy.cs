@@ -9,13 +9,6 @@ public class FlyingEnemy : MonoBehaviour
     private float targetAngle;
     private bool isTurning;
 
-    /*[NonSerialized] public bool special = false;
-    [NonSerialized] public float turnSpeed = 7.7f;
-    [NonSerialized] public float moveSpeed = 6f;
-    [NonSerialized] public float baseAggressiveness = 0.5f;
-    [NonSerialized] public float decisionTime = 0f;
-    [NonSerialized] public float decisionTimeExtra = 0.5f;*/
-    
     private Rigidbody2D rigidbody2D;
 
     private MazeManager mazeManager;
@@ -103,32 +96,36 @@ public class FlyingEnemy : MonoBehaviour
     {
         float a = gameVariables.baseAggressiveness;
         
-        if (StraightLineDistanceToPlayer() < gameVariables.baseDetectionRange) Pow(0.5f, ref a);
+        if (StraightLineDistanceToPlayer() < gameVariables.baseDetectionRange) Pow(0.25f, ref a);
         if (!lastPathData.IsNull())
         {
             if (lastPathData.isDirect) Pow(0.1f, ref a);
-            if (lastPathData.distance < gameVariables.baseDetectionDistance) Pow(0.25f, ref a);
         }
         return a;
     }
 
     private float DecideNextAngle()
     {
-        UpdatePathData();
-        if (!lastPathData.IsNull() && Random.Range(0f, 1f) < Aggressiveness())
+
+        // OBJECTIVE:: REDUCE PATH FINDS
+        if (Random.Range(0f, 1f) < Aggressiveness())
         {
-            Vector2 currentPos = this.transform.position;
-            Vector2 moveDir;
-            if (lastPathData.isDirect)
+            UpdatePathData();
+            if (!lastPathData.IsNull())
             {
-                Vector2 playerPos = mazeManager.PlayerPosition();
-                moveDir = new Vector2(playerPos.x - currentPos.x, playerPos.y - currentPos.y);
+                Vector2 currentPos = this.transform.position;
+                Vector2 moveDir;
+                if (lastPathData.isDirect)
+                {
+                    Vector2 playerPos = mazeManager.PlayerPosition();
+                    moveDir = new Vector2(playerPos.x - currentPos.x, playerPos.y - currentPos.y);
+                }
+                else
+                {
+                    moveDir = new Vector2(lastPathData.realNextX - currentPos.x, lastPathData.realNextY - currentPos.y);
+                }
+                return ToAngle(moveDir);
             }
-            else
-            {
-                moveDir = new Vector2(lastPathData.realNextX - currentPos.x, lastPathData.realNextY - currentPos.y);
-            }
-            return ToAngle(moveDir);
         }
         return Random.Range(0, 360);
     }

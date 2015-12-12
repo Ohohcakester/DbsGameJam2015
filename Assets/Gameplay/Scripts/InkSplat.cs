@@ -29,12 +29,13 @@ public class InkSplat : MonoBehaviour {
 		rCol = sRenderers [0].color.r;
 		gCol = sRenderers [0].color.g;
 		bCol = sRenderers [0].color.b;
-
-		startFading ();
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
+	    if (!isFading) return;
+
 		currOpacity -= fadeSpeed;
 		Color newCol = new Color (rCol, gCol, bCol, currOpacity);
 		for (int i = 0; i < sRenderers.Length; i++) {

@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d30f9a0c5b32744aaf1e6bc27b7c8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab_inksplat: {fileID: 120180, guid: cff25aea78f2a5147a2a16770433e3b7, type: 2}
 --- !u!114 &11450434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,6 +206,10 @@ Prefab:
       propertyPath: prefab_collectible
       value: 
       objectReference: {fileID: 132434, guid: 9699d9ec178310d4c88f4981065c46a6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: prefab_inksplat
+      value: 
+      objectReference: {fileID: 120180, guid: cff25aea78f2a5147a2a16770433e3b7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120844}
