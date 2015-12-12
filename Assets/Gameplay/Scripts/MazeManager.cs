@@ -23,6 +23,9 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab_flyingEnemy;
 
+    [SerializeField]
+    private GameObject prefab_walkingEnemy;
+
     private Player player;
     private Vector2 lastPlayerPosition;
 
@@ -116,6 +119,15 @@ public class MazeManager : MonoBehaviour
 
         var enemyObject = Instantiate(prefab_flyingEnemy, new Vector3(actualX, actualY, 0), prefab_flyingEnemy.transform.rotation) as GameObject;
         return enemyObject.GetComponent<FlyingEnemy>();
+    }
+
+    public WalkingEnemy InstantiateWalkingEnemy(int x, int y)
+    {
+        float actualX, actualY;
+        ToActual(x, y, out actualX, out actualY);
+
+        var enemyObject = Instantiate(prefab_walkingEnemy, new Vector3(actualX, actualY, 0), prefab_walkingEnemy.transform.rotation) as GameObject;
+        return enemyObject.GetComponent<WalkingEnemy>();
     }
 
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)

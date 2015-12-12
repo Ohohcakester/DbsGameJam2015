@@ -15,9 +15,26 @@ public class WalkingEnemy : MonoBehaviour
     private int turnsLeft;
     private float nextTurnsLeftRegen;
 
+    private Vector3 lastPosition;
+    private float runningAverageMoveDistance = 1;
+    private float defaultRunningAverage = 1f;
+    private float alpha = 0.3f;
+
     private void Start()
     {
         Initialise();
+    }
+
+    private void FixedUpdate()
+    {
+        float distanceMoved = OhVec.Distance2D(lastPosition, transform.position);
+        lastPosition = transform.position;
+        runningAverageMoveDistance = alpha*distanceMoved + (1 - alpha)*runningAverageMoveDistance;
+        if (runningAverageMoveDistance < 0.002f)
+        {
+            TurnAround();
+            runningAverageMoveDistance = defaultRunningAverage;
+        }
     }
 
     /*private void OnDrawGizmos()
@@ -49,6 +66,7 @@ public class WalkingEnemy : MonoBehaviour
         mazeManager = Camera.main.GetComponent<MazeManager>();
         gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
         enemySprite = transform.FindChild("EnemySprite");
+        lastPosition = this.transform.position;
     }
 
     private void Update()

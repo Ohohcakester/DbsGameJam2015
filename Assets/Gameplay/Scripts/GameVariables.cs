@@ -6,7 +6,7 @@ public class GameVariables
     public float baseDetectionRange = 10;
     public float baseDetectionDistance = 10;
     public int nEnemies = 5;
-    public int nCrabs = 5;
+    public int nCrabs = 8;
     public float multiplier = 1f;
     public float undercurrent = 0f;
     public float itemRespawnRate;
