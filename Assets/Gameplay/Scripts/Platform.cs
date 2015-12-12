@@ -6,7 +6,9 @@ public class Platform : MonoBehaviour {
     [SerializeField]
     private Sprite l;
     [SerializeField]
-    private Sprite t;
+    private Sprite t0;
+    [SerializeField]
+    private Sprite t1;
     [SerializeField]
     private Sprite r;
     [SerializeField]
@@ -19,13 +21,21 @@ public class Platform : MonoBehaviour {
 
     public void Initialise(PLATFORM_TYPE type)
     {
+        Random.seed = 42;
         switch(type)
         {
             case PLATFORM_TYPE.L:
                 this.GetComponent<SpriteRenderer>().sprite = l;
                 break;
             case PLATFORM_TYPE.T:
-                this.GetComponent<SpriteRenderer>().sprite = t;
+                float ran = Random.value;
+                if (ran <0.5)
+                {
+                    this.GetComponent<SpriteRenderer>().sprite = t0;
+                } else
+                {
+                    this.GetComponent<SpriteRenderer>().sprite = t1;
+                }               
                 break;
             case PLATFORM_TYPE.R:
                 this.GetComponent<SpriteRenderer>().sprite = r;
