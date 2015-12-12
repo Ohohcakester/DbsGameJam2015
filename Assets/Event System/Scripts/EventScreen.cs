@@ -73,7 +73,7 @@ public class EventScreen : MonoBehaviour {
 		}
 
 		Vector2 currPos = this.transform.position;
-		Vector2 offset = new Vector2 (0, -1f);
+		Vector2 offset = new Vector2 (0, -20f);
 		Vector2 spawnPos = currPos + offset;
 		GameObject testEventObj = Instantiate (eventObjRep, spawnPos, this.transform.rotation) as GameObject;
 		ev.configureUIEventObject (testEventObj);

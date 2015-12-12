@@ -49,7 +49,7 @@ public class OrbController : MonoBehaviour
 		float currWhite = whiteScale.x + 0.001f;
 
 		currBlack = Mathf.Clamp (currBlack, 0, 0.02f);
-		currWhite = Mathf.Clamp (currWhite, 0, 0.018f);
+		currWhite = Mathf.Clamp (currWhite, 0, 0.023f);
 
 		blackScale = new Vector3 (currBlack, currBlack, 1);
 		whiteScale = new Vector3 (currWhite, currWhite, 1);
