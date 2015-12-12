@@ -43,7 +43,7 @@ public class Manager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 		if (Input.GetKeyDown (KeyCode.F1)) {
 			Event testEvent = new Event();
 //			evScreen.GetComponent<EventScreen>().addAndPop(testEvent);
@@ -64,12 +64,12 @@ public class Manager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.F3)) {
 			Camera.main.gameObject.GetComponent<GameController> ().resetOrbScore ();
 		}
-	}
+	}*/
 
-	void addNewEvent(){
+	/*void addNewEvent(){
 		Event newEv = new Event ();
 		evScreen.GetComponent<EventScreen>().addEventToScreen(newEv);
-	}
+	}*/
 
 
 }

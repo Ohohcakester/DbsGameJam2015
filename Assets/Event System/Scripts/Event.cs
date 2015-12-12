@@ -7,8 +7,14 @@ namespace Orb {
 	    public string eventName;
 	    public string eventDescription;
 
+        public int probability100 { get; private set; }
 
-	    private OrbEventEnumerator.Event eventType;
+        public string ProbabilityString
+        {
+            get { return probability100 + "%"; }
+        }
+
+        private OrbEventEnumerator.Event eventType;
 	    public bool hasExpired { get; private set; }
 
 	    //Constructor
@@ -17,21 +23,11 @@ namespace Orb {
 		    eventDescription = getEventDescription(eventType);
 		    eventName = eventDescription;
 		    hasExpired = false;
+	        this.probability100 = GenerateProbability(ev);
 	    }
 
 	    public void expire(){
 		    hasExpired = true;
-	    }
-
-	    public Event() {
-		    eventType = getRandomEvent ();
-    //		int randomEventIndex = Random.Range (0, eventNamesArray.Length);
-    //		eventName = eventNamesArray [randomEventIndex];
-    //		eventDescription = eventNamesArray [randomEventIndex];
-    //		Debug.Log(getEventDescription(eventType));
-		    eventDescription = getEventDescription(eventType);
-		    eventName = eventDescription;
-		    hasExpired = false;
 	    }
 
 	    public void configureUIEventObject(GameObject eventObj) {
@@ -49,12 +45,10 @@ namespace Orb {
 		    return OrbEventEnumerator.Event.None;
 	    }
 
-	    public static string getEventDescription(OrbEventEnumerator.Event ev)
-	    {
-	        //return ev.ToString();
-
-	        switch (ev)
-	        {
+        public static string getEventDescription(OrbEventEnumerator.Event ev)
+        {
+            switch (ev)
+            {
                 case OrbEventEnumerator.Event.BonusStarlight: return "Treasure!";
                 case OrbEventEnumerator.Event.Multiplier2: return "2x Orb\nMultiplier";
                 case OrbEventEnumerator.Event.Multiplier3: return "3x Orb\nMultiplier";
@@ -76,9 +70,43 @@ namespace Orb {
                 case OrbEventEnumerator.Event.Multiplier0_5: return "0.5x Orb\nMultiplier";
                 case OrbEventEnumerator.Event.LessStarlight: return "Starlight\nScarcity";
                 case OrbEventEnumerator.Event.Multiplier0_8: return "0.8x Orb\nMultiplier";
-	        }
-	        return ev.ToString();
-	    }
+            }
+            return ev.ToString();
+        }
+
+        public static int GenerateProbability(OrbEventEnumerator.Event ev)
+        {
+            return eventProbabilityPercent(ev) + Random.Range(-2, 2)*10;
+        }
+
+        private static int eventProbabilityPercent(OrbEventEnumerator.Event ev)
+        {
+            switch (ev)
+            {
+                case OrbEventEnumerator.Event.BonusStarlight: return 60;
+                case OrbEventEnumerator.Event.Multiplier2: return 70;
+                case OrbEventEnumerator.Event.Multiplier3: return 60;
+                case OrbEventEnumerator.Event.LessJellyfish: return 40;
+                case OrbEventEnumerator.Event.Multiplier5: return 50;
+                case OrbEventEnumerator.Event.EnemiesRun: return 40;
+                case OrbEventEnumerator.Event.LessCrabs: return 50;
+                case OrbEventEnumerator.Event.MoreStarlight: return 30;
+
+                case OrbEventEnumerator.Event.SquidInk: return 40;
+                case OrbEventEnumerator.Event.FastJellyfish: return 40;
+                case OrbEventEnumerator.Event.MoreJellyfish: return 30;
+                case OrbEventEnumerator.Event.FastCrabs: return 50;
+                case OrbEventEnumerator.Event.MoreCrabs: return 30;
+                case OrbEventEnumerator.Event.UndercurrentLeft: return 60;
+                case OrbEventEnumerator.Event.UndercurrentRight: return 60;
+                case OrbEventEnumerator.Event.AggressiveJellyfish: return 40;
+                case OrbEventEnumerator.Event.Multiplier0_2: return 40;
+                case OrbEventEnumerator.Event.Multiplier0_5: return 50;
+                case OrbEventEnumerator.Event.LessStarlight: return 70;
+                case OrbEventEnumerator.Event.Multiplier0_8: return 60;
+            }
+            return 50;
+        }
 
     }
 }

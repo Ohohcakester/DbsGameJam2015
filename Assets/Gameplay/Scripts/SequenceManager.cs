@@ -65,7 +65,7 @@ class SequenceManager
         if (ev == null) return;
 
         //Debug.Log("Run ==> " + ev.getEventType());
-        if (WillEventHappenRandom(ev.getEventType()))
+        if (WillEventHappenRandom(ev))
         {
             StartEvent(ev);
             eventScreen.popSuccess();
@@ -235,12 +235,13 @@ class SequenceManager
         {
             ApplyEffect(activeEvent.ev.getEventType());
         }
+
         gameVariables.ApplyDifficultyChange(Time.time - startTime);
     }
 
-    private bool WillEventHappenRandom(OrbEventEnumerator.Event ev)
+    private bool WillEventHappenRandom(Event ev)
     {
-        return Random.Range(0, 1f) < 0.5f;
+        return Random.Range(0, 1f)*100 < ev.probability100;
     }
 
     private float EventHappenDelay(OrbEventEnumerator.Event eventType)

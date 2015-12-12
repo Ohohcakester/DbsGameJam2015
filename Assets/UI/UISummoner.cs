@@ -37,11 +37,6 @@ public class UISummoner : MonoBehaviour {
 
 	}
 
-	void addNewEvent(){
-		Event newEv = new Event ();
-		evScreen.GetComponent<EventScreen>().addEventToScreen(newEv);
-	}
-
 	public void addNewEvent(Event ev){
 		evScreen.GetComponent<EventScreen> ().addEventToScreen (ev);
 	}

@@ -54,7 +54,7 @@ public class EventScreen : MonoBehaviour {
 			}
 		}*/
 
-		if (Input.GetKeyDown (KeyCode.F1)) {
+		/*if (Input.GetKeyDown (KeyCode.F1)) {
 			Event ev = new Event ();
 			if (getCurrentSize () < 6) {
 				addEventToScreen (ev);
@@ -62,7 +62,7 @@ public class EventScreen : MonoBehaviour {
 				popSuccess ();
 				addEventToScreen (ev);
 			}
-		}
+		}*/
 	}
 
 	public void addEventToScreen(Event ev){
