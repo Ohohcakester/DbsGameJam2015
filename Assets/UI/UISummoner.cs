@@ -12,8 +12,16 @@ public class UISummoner : MonoBehaviour {
 	private GameObject totalScoreScreen;
 
 
-	void Start () {
-		evScreen = Instantiate (eventScreenPrefab) as GameObject;
+    private void Start()
+    {
+        Initialise();
+    }
+    
+    private void Initialise()
+    {
+        if (evScreen != null) return;
+
+        evScreen = Instantiate (eventScreenPrefab) as GameObject;
 		evScreen.GetComponent<EventScreen>().initialize();
 		evScreen.transform.parent = GameObject.Find ("Main Camera").gameObject.transform;
 
@@ -37,4 +45,10 @@ public class UISummoner : MonoBehaviour {
 	public void addNewEvent(Event ev){
 		evScreen.GetComponent<EventScreen> ().addEventToScreen (ev);
 	}
+
+    public EventScreen getEventScreen()
+    {
+        Initialise();
+        return evScreen.GetComponent<EventScreen>();
+    }
 }
