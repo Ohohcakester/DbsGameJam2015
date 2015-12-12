@@ -9,12 +9,12 @@ public class FlyingEnemy : MonoBehaviour
     private float targetAngle;
     private bool isTurning;
 
-    [NonSerialized] public bool special = false;
+    /*[NonSerialized] public bool special = false;
     [NonSerialized] public float turnSpeed = 7.7f;
     [NonSerialized] public float moveSpeed = 6f;
     [NonSerialized] public float baseAggressiveness = 0.5f;
     [NonSerialized] public float decisionTime = 0f;
-    [NonSerialized] public float decisionTimeExtra = 0.5f;
+    [NonSerialized] public float decisionTimeExtra = 0.5f;*/
     
     private Rigidbody2D rigidbody2D;
 
@@ -70,7 +70,7 @@ public class FlyingEnemy : MonoBehaviour
 	    float diff = targetAngle - currentAngle;
         diff = NormaliseAngle(diff);
 
-	    if (turnSpeed >= Mathf.Abs(diff))
+	    if (gameVariables.turnSpeed >= Mathf.Abs(diff))
 	    {
 	        FinishTurning();
 	    }
@@ -78,11 +78,11 @@ public class FlyingEnemy : MonoBehaviour
 	    {
 	        if (diff < 0)
 	        {
-	            currentAngle -= turnSpeed;
+                currentAngle -= gameVariables.turnSpeed;
 	        }
 	        else
 	        {
-	            currentAngle += turnSpeed;
+                currentAngle += gameVariables.turnSpeed;
 	        }
 	    }
 
@@ -101,9 +101,8 @@ public class FlyingEnemy : MonoBehaviour
 
     private float Aggressiveness()
     {
-        float a = gameVariables.enemyAggressiveness;
-        if (special) a = baseAggressiveness;
-
+        float a = gameVariables.baseAggressiveness;
+        
         if (StraightLineDistanceToPlayer() < gameVariables.baseDetectionRange) Pow(0.5f, ref a);
         if (!lastPathData.IsNull())
         {
@@ -149,7 +148,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             TurnTowards(DecideNextAngle());
             if (!lastPathData.IsNull() && lastPathData.isDirect) nextTurnTime = Time.time;
-            else nextTurnTime = Time.time + Random.Range(decisionTime, decisionTime+decisionTimeExtra);
+            else nextTurnTime = Time.time + gameVariables.decisionTime + Random.Range(0, gameVariables.decisionTimeExtra);
         }
     }
 
@@ -166,7 +165,7 @@ public class FlyingEnemy : MonoBehaviour
     private Vector2 MoveVelocity(float angle)
     {
         var dirVec = ToUnitVector(angle);
-        return dirVec*moveSpeed;
+        return dirVec * gameVariables.moveSpeed;
     }
 
     private void FinishTurning()
