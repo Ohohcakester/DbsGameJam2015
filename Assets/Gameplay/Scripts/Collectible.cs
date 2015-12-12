@@ -18,7 +18,7 @@ public class Collectible : MonoBehaviour
 		//	collectibleSpriteObj.SetActive (false);
 			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject, lightAmount);
 
-			Debug.Log (col.ToString ());
+//			Debug.Log (col.ToString ());
 			Player plyr = col.GetComponent<Player> ();
 			if (plyr != null) {
 				plyr.GrowOrb (lightAmount);
