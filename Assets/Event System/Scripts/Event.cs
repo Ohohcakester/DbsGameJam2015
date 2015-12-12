@@ -46,50 +46,38 @@ namespace Orb {
 	    }
 
 	    public OrbEventEnumerator.Event getRandomEvent(){
-		    int dieRoll = Random.Range (0, 100);
-    //		Debug.Log (dieRoll);
-		    OrbEventEnumerator.Event type;
-
-		    if (dieRoll <= 30) {
-    //			Debug.Log ("Mult");
-			    type = OrbEventEnumerator.Event.Multiplier;
-		    } else if (dieRoll <= 50) {
-    //			Debug.Log ("Meteor");
-			    type = OrbEventEnumerator.Event.Meteor;
-		    } else if (dieRoll <= 60) {
-			    type = OrbEventEnumerator.Event.Crabby;
-		    } else if (dieRoll <= 70) {
-			    type = OrbEventEnumerator.Event.Jelly;
-		    } else if (dieRoll <= 80) {
-			    type = OrbEventEnumerator.Event.Tsunami;
-		    } else if (dieRoll <= 90) {
-			    type = OrbEventEnumerator.Event.Test2;
-		    } else {
-			    type = OrbEventEnumerator.Event.Test3;
-		    }
-    //		Debug.Log (dieRoll + " " + type.ToString());
-		    return type;
+		    return OrbEventEnumerator.Event.None;
 	    }
 
-	    public static string getEventDescription(OrbEventEnumerator.Event ev){
-    //		Debug.Log (ev.ToString ());
-		    if (ev == OrbEventEnumerator.Event.Multiplier) {
-			    return "Multiplier";
-		    } else if (ev == OrbEventEnumerator.Event.Meteor) {
-			    return "Meteor";
-		    } else if (ev == OrbEventEnumerator.Event.Crabby) {
-			    return "Crabby";
-		    } else if (ev == OrbEventEnumerator.Event.Jelly) {
-			    return "Jelly";
-		    } else if (ev == OrbEventEnumerator.Event.Tsunami) {
-			    return "Tsunami";
-		    } else if (ev == OrbEventEnumerator.Event.Test2) {
-			    return "Test2";
-		    } else if (ev == OrbEventEnumerator.Event.Test3) {
-			    return "Test3";
-		    } else {
-			    return "Unfound";
-		    }
+	    public static string getEventDescription(OrbEventEnumerator.Event ev)
+	    {
+	        return ev.ToString();
+
+	        /*switch (ev)
+	        {
+
+                case OrbEventEnumerator.Event.BonusStarlight: return 2.9;
+                case OrbEventEnumerator.Event.Multiplier2: return 2;
+                case OrbEventEnumerator.Event.Multiplier3: return 3;
+                case OrbEventEnumerator.Event.LessJellyfish: return 3.7;
+                case OrbEventEnumerator.Event.Multiplier5: return 5;
+                case OrbEventEnumerator.Event.EnemiesRun: return 7.9;
+                case OrbEventEnumerator.Event.LessCrabs: return 2.1;
+                case OrbEventEnumerator.Event.MoreStarlight: return 2.4;
+
+                case OrbEventEnumerator.Event.SquidInk: return -1.7;
+                case OrbEventEnumerator.Event.FastJellyfish: return -4.6;
+                case OrbEventEnumerator.Event.MoreJellyfish: return -5.3;
+                case OrbEventEnumerator.Event.FastCrabs: return -1.1;
+                case OrbEventEnumerator.Event.MoreCrabs: return -2.1;
+                case OrbEventEnumerator.Event.UndercurrentLeft: return -1.4;
+                case OrbEventEnumerator.Event.UndercurrentRight: return -1.4;
+                case OrbEventEnumerator.Event.AggressiveJellyfish: return -5.1;
+                case OrbEventEnumerator.Event.Multiplier0_2: return -5;
+                case OrbEventEnumerator.Event.Multiplier0_5: return -3;
+                case OrbEventEnumerator.Event.LessStarlight: return -1.9;
+                case OrbEventEnumerator.Event.Multiplier0_8: return -2;
+	        }*/
 	    }
 
     }

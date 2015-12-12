@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameController : MonoBehaviour {
-	ScoreDisplay orbScoreScript;
+public class GameController : MonoBehaviour
+{
+    [SerializeField] public GameObject prefab_inksplat;
+
+    ScoreDisplay orbScoreScript;
 	ScoreDisplay totalScoreScript;
 	Animator orbScoreAnimator;
 	GameObject orbScoreOrb;

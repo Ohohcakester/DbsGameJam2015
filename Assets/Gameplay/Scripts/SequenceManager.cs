@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Event = Orb.Event;
+using Random = UnityEngine.Random;
+using Type = OrbEventEnumerator.Event;
 
 class SequenceManager
 {
@@ -111,12 +114,6 @@ class SequenceManager
         ClearInactiveEvents();
     }
 
-    private void StartEvent(Event ev)
-    {
-        ActiveEvent activeEvent = new ActiveEvent(ev, EventDuration(ev));
-        activeEvents.Add(activeEvent);
-    }
-
     private void ClearInactiveEvents()
     {
         activeEvents.RemoveAll(ev => ev.isExpired);
@@ -143,26 +140,83 @@ class SequenceManager
 
     public void AddNewEvent()
     {
-        OrbEventEnumerator.Event evType = OrbEventEnumerator.Event.Test3;
+        OrbEventEnumerator.Event evType = OrbEventEnumerator.Event.None;
 
         if (SigmoidRandom(luck))
         {
             // Negative Things
-            int choice = Random.Range(0, 2);
+            int choice = Random.Range(0, 12);
             switch (choice)
             {
-                case 0: evType = OrbEventEnumerator.Event.Crabby; break;
-                case 1: evType = OrbEventEnumerator.Event.Jelly; break;
+                case 0:
+                    evType = Type.SquidInk;
+                    break;
+                case 1:
+                    evType = Type.FastJellyfish;
+                    break;
+                case 2:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 3:
+                    evType = Type.FastCrabs;
+                    break;
+                case 4:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 5:
+                    evType = Type.UndercurrentLeft;
+                    break;
+                case 6:
+                    evType = Type.UndercurrentRight;
+                    break;
+                case 7:
+                    evType = Type.AggressiveJellyfish;
+                    break;
+                case 8:
+                    evType = Type.Multiplier0_2;
+                    break;
+                case 9:
+                    evType = Type.Multiplier0_5;
+                    break;
+                case 10:
+                    evType = Type.LessStarlight;
+                    break;
+                case 11:
+                    evType = Type.Multiplier0_8;
+                    break;
             }
+
         }
         else
         {
             // Positive Things
-            int choice = Random.Range(0, 2);
+            int choice = Random.Range(0, 8);
             switch (choice)
             {
-                case 0: evType = OrbEventEnumerator.Event.Meteor; break;
-                case 1: evType = OrbEventEnumerator.Event.Multiplier; break;
+                case 0:
+                    evType = Type.BonusStarlight;
+                    break;
+                case 1:
+                    evType = Type.Multiplier2;
+                    break;
+                case 2:
+                    evType = Type.Multiplier3;
+                    break;
+                case 3:
+                    evType = Type.LessJellyfish;
+                    break;
+                case 4:
+                    evType = Type.Multiplier5;
+                    break;
+                case 5:
+                    evType = Type.EnemiesRun;
+                    break;
+                case 6:
+                    evType = Type.LessCrabs;
+                    break;
+                case 7:
+                    evType = Type.MoreStarlight;
+                    break;
             }
         }
         //Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
@@ -191,31 +245,191 @@ class SequenceManager
 
     private float EventHappenDelay(OrbEventEnumerator.Event eventType)
     {
-        return 1.5f;
+        return (float) EventHappenDelayValue(eventType) + Random.Range(-5, 5);
+    }
+
+    private double EventHappenDelayValue(OrbEventEnumerator.Event eventType)
+    {
+        switch (eventType)
+        {
+            case Type.BonusStarlight: return 15;
+            case Type.Multiplier2: return 15;
+            case Type.Multiplier3: return 15;
+            case Type.LessJellyfish: return 15;
+            case Type.Multiplier5: return 15;
+            case Type.EnemiesRun: return 15;
+            case Type.LessCrabs: return 15;
+            case Type.MoreStarlight: return 15;
+
+            case Type.SquidInk: return 10;
+            case Type.FastJellyfish: return 15;
+            case Type.MoreJellyfish: return 15;
+            case Type.FastCrabs: return 15;
+            case Type.MoreCrabs: return 15;
+            case Type.UndercurrentLeft: return 10;
+            case Type.UndercurrentRight: return 10;
+            case Type.AggressiveJellyfish: return 20;
+            case Type.Multiplier0_2: return 15;
+            case Type.Multiplier0_5: return 15;
+            case Type.LessStarlight: return 15;
+            case Type.Multiplier0_8: return 15;
+        }
+        return 0;
     }
 
     private float EventDuration(Event ev)
     {
-        return 3.5f;
+        return (float) EventDurationValue(ev.getEventType()) + Random.Range(-2, 2);
+    }
+
+    private double EventDurationValue(OrbEventEnumerator.Event eventType)
+    {
+        switch (eventType)
+        {
+            case Type.BonusStarlight: return 10;
+            case Type.Multiplier2: return 20;
+            case Type.Multiplier3: return 20;
+            case Type.LessJellyfish: return 50;
+            case Type.Multiplier5: return 20;
+            case Type.EnemiesRun: return 13;
+            case Type.LessCrabs: return 50;
+            case Type.MoreStarlight: return 40;
+
+            case Type.SquidInk: return 10;
+            case Type.FastJellyfish: return 35;
+            case Type.MoreJellyfish: return 35;
+            case Type.FastCrabs: return 50;
+            case Type.MoreCrabs: return 50;
+            case Type.UndercurrentLeft: return 20;
+            case Type.UndercurrentRight: return 20;
+            case Type.AggressiveJellyfish: return 15;
+            case Type.Multiplier0_2: return 20;
+            case Type.Multiplier0_5: return 20;
+            case Type.LessStarlight: return 50;
+            case Type.Multiplier0_8: return 20;
+        }
+        return 0;
     }
 
     private void AdjustLuck(OrbEventEnumerator.Event ev)
     {
+        luck += (float)LuckAmount(ev);
+    }
+
+    private double LuckAmount(OrbEventEnumerator.Event ev)
+    {
         switch (ev)
         {
+            case Type.BonusStarlight: return 2.9;
+            case Type.Multiplier2: return 2;
+            case Type.Multiplier3: return 3;
+            case Type.LessJellyfish: return 3.7;
+            case Type.Multiplier5: return 5;
+            case Type.EnemiesRun: return 7.9;
+            case Type.LessCrabs: return 2.1;
+            case Type.MoreStarlight: return 2.4;
+
+            case Type.SquidInk: return -1.7;
+            case Type.FastJellyfish: return -4.6;
+            case Type.MoreJellyfish: return -5.3;
+            case Type.FastCrabs: return -1.1;
+            case Type.MoreCrabs: return -2.1;
+            case Type.UndercurrentLeft: return -1.4;
+            case Type.UndercurrentRight: return -1.4;
+            case Type.AggressiveJellyfish: return -5.1;
+            case Type.Multiplier0_2: return -5;
+            case Type.Multiplier0_5: return -3;
+            case Type.LessStarlight: return -1.9;
+            case Type.Multiplier0_8: return -2;
         }
-        luck += 0;
+        return 0;
     }
+
 
     private void ApplyEffect(OrbEventEnumerator.Event buff)
     {
-
+        switch (buff)
+        {
+            case Type.Multiplier2:
+                gameVariables.multiplier *= 2;
+                break;
+            case Type.Multiplier3:
+                gameVariables.multiplier *= 3;
+                break;
+            case Type.Multiplier5:
+                gameVariables.multiplier *= 5;
+                break;
+            case Type.Multiplier0_2:
+                gameVariables.multiplier *= 0.2f;
+                break;
+            case Type.Multiplier0_5:
+                gameVariables.multiplier *= 0.5f;
+                break;
+            case Type.Multiplier0_8:
+                gameVariables.multiplier *= 0.8f;
+                break;
+            case Type.MoreJellyfish:
+                gameVariables.nEnemies += 3;
+                break;
+            case Type.MoreCrabs:
+                gameVariables.nCrabs += 4;
+                break;
+            case Type.LessJellyfish:
+                gameVariables.nEnemies -= 3;
+                break;
+            case Type.LessCrabs:
+                gameVariables.nCrabs -= 4;
+                break;
+            case Type.UndercurrentLeft:
+                gameVariables.undercurrent -= 0.5f;
+                break;
+            case Type.UndercurrentRight:
+                gameVariables.undercurrent += 0.5f;
+                break;
+            case Type.EnemiesRun:
+                gameVariables.moveSpeed *= -1;
+                break;
+            case Type.LessStarlight:
+                gameVariables.itemRespawnTime += 15f;
+                break;
+            case Type.MoreStarlight:
+                gameVariables.itemRespawnTime -= 15f;
+                break;
+            case Type.AggressiveJellyfish:
+                gameVariables.baseAggressiveness = 0.3f;
+                break;
+            case Type.FastJellyfish:
+                gameVariables.moveSpeed = 6f;
+                break;
+            case Type.FastCrabs:
+                gameVariables.walkingEnemySpeed = 2.8f;
+                break;
+        }
     }
 
 
-    private void StartEffect(OrbEventEnumerator.Event buff)
+    private void StartEvent(Event ev)
     {
+        ActiveEvent activeEvent = new ActiveEvent(ev, (float)EventDuration(ev));
+        activeEvents.Add(activeEvent);
 
+        var buff = activeEvent.ev.getEventType();
+        switch (buff)
+        {
+            case Type.SquidInk:
+                var inkSplat = CreateInkSplat();
+                activeEvent.SetOnExpireFunction(() => inkSplat.startFading());
+                break;
+            case Type.BonusStarlight:
+                Camera.main.GetComponent<MazeManager>().InstantRespawnAllCollectibles();
+                break;
+        }
+    }
+
+    private InkSplat CreateInkSplat()
+    {
+        var inkSplatObject = MonoBehaviour.Instantiate(gameController.prefab_inksplat) as GameObject;
+        return inkSplatObject.GetComponent<InkSplat>();
     }
 
 }
@@ -225,6 +439,7 @@ internal class ActiveEvent
     public Event ev { get; private set; }
     public float expireTime { get; private set; }
     public bool isExpired { get; private set; }
+    private Action onExpire = null;
 
     public ActiveEvent(Event ev, float duration)
     {
@@ -233,8 +448,14 @@ internal class ActiveEvent
         isExpired = false;
     }
 
+    public void SetOnExpireFunction(Action action)
+    {
+        onExpire = action;
+    }
+
     public void Expire()
     {
+        if (onExpire != null) onExpire();
         isExpired = true;
     }
 }

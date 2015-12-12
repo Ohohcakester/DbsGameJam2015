@@ -301,4 +301,12 @@ public class MazeManager : MonoBehaviour
             }
         }
     }
+
+    public void InstantRespawnAllCollectibles()
+    {
+        foreach (var collectible in collectibles)
+        {
+            collectible.InstantRespawn();
+        }
+    }
 }

@@ -7,16 +7,12 @@ public class Collectible : MonoBehaviour
 	public GameObject collectibleSpriteObjPrefab;
 	private bool isCollected = false;
 	private GameObject collectibleSpriteObj;
-	private float lastCollectedTime;
-	private float baseRespawnTime = 10.0f;
 	private float nextRespawnTime;
-	private float lastRespawnTime;
 	public int lightAmount = 1;
 
 	private void OnTriggerEnter2D(Collider2D col){
 		//		Debug.Log ("trig");
 		if (!isCollected && col.tag == "Player") {
-			lastCollectedTime = Time.time;
 		    nextRespawnTime = Time.time + RespawnTime();
 			isCollected = true;
 		//	collectibleSpriteObj.SetActive (false);
@@ -55,5 +51,10 @@ public class Collectible : MonoBehaviour
     private float RespawnTime()
     {
         return gameVariables.itemRespawnTime + Random.Range(-3f, 3f);
+    }
+
+    public void InstantRespawn()
+    {
+        if (isCollected) nextRespawnTime = Time.time;
     }
 }
