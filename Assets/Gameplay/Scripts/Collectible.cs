@@ -9,15 +9,22 @@ public class Collectible : MonoBehaviour {
 	private float baseRespawnTime = 10.0f;
 	private float nextRespawnTime;
 	private float lastRespawnTime;
+	public int lightAmount = 1;
 
 	private void OnTriggerEnter2D(Collider2D col){
-//		Debug.Log ("trig");
+		//		Debug.Log ("trig");
 		if (!isCollected && col.tag == "Player") {
 			lastCollectedTime = Time.time;
 			nextRespawnTime = Time.time + Random.Range (baseRespawnTime - (baseRespawnTime * 0.3f), baseRespawnTime + (baseRespawnTime * 0.3f));
 			isCollected = true;
 		//	collectibleSpriteObj.SetActive (false);
-			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject);
+			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject, lightAmount);
+
+			Debug.Log (col.ToString ());
+			Player plyr = col.GetComponent<Player> ();
+			if (plyr != null) {
+				plyr.GrowOrb (lightAmount);
+			}
 
 		//	Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
 	//		GameObject.Find ("TotalScoreScreen(Clone)").GetComponent<ScoreDisplay> ().addScore (1);
