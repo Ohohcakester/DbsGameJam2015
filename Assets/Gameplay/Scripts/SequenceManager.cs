@@ -112,6 +112,7 @@ class SequenceManager
             }
         }
         ClearInactiveEvents();
+        ApplyBuffs();
     }
 
     private void ClearInactiveEvents()
@@ -246,7 +247,7 @@ class SequenceManager
 
     private float EventHappenDelay(OrbEventEnumerator.Event eventType)
     {
-        return (float) EventHappenDelayValue(eventType) + Random.Range(-5, 5);
+        return (float) EventHappenDelayValue(eventType) + Random.Range(-10f, 5f);
     }
 
     private double EventHappenDelayValue(OrbEventEnumerator.Event eventType)
