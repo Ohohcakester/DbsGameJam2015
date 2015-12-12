@@ -45,16 +45,17 @@ public class OrbController : MonoBehaviour
 	}
 
 	public void growAbit(){
-		float currBlack = blackScale.x + 0.001f;
-		float currWhite = whiteScale.x + 0.001f;
+		float currBlack = blackScale.x + 0.0005f;
+		float currWhite = whiteScale.x + 0.0005f;
 
 		currBlack = Mathf.Clamp (currBlack, 0, 0.02f);
-		currWhite = Mathf.Clamp (currWhite, 0, 0.023f);
+		currWhite = Mathf.Clamp (currWhite, 0, 0.020f);
 
 		blackScale = new Vector3 (currBlack, currBlack, 1);
 		whiteScale = new Vector3 (currWhite, currWhite, 1);
 	}
 
+	/*
 	public void growMedium(){
 		float currBlack = blackScale.x;
 		float currWhite = whiteScale.x;
@@ -76,4 +77,5 @@ public class OrbController : MonoBehaviour
 		blackScale = new Vector3 (currBlack, currBlack, 1);
 		whiteScale = new Vector3 (currWhite, currWhite, 1);
 	}
+	*/
 }
