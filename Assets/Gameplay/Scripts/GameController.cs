@@ -13,12 +13,24 @@ public class GameController : MonoBehaviour {
 
     private void Start()
     {
+        Initialise();
+    }
+
+    private void Initialise()
+    {
+        if (sequenceManager != null) return;
         sequenceManager = new SequenceManager();
     }
 
     private void Update()
     {
         sequenceManager.Update();
+    }
+
+    public GameVariables GetGameVariables()
+    {
+        Initialise();
+        return sequenceManager.gameVariables;
     }
 
     public void setOrbScoreScript (ScoreDisplay script){

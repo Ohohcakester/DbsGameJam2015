@@ -55,10 +55,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c032cc1163781488e8aa4cac76f0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  l: {fileID: 21300000, guid: 46d0c60b5bc338c45a5475761ee65d30, type: 3}
-  t: {fileID: 21300000, guid: ee6cb1984bcb1dc4a88fd5f272aca851, type: 3}
-  r: {fileID: 21300000, guid: 96f4ad8188a792b4d9db725014074bbd, type: 3}
-  b: {fileID: 21300000, guid: 8de47420113651848a35c3d523fb49a4, type: 3}
+  l: {fileID: 21300000, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
+  t0: {fileID: 21300002, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
+  t1: {fileID: 21300004, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
+  r: {fileID: 21300006, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
+  b: {fileID: 21300008, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
 --- !u!212 &21220094
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -104,6 +105,36 @@ Prefab:
       propertyPath: m_TagString
       value: Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: b
+      value: 
+      objectReference: {fileID: 21300008, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: t
+      value: 
+      objectReference: {fileID: 21300002, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: l
+      value: 
+      objectReference: {fileID: 21300000, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: r
+      value: 
+      objectReference: {fileID: 21300006, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: t0
+      value: 
+      objectReference: {fileID: 21300002, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: t1
+      value: 
+      objectReference: {fileID: 21300004, guid: 7d384adaa2354be468aa2c8601cd9203,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 157490}

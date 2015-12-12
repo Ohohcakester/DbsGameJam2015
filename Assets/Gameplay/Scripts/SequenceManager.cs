@@ -5,18 +5,18 @@ class SequenceManager
 {
     private EventStatus eventStatus;
     private GameController gameController;
-
+    public GameVariables gameVariables { get; private set; }
 
     public SequenceManager()
     {
-        if (eventStatus != null) return;
         eventStatus = new EventStatus();
         gameController = Camera.main.GetComponent<GameController>();
+        gameVariables = new GameVariables();
     }
 
     public void Update()
     {
-
+        
     }
 
     private void ResetGameBuffs()
