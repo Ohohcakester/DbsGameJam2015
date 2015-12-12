@@ -8,8 +8,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412368}
-  - 95: {fileID: 9568628}
   - 114: {fileID: 11418498}
+  - 95: {fileID: 9517270}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -94,6 +94,7 @@ GameObject:
   - 61: {fileID: 6162312}
   - 50: {fileID: 5029164}
   - 114: {fileID: 11423360}
+  - 95: {fileID: 9522022}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -385,7 +386,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
---- !u!95 &9568628
+--- !u!95 &9517270
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -394,7 +395,24 @@ Animator:
   m_GameObject: {fileID: 108234}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0135e76597495e44fa0810c5783c5bd9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1b5c93b3ab4e5164aa98a0c4eb0c99d4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9522022
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164708}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 485cfb93f542e034fb979417bf28c70c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
