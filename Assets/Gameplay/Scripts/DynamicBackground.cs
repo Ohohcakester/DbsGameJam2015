@@ -9,6 +9,7 @@ public class DynamicBackground : MonoBehaviour {
 
     void Start () {
 		//player = GameObject.Find ("Player(Clone)").gameObject;
+		playerStartPos = new Vector2 (0,0);
         //playerStartPos = player.transform.position;
         mazeManager = Camera.main.GetComponent<MazeManager>();
     }
@@ -17,9 +18,13 @@ public class DynamicBackground : MonoBehaviour {
 	void Update ()
 	{
 	    if (mazeManager == null) return;
-	    var currPlayerPos = mazeManager.PlayerPosition();
-        Vector2 displacement = playerStartPos - currPlayerPos;
-        displacement *= 0.5f;
-	    this.transform.position = -displacement;
+	    //var currPlayerPos = mazeManager.PlayerPosition();
+		Vector2 currPlayerPos = Camera.main.transform.position;
+		float yDisp = (currPlayerPos.y - playerStartPos.y) * 0.01f;
+		float xDisp = (currPlayerPos.x - playerStartPos.x) * 0.1f;
+
+		Vector2 newPos = new Vector2 ((currPlayerPos.x - xDisp), (currPlayerPos.y + yDisp));
+
+		this.transform.position = newPos;
 	}
 }
