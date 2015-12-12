@@ -6,9 +6,11 @@ public class CollectibleSpriteAnimation : MonoBehaviour {
 	private float currSpeed = 0f;
 	private bool isChasing = false;
 	private GameObject player;
+	private int points;
 
-	public void chasePlayer(GameObject plyr){
+	public void chasePlayer(GameObject plyr, int score){
 		isChasing = true;
+		points = score;
 		currSpeed = 0;
 		player = plyr;
 		this.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 10.0f);
@@ -25,7 +27,7 @@ public class CollectibleSpriteAnimation : MonoBehaviour {
 				currSpeed = Mathf.Lerp (currSpeed, maxSpeed, Time.timeScale * 0.005f);
 			} else {
 				this.gameObject.SetActive (false);
-				Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
+				Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (points);
 				//Insert orb brightening script here
 			}
 		}
