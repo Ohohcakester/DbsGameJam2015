@@ -26,21 +26,21 @@ public class GameVariables
 
     public void ResetGameBuffs()
     {
-        float baseDetectionRange = 10;
-        float baseDetectionDistance = 10;
-        int nEnemies = 5;
-        int nCrabs = 8;
-        float multiplier = 1f;
-        float undercurrent = 0f;
-        float itemRespawnTime = 25f;
+        baseDetectionRange = 10;
+        baseDetectionDistance = 10;
+        nEnemies = 5;
+        nCrabs = 8;
+        multiplier = 1f;
+        undercurrent = 0f;
+        itemRespawnTime = 25f;
 
-        float turnSpeed = 7.7f;
-        float moveSpeed = 5.2f;
-        float baseAggressiveness = 0.1f;
-        float decisionTime = 0f;
-        float decisionTimeExtra = 0.5f;
+        turnSpeed = 7.7f;
+        moveSpeed = 5.2f;
+        baseAggressiveness = 0.1f;
+        decisionTime = 0f;
+        decisionTimeExtra = 0.5f;
 
-        float walkingEnemySpeed = 1.4f;
+        walkingEnemySpeed = 1.4f;
     }
 
     public void ApplyDifficultyChange(float orbSize)

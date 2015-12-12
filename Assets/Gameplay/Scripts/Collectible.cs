@@ -10,12 +10,14 @@ public class Collectible : MonoBehaviour
 	private float nextRespawnTime;
 	public int lightAmount = 1;
 
+    private Vector3 pos1;
+    private Vector3 pos2;
+    private bool flicker;
+
 	private void OnTriggerEnter2D(Collider2D col){
-		//		Debug.Log ("trig");
 		if (!isCollected && col.tag == "Player") {
 		    nextRespawnTime = Time.time + RespawnTime();
 			isCollected = true;
-		//	collectibleSpriteObj.SetActive (false);
 			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().chasePlayer(col.gameObject, lightAmount);
 
 //			Debug.Log (col.ToString ());
@@ -29,24 +31,41 @@ public class Collectible : MonoBehaviour
 		}
 	}
 
-	public void initialize(){
+	public void initialize()
+	{
+	    if (collectibleSpriteObj != null) return;
+
 		collectibleSpriteObj = Instantiate (collectibleSpriteObjPrefab, this.transform.position, this.transform.rotation) as GameObject;
 		collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
 	    gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
+
+	    pos1 = this.transform.position;
+	    pos2 = pos1 + new Vector3(0, 10000f, 0);
 	}
 
 	void Start(){
 		initialize ();
 	}
 
-	void Update(){
-		if (isCollected && Time.time >= nextRespawnTime) {
-			collectibleSpriteObj.transform.position = this.transform.position;
-			collectibleSpriteObj.SetActive (true);
-			isCollected = false;
-			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
-		}
-	}
+    private void Update()
+    {
+        if (isCollected && Time.time >= nextRespawnTime)
+        {
+            collectibleSpriteObj.transform.position = pos1;
+            collectibleSpriteObj.SetActive(true);
+            isCollected = false;
+            collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>().stopChasing();
+        }
+    }
+
+    void FixedUpdate() {
+        if (!isCollected)       
+        {
+            if (flicker) transform.position = pos1;
+            else transform.position = pos2;
+            flicker = !flicker;
+        }
+    }
 
     private float RespawnTime()
     {
