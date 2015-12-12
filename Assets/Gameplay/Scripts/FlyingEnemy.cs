@@ -1,24 +1,29 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class FlyingEnemy : MonoBehaviour
 {
     private float currentAngle;
-    private float turnSpeed = 7.7f;
     private float targetAngle;
     private bool isTurning;
 
-    private float moveSpeed = 5f;
-
+    [NonSerialized] public bool special = false;
+    [NonSerialized] public float turnSpeed = 7.7f;
+    [NonSerialized] public float moveSpeed = 6f;
+    [NonSerialized] public float baseAggressiveness = 0.5f;
+    [NonSerialized] public float decisionTime = 0f;
+    [NonSerialized] public float decisionTimeExtra = 0.5f;
+    
     private Rigidbody2D rigidbody2D;
 
     private MazeManager mazeManager;
+    private GameVariables gameVariables;
 
     private PathData lastPathData = PathData.Null();
 
     private float nextTurnTime;
-
-    private float aggressiveness;
 
 	// Use this for initialization
 	void Start ()
@@ -31,7 +36,7 @@ public class FlyingEnemy : MonoBehaviour
         if (rigidbody2D != null) return;
         rigidbody2D = GetComponent<Rigidbody2D>();
         mazeManager = Camera.main.GetComponent<MazeManager>();
-        aggressiveness = 1f;
+        gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
     }
 
     /*private void OnDrawGizmos()
@@ -84,10 +89,34 @@ public class FlyingEnemy : MonoBehaviour
 	    rigidbody2D.velocity = MoveVelocity(currentAngle);
 	}
 
+    private void Pow(float power, ref float a)
+    {
+        a = Mathf.Pow(a, power);
+    }
+
+    private float StraightLineDistanceToPlayer()
+    {
+        return OhVec.Distance2D(OhVec.toVector2(transform.position), mazeManager.PlayerPosition());
+    }
+
+    private float Aggressiveness()
+    {
+        float a = gameVariables.enemyAggressiveness;
+        if (special) a = baseAggressiveness;
+
+        if (StraightLineDistanceToPlayer() < gameVariables.baseDetectionRange) Pow(0.5f, ref a);
+        if (!lastPathData.IsNull())
+        {
+            if (lastPathData.isDirect) Pow(0.1f, ref a);
+            if (lastPathData.distance < gameVariables.baseDetectionDistance) Pow(0.25f, ref a);
+        }
+        return a;
+    }
+
     private float DecideNextAngle()
     {
         UpdatePathData();
-        if (!lastPathData.IsNull() && Random.Range(0f, 1f) < aggressiveness)
+        if (!lastPathData.IsNull() && Random.Range(0f, 1f) < Aggressiveness())
         {
             Vector2 currentPos = this.transform.position;
             Vector2 moveDir;
@@ -108,7 +137,7 @@ public class FlyingEnemy : MonoBehaviour
     private void UpdatePathData()
     {
         Vector2 playerPos = mazeManager.PlayerPosition();
-        Vector2 currentPos = this.transform.position;
+        Vector2 currentPos = transform.position;
         lastPathData = mazeManager.gridGraph.PathFind(currentPos.x, currentPos.y, playerPos.x, playerPos.y);
     }
 
@@ -120,7 +149,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             TurnTowards(DecideNextAngle());
             if (!lastPathData.IsNull() && lastPathData.isDirect) nextTurnTime = Time.time;
-            else nextTurnTime = Time.time + Random.Range(0, 0.5f);
+            else nextTurnTime = Time.time + Random.Range(decisionTime, decisionTime+decisionTimeExtra);
         }
     }
 
