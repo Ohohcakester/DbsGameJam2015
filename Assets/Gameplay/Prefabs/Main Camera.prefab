@@ -15,6 +15,7 @@ GameObject:
   - 114: {fileID: 11414902}
   - 114: {fileID: 11450434}
   - 114: {fileID: 11499666}
+  - 114: {fileID: 11405662}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -82,6 +83,22 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120844}
   m_Enabled: 1
+--- !u!114 &11405662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507ec850a9218974c9c16e281e6c5bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventScreenPrefab: {fileID: 151402, guid: f717b87b410c48e46ae152751dae854c, type: 2}
+  currentOrbScoreScreenPrefab: {fileID: 195308, guid: ec63f91fdf679e340837c341bc69f436,
+    type: 2}
+  totalScoreScreenPrefab: {fileID: 121230, guid: 128305d2d7cb94b4ab3f9756a5faf364,
+    type: 2}
 --- !u!114 &11414902
 MonoBehaviour:
   m_ObjectHideFlags: 1

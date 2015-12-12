@@ -4,6 +4,7 @@ using System.Collections;
 public class EventRepresenter : MonoBehaviour {
 	private Vector2 targetPos;
 	private float speed = 0.1f;
+	private OrbEventEnumerator.Event ev;
 
 	// Update is called once per frame
 	void Update () {
@@ -13,5 +14,13 @@ public class EventRepresenter : MonoBehaviour {
 
 	public void setPos(Vector2 pos){
 		targetPos = pos;
+	}
+
+	public void includeEvent(OrbEventEnumerator.Event _event){
+		ev = _event;
+	}
+
+	public OrbEventEnumerator.Event getEvent(){
+		return ev;
 	}
 }
