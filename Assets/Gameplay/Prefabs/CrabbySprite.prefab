@@ -155,6 +155,7 @@ GameObject:
   - 61: {fileID: 6162748}
   - 114: {fileID: 11435320}
   - 50: {fileID: 5080888}
+  - 114: {fileID: 11450252}
   m_Layer: 0
   m_Name: CrabbySprite
   m_TagString: Untagged
@@ -495,6 +496,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe906ea93817b940bd21f0de96c69c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11450252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5589c979b932c244094764ca1663e8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunTime: 2
 --- !u!212 &21215156
 SpriteRenderer:
   m_ObjectHideFlags: 1

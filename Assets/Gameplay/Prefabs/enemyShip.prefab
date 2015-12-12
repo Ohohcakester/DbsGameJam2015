@@ -108,6 +108,7 @@ GameObject:
   - 114: {fileID: 11465654}
   - 61: {fileID: 6184260}
   - 50: {fileID: 5066470}
+  - 114: {fileID: 11421310}
   m_Layer: 0
   m_Name: enemyShip
   m_TagString: Untagged
@@ -543,6 +544,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11421310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5589c979b932c244094764ca1663e8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunTime: 2
 --- !u!114 &11465654
 MonoBehaviour:
   m_ObjectHideFlags: 1
