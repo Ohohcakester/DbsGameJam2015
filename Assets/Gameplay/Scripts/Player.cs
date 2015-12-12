@@ -13,7 +13,9 @@ public class Player : MonoBehaviour
 	private float startConsumingTime;
 	private float consumeDelay = 2.0f;
 
-	// Use this for initialization
+    public bool facingRight { get; private set; }
+
+    // Use this for initialization
 	void Start ()
 	{
 	    Initialise();
@@ -35,9 +37,11 @@ public class Player : MonoBehaviour
 
 			if (Input.GetKey (KeyCode.LeftArrow)) {
 				vx -= WalkSpeed;
+			    FaceDirection(true);
 			}
 			if (Input.GetKey (KeyCode.RightArrow)) {
-				vx += WalkSpeed;
+                vx += WalkSpeed;
+                FaceDirection(false);
 			}
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (IsOnPlatform ()) {
@@ -58,6 +62,14 @@ public class Player : MonoBehaviour
 			gController.transferOrbScoreToTotal ();
 		}
 	}
+
+    private void FaceDirection(bool right)
+    {
+        facingRight = right;
+
+        if ((transform.localScale.x < 0) != right)
+            transform.localScale = OhVec.FlipX(transform.localScale);
+    }
 
     private bool IsOnPlatform()
     {
