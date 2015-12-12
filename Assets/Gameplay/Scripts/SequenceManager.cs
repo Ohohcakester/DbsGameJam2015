@@ -56,6 +56,7 @@ class SequenceManager
         Event ev = eventScreen.peekNextMaybeEvent(); // pop from queue
         if (ev == null) return;
 
+        Debug.Log("Run ==> " + ev.getEventType());
         if (WillEventHappenRandom(ev.getEventType()))
         {
             StartEvent(ev);
@@ -80,13 +81,6 @@ class SequenceManager
         nextEventHappenTime += Time.time + EventHappenDelay(ev.getEventType());
     }
 
-    private float EventHappenDelay(OrbEventEnumerator.Event eventType)
-    {
-        return 15f;
-    }
-
-
-
     private void UpdateAddEvents()
     {
         if (eventScreen.getCurrentSize() >= EventScreen.MAX_EVENT_NUM) return;
@@ -107,19 +101,16 @@ class SequenceManager
             if (Time.time > activeEvent.expireTime)
             {
                 activeEvent.Expire();
+                activeEvent.ev.expire();
             }
         }
+        ClearInactiveEvents();
     }
 
     private void StartEvent(Event ev)
     {
         ActiveEvent activeEvent = new ActiveEvent(ev, EventDuration(ev));
         activeEvents.Add(activeEvent);
-    }
-
-    private float EventDuration(Event ev)
-    {
-        return 10f;
     }
 
     private void ClearInactiveEvents()
@@ -146,11 +137,6 @@ class SequenceManager
         return Random.Range(0, 1f) < Sigmoid(value);
     }
 
-    private bool WillEventHappenRandom(OrbEventEnumerator.Event ev)
-    {
-        return Random.Range(0, 1f) < 0.5f;
-    }
-
     public void AddNewEvent()
     {
         OrbEventEnumerator.Event evType = OrbEventEnumerator.Event.Test3;
@@ -175,10 +161,31 @@ class SequenceManager
                 case 1: evType = OrbEventEnumerator.Event.Multiplier; break;
             }
         }
+        Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
+        if (eventScreen.getCurrentSize() <= 0)
+        {
+            nextEventHappenTime += Time.time + EventHappenDelay(evType);
+        }
         eventScreen.addEventToScreen(new Event(evType));
+        
     }
 
-    public void AdjustLuck(OrbEventEnumerator.Event ev)
+    private bool WillEventHappenRandom(OrbEventEnumerator.Event ev)
+    {
+        return Random.Range(0, 1f) < 0.5f;
+    }
+
+    private float EventHappenDelay(OrbEventEnumerator.Event eventType)
+    {
+        return 3.5f;
+    }
+
+    private float EventDuration(Event ev)
+    {
+        return 5f;
+    }
+
+    private void AdjustLuck(OrbEventEnumerator.Event ev)
     {
         switch (ev)
         {
