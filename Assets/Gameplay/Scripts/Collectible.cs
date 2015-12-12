@@ -11,6 +11,7 @@ public class Collectible : MonoBehaviour {
 	private float lastRespawnTime;
 
 	private void OnTriggerEnter2D(Collider2D col){
+//		Debug.Log ("trig");
 		if (!isCollected && col.tag == "Player") {
 			lastCollectedTime = Time.time;
 			nextRespawnTime = Time.time + Random.Range (baseRespawnTime - (baseRespawnTime * 0.3f), baseRespawnTime + (baseRespawnTime * 0.3f));
