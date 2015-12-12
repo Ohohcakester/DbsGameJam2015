@@ -20,7 +20,10 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab_player;
 
-    public Player player;
+    [SerializeField]
+    private GameObject prefab_flyingEnemy;
+
+    private Player player;
     private Vector2 lastPlayerPosition;
 
     [SerializeField]
@@ -88,16 +91,31 @@ public class MazeManager : MonoBehaviour
         InstantiatePlayer(15,15);
     }
 
-    private void InstantiatePlayer(float x, float y)
+    public void ToActual(float x, float y, out float actualX, out float actualY)
     {
-        float actualX = minX + tileWidth * (x + 0.5f);
-        float actualY = minY + tileHeight * (y + 0.5f);
+        actualX = minX + tileWidth * (x + 0.5f);
+        actualY = minY + tileHeight * (y + 0.5f);
+    }
+
+    private void InstantiatePlayer(int x, int y)
+    {
+        float actualX, actualY;
+        ToActual(x, y, out actualX, out actualY);
 
         var playerObject = Instantiate(prefab_player, new Vector3(actualX, actualY, 0), prefab_player.transform.rotation) as GameObject;
         player = playerObject.GetComponent<Player>();
         Camera.main.GetComponent<CameraFollow>().setPlayer(playerObject);
         MergeHitBoxes();
         
+    }
+
+    public FlyingEnemy InstantiateFlyingEnemy(int x, int y)
+    {
+        float actualX, actualY;
+        ToActual(x, y, out actualX, out actualY);
+
+        var enemyObject = Instantiate(prefab_flyingEnemy, new Vector3(actualX, actualY, 0), prefab_flyingEnemy.transform.rotation) as GameObject;
+        return enemyObject.GetComponent<FlyingEnemy>();
     }
 
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
