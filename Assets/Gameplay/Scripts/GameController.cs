@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
 
         currentValue += dTime * scoreAccumulationRate();
 
-        if (currentValue > incrementValue)
+        while (currentValue > incrementValue)
         {
             currentOrbScore++;
             currentValue -= incrementValue;
