@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class GameVariables
 {
+    public const bool DEBUG_MODE = true;
+
     public float baseDetectionRange;
     public int nEnemies;
     public int nCrabs;

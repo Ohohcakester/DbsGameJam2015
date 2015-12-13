@@ -60,6 +60,16 @@ class SequenceManager
         UpdateAddEvents();
 
         enemySpawner.Update();
+
+        if (GameVariables.DEBUG_MODE && Input.GetKeyDown(KeyCode.F1))
+        {
+            // END GAME EARLY
+            float diff1 = startTime - endTime;
+            float diff2 = stopEventsTime - endTime;
+            endTime = Time.time + 3f;
+            startTime = endTime + diff1;
+            stopEventsTime = endTime + diff2;
+        }
     }
 
     private void UpdateEventPop()
