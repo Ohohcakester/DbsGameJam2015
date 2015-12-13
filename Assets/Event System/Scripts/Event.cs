@@ -33,6 +33,7 @@ namespace Orb {
 	    public void configureUIEventObject(GameObject eventObj) {
     //		Debug.Log ("Configuring" + eventDescription);
 		    eventObj.transform.Find ("TextCanvas").GetComponentInChildren<Text> ().text = eventDescription;
+			eventObj.transform.Find ("ProbabilityText").GetComponentInChildren<Text> ().text = ProbabilityString;
 	    }
 
     //	public void 

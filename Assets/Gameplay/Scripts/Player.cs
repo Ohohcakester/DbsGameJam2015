@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
 			anim.Play ("FishEat"); //replace with stunned animation
 			if (Time.time >= stunEndTime) {
 				isStunned = false;
+				gController.resetOrbScore ();
 				RegenerateOrb ();
 			}
 		}
