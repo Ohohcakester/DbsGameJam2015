@@ -237,6 +237,7 @@ MonoBehaviour:
   prefab_flyingEnemy: {fileID: 142478, guid: 8dd0406db15f3ae42a6ef79684ae2185, type: 2}
   prefab_walkingEnemy: {fileID: 147034, guid: 64d7b666c8833314e89974f1df004467, type: 2}
   prefab_collectible: {fileID: 132434, guid: 9699d9ec178310d4c88f4981065c46a6, type: 2}
+  prefab_border: {fileID: 139176, guid: 3d598d81220ed4342aff7e4f8bdb8f3c, type: 2}
   mazeTextFile: {fileID: 4900000, guid: a21509c1aebc41b499d0d50edc07dcd0, type: 3}
 --- !u!124 &12420450
 Behaviour:
@@ -308,6 +309,10 @@ Prefab:
       propertyPath: prefab_current
       value: 
       objectReference: {fileID: 175808, guid: b499a5c1775fd5c44821b3a0081a3280, type: 2}
+    - target: {fileID: 0}
+      propertyPath: prefab_border
+      value: 
+      objectReference: {fileID: 139176, guid: 3d598d81220ed4342aff7e4f8bdb8f3c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120844}

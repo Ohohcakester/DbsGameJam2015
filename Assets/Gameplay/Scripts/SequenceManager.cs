@@ -178,7 +178,6 @@ class SequenceManager
         {
             // Negative Things
             int choice = Random.Range(0, 23);
-            Debug.Log(choice);
             switch (choice)
             {
                 case 0:
