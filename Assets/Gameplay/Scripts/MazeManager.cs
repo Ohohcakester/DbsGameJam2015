@@ -29,6 +29,9 @@ public class MazeManager : MonoBehaviour
     [SerializeField]
     private GameObject prefab_collectible;
 
+    [SerializeField]
+    private GameObject prefab_border;
+
     private Player player;
     private Vector2 lastPlayerPosition;
 
@@ -146,13 +149,22 @@ public class MazeManager : MonoBehaviour
 
     private Platform CreatePlatform(float x, float y, Platform.PLATFORM_TYPE type)
     {
-        float actualX = minX + tileWidth * (x + 0.5f);
-        float actualY = minY + tileHeight * (y + 0.5f);
-        
-        var platformObject = Instantiate(prefab_platform, new Vector3(actualX,actualY,0), prefab_platform.transform.rotation) as GameObject;
+        float actualX, actualY;
+        ToActual(x, y, out actualX, out actualY);
+
+        var platformObject = Instantiate(prefab_platform, new Vector3(actualX, actualY, 0), prefab_platform.transform.rotation) as GameObject;
         var platform = platformObject.GetComponent<Platform>();
         platform.Initialise(type);
         return platform;
+    }
+
+    private void CreateBorder(float x, float y, bool horizontal = false)
+    {
+        float actualX, actualY;
+        ToActual(x, y, out actualX, out actualY);
+
+        var platformObject = Instantiate(prefab_border, new Vector3(actualX, actualY, 0.1f), prefab_platform.transform.rotation) as GameObject;
+        if (horizontal) platformObject.transform.eulerAngles = new Vector3(0, 0, 90);
     }
 
     private void InitialiseGridGraph(String text)
@@ -203,6 +215,7 @@ public class MazeManager : MonoBehaviour
         gridGraph.Initialise(isBlocked, minX, minY, width, height);
 
         CreateCornerPlatforms(nRows, nCols);
+        CreateBorders(nRows, nCols);
         CreateSeaBed(nCols);
         SpawnCollectibles(nCols, nRows);
     }
@@ -264,9 +277,11 @@ public class MazeManager : MonoBehaviour
         cornerPlatforms[2] = CreatePlatform(nCols, -1, Platform.PLATFORM_TYPE.G); // bottom right
         cornerPlatforms[3] = CreatePlatform(nCols, nRows, Platform.PLATFORM_TYPE.B); // top right
 
+        foreach (var plat in cornerPlatforms) plat.Hide();
+
         cornerPlatforms[0].GetComponent<BoxCollider2D>().size = new Vector2((platforms.GetLength(0) * tileWidth + (2*tileWidth)), tileHeight);
         cornerPlatforms[0].GetComponent<BoxCollider2D>().offset = new Vector2(((platforms.GetLength(0) * tileWidth + (2 * tileWidth))) / 2.0f - (tileWidth / 2), 0);
-
+        
         cornerPlatforms[3].GetComponent<BoxCollider2D>().size = new Vector2((platforms.GetLength(0) * tileWidth + (2 * tileWidth)), tileHeight);
         cornerPlatforms[3].GetComponent<BoxCollider2D>().offset = new Vector2(-((platforms.GetLength(0) * tileWidth + (0 * tileWidth))) / 2.0f - (tileWidth / 2), 0);
 
@@ -280,9 +295,22 @@ public class MazeManager : MonoBehaviour
 
     void CreateSeaBed(int nCols)
     {
-        for (int i = -20; i < nCols+3; i=i+7)
+        for (int i = -5; i < nCols + 3; i = i + 7)
         {
             CreatePlatform(i, -1, Platform.PLATFORM_TYPE.G).GetComponent<Collider2D>().enabled = false;
+        }
+    }
+
+    void CreateBorders(int nRows, int nCols)
+    {
+        for (int x = 1; x <= nCols; x += 3)
+        {
+            CreateBorder(x, nRows, true);
+        }
+        for (int y = nRows-2; y >= 0; y -= 5)
+        {
+            CreateBorder(nCols, y, false);
+            CreateBorder(-1, y, false);
         }
     }
 

@@ -125,7 +125,6 @@ public class Player : MonoBehaviour
 			anim.Play ("EnemySteal");
 			if (Time.time >= stunEndTime) {
 				isStunned = false;
-				gController.resetOrbScore ();
 				RegenerateOrb ();
 			}
 		}
@@ -160,6 +159,7 @@ public class Player : MonoBehaviour
 	public void DestroyOrb()
 	{
 		isConsuming = false;
+		gController.resetOrbScore ();
 		orbCtrl.Gone ();
 	}
 

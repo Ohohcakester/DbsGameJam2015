@@ -8,6 +8,8 @@ using Type = OrbEventEnumerator.Event;
 
 class SequenceManager
 {
+    private const float TIME_BUFFER = 1f;
+
     private GameController gameController;
     private EventScreen eventScreen;
     private EnemySpawner enemySpawner;
@@ -27,6 +29,11 @@ class SequenceManager
 
     public float RemainingTime
     {
+        get { return endTime - Time.time - TIME_BUFFER; }
+    }
+
+    public float ActualRemainingTime
+    {
         get { return endTime - Time.time; }
     }
 
@@ -40,8 +47,8 @@ class SequenceManager
         eventScreen = Camera.main.GetComponent<UISummoner>().getEventScreen();
 
         startTime = Time.time;
-        endTime = Time.time + 300;
-        stopEventsTime = Time.time + 220;
+        endTime = Time.time + 180 + TIME_BUFFER;
+        stopEventsTime = Time.time + 80;
     }
 
     public void Update()
@@ -177,8 +184,7 @@ class SequenceManager
         if (SigmoidRandom(luck))
         {
             // Negative Things
-            int choice = Random.Range(0, 23);
-            Debug.Log(choice);
+            int choice = Random.Range(0, 27);
             switch (choice)
             {
                 case 0:
@@ -249,6 +255,15 @@ class SequenceManager
                     break;
                 case 22:
                     evType = Type.AggressiveJellyfish;
+                    break;
+                case 24:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 25:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 26:
+                    evType = Type.MoreJellyfish;
                     break;
             }
 

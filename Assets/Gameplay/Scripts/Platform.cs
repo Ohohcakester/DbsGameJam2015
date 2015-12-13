@@ -53,4 +53,9 @@ public class Platform : MonoBehaviour {
                 break;
         }
     }
+
+    public void Hide()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+    }
 }
