@@ -10,6 +10,8 @@ public class UISummoner : MonoBehaviour {
 	private GameObject currOrbScoreScreen;
 	public GameObject totalScoreScreenPrefab;
 	private GameObject totalScoreScreen;
+	public GameObject timeLeftPrefab;
+	private GameObject timeLeftScreen;
 
 
     private void Start()
@@ -29,11 +31,15 @@ public class UISummoner : MonoBehaviour {
 		currOrbScoreScreen.transform.parent = Camera.main.transform;
 		totalScoreScreen = Instantiate (totalScoreScreenPrefab) as GameObject;
 		totalScoreScreen.transform.parent = Camera.main.transform;
+		timeLeftScreen = Instantiate (timeLeftPrefab) as GameObject;
+		timeLeftScreen.transform.parent = Camera.main.transform;
 
 		Camera.main.gameObject.GetComponent<GameController> ().setOrbScoreScript (currOrbScoreScreen.GetComponent<ScoreDisplay> ());
 		Camera.main.gameObject.GetComponent<GameController> ().setOrbScoreAnimator (currOrbScoreScreen.GetComponent<Animator> ());
 		Camera.main.gameObject.GetComponent<GameController> ().setOrbScoreOrb (currOrbScoreScreen.transform.Find("CircleSprite").gameObject);
 		Camera.main.gameObject.GetComponent<GameController> ().setTotalScoreScript (totalScoreScreen.GetComponent<ScoreDisplay> ());
+
+		Camera.main.gameObject.GetComponent<GameController> ().setTimeLeftScript (timeLeftScreen.GetComponent<ScoreDisplay> ());
 
 	}
 

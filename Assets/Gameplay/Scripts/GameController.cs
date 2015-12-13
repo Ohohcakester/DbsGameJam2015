@@ -5,10 +5,12 @@ using Random = OhRandom;
 public class GameController : MonoBehaviour
 {
     [SerializeField] public GameObject prefab_inksplat;
-    [SerializeField] public GameObject prefab_current;
+	[SerializeField] public GameObject prefab_current;
+	[SerializeField] public GameObject endGameScreen;
 
     ScoreDisplay orbScoreScript;
 	ScoreDisplay totalScoreScript;
+	ScoreDisplay timeLeftScript;
 	Animator orbScoreAnimator;
 	GameObject orbScoreOrb;
     private SequenceManager sequenceManager;
@@ -86,6 +88,10 @@ public class GameController : MonoBehaviour
 		totalScoreScript = script;
 	}
 
+	public void setTimeLeftScript(ScoreDisplay script){
+		timeLeftScript = script;
+	}
+
 
 	public void setOrbScoreOrb(GameObject orb){
 		orbScoreOrb = orb;
@@ -128,10 +134,17 @@ public class GameController : MonoBehaviour
 	void checkForTime(){
 		float remainingTime = sequenceManager.RemainingTime;
 
+		timeLeftScript.updateTime (remainingTime);
+
 		string timeRep = remainingTime.ToString ();
 		if (remainingTime <= 0) {
-			Time.timeScale = 0;
-			Debug.Log ("Time out!");
+			endGame ();
 		}
+	}
+
+	void endGame(){
+		Time.timeScale = 0;
+		GameObject screen = Instantiate (endGameScreen, this.transform.position, this.transform.rotation) as GameObject;
+		screen.transform.parent = this.transform;
 	}
 }
