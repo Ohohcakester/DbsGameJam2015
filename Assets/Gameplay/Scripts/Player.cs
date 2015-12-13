@@ -161,7 +161,9 @@ public class Player : MonoBehaviour
         rigidbody2D.velocity = OhVec.SetY(rigidbody2D.velocity, JumpSpeed);
     }
 
-	public void DestroyOrb(){
+	public void DestroyOrb()
+	{
+	    gController.resetOrbScore();
 		isConsuming = false;
 		orbCtrl.SetSize (0.1f);
 	}

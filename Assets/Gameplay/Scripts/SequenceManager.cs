@@ -425,6 +425,9 @@ class SequenceManager
             case Type.BonusStarlight:
                 Camera.main.GetComponent<MazeManager>().InstantRespawnAllCollectibles();
                 break;
+            case Type.LessStarlight:
+                Camera.main.GetComponent<MazeManager>().RandomlyDestroyCollectibles();
+                break;
         }
     }
 
