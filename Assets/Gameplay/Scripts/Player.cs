@@ -97,12 +97,15 @@ public class Player : MonoBehaviour
 					hasFinishedConsuming = false;
 					startConsumingTime = Time.time;
 					vx = 0;
-					anim.Play ("FishTryingToEat");
 				}
 
-				if (Mathf.Abs (rigidbody2D.velocity.x) <= 0.1f) {
-					anim.Play ("FishIdle");
-				} else if (Mathf.Abs (rigidbody2D.velocity.x) >= 0) {
+				if (vx == 0f) {
+					if (!isConsuming) {
+						anim.Play ("FishIdle");
+					} else {
+						anim.Play ("FishTryingToEat");
+					}
+				} else {
 					anim.Play ("FishWalk");
 				}
 
@@ -156,7 +159,6 @@ public class Player : MonoBehaviour
 
 	public void DestroyOrb()
 	{
-	    gController.resetOrbScore();
 		isConsuming = false;
 		orbCtrl.Gone ();
 	}
