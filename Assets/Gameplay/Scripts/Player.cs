@@ -78,21 +78,23 @@ public class Player : MonoBehaviour
 			if (!isConsuming) {
 				float vx = gameVariables.undercurrent;
 
-				if (Input.GetKey (KeyCode.LeftArrow)) {
+				float horzAxis = Input.GetAxis ("Horizontal");
+
+				if (Input.GetKey (KeyCode.LeftArrow) || horzAxis < 0) {
 					vx -= WalkSpeed;
 					FaceDirection (true);
 				}
-				if (Input.GetKey (KeyCode.RightArrow)) {
+				if (Input.GetKey (KeyCode.RightArrow) || horzAxis > 0) {
 					vx += WalkSpeed;
 					FaceDirection (false);
 				}
-				if (Input.GetKeyDown (KeyCode.Space)) {
+				if (Input.GetKeyDown (KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton2)) {
 					if (IsOnPlatform ()) {
 						Jump ();
 					}
 				}
 
-				if (Input.GetKeyDown (KeyCode.LeftControl) && IsOnPlatform () && (gController.getCurrentOrbScore () != 0)) {
+				if ((Input.GetKeyDown (KeyCode.LeftControl) || Input.GetKey(KeyCode.JoystickButton3)) && IsOnPlatform () && (gController.getCurrentOrbScore () != 0)) {
 					isConsuming = true;
 					hasFinishedConsuming = false;
 					startConsumingTime = Time.time;
@@ -108,6 +110,7 @@ public class Player : MonoBehaviour
 				} else {
 					anim.Play ("FishWalk");
 				}
+
 
 				rigidbody2D.velocity = OhVec.SetX (rigidbody2D.velocity, vx);
 
