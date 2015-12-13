@@ -13,8 +13,13 @@ public class Player : MonoBehaviour
 	private Animator anim;
     private GameVariables gameVariables;
 
-	public bool noTarget { get; private set;}
-	private float noTargetEndTime;
+    private bool noTarget;
+    public bool NoTarget
+    {
+        get { return noTarget || gController.getCurrentOrbScore() <= 0; }
+    }
+
+    private float noTargetEndTime;
 	public bool isStunned { get; private set;}
 	private float stunEndTime;
 
@@ -131,6 +136,7 @@ public class Player : MonoBehaviour
 			anim.Play ("FishEat"); //replace with stunned animation
 			if (Time.time >= stunEndTime) {
 				isStunned = false;
+				gController.resetOrbScore ();
 				RegenerateOrb ();
 			}
 		}

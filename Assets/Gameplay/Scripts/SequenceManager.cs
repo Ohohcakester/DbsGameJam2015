@@ -69,12 +69,13 @@ class SequenceManager
         {
             StartEvent(ev);
             eventScreen.popSuccess();
-            AdjustLuck(ev.getEventType());
+            AdjustLuck(ev.getEventType(), 1);
         }
         else
         {
             // Don't Start Event
             eventScreen.removeLast();
+            AdjustLuck(ev.getEventType(), -0.4f);
         }
 
         UpdateNextEventHappenTime();
@@ -220,11 +221,13 @@ class SequenceManager
                     break;
             }
         }
+
         //Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
         if (eventScreen.getCurrentSize() <= 0)
         {
             nextEventHappenTime = Time.time + EventHappenDelay(evType);
         }
+        AdjustLuck(evType, 0.4f);
         eventScreen.addEventToScreen(new Event(evType));
         
     }
@@ -313,9 +316,9 @@ class SequenceManager
         return 0;
     }
 
-    private void AdjustLuck(OrbEventEnumerator.Event ev)
+    private void AdjustLuck(OrbEventEnumerator.Event ev, float scale)
     {
-        luck += (float)LuckAmount(ev);
+        luck += (float)LuckAmount(ev) * scale;
     }
 
     private double LuckAmount(OrbEventEnumerator.Event ev)
@@ -336,8 +339,8 @@ class SequenceManager
             case Type.MoreJellyfish: return -5.3;
             case Type.FastCrabs: return -1.1;
             case Type.MoreCrabs: return -2.1;
-            case Type.UndercurrentLeft: return -1.4;
-            case Type.UndercurrentRight: return -1.4;
+            case Type.UndercurrentLeft: return -0.2;
+            case Type.UndercurrentRight: return -0.2;
             case Type.AggressiveJellyfish: return -5.1;
             case Type.Multiplier0_2: return -5;
             case Type.Multiplier0_5: return -3;

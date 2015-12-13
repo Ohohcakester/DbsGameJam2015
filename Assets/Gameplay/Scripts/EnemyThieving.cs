@@ -9,7 +9,7 @@ public class EnemyThieving : MonoBehaviour {
         Player plyr = col.gameObject.GetComponent<Player>();
         if (plyr != null)
         {
-            if (plyr.isStunned || plyr.noTarget) return;
+            if (plyr.isStunned || plyr.NoTarget) return;
             Debug.Log("Stunning player");
             plyr.stun(2.0f);
             plyr.DestroyOrb();

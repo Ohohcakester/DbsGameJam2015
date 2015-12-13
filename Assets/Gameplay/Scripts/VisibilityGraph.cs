@@ -74,7 +74,7 @@ public class VisibilityGraph
         int dy = y2 - y1;
         return (float) Math.Sqrt(dx*dx + dy*dy);
     }
-
+    
     public PathData Search(int sx, int sy, int ex, int ey)
     {
         RemoveInstancesOf(startIndex);
@@ -90,31 +90,35 @@ public class VisibilityGraph
         distances[startIndex] = 0;
         
         // Start algorithm
+        var pq = new IndirectHeap(size);
+        pq.decreaseKey(startIndex, 0);
+        
         for (int j = 0; j < size; ++j)
         {
-            float minDistance = float.PositiveInfinity;
-            int current = -1;
+            int current = pq.popMinIndex();
 
-            for (int i = 0; i < size; ++i)
+            if (distances[current] == float.PositiveInfinity || current == endIndex)
             {
-                float fValue = distances[i] + Distance(i, endIndex);
-                if (!visited[i] && fValue < minDistance)
-                {
-                    minDistance = fValue;
-                    current = i;
-                }
-            }
-
-            if (float.IsPositiveInfinity(minDistance) || current == endIndex)
-            {
-                //Debug.Log("Explored: " + (j+1) + " out of " + size);
+                /*Debug.Log("Explored: " + (j+1) + " out of " + size);
+                Debug.Log("Success = " + distances[current]);*/
                 break;
             }
 
             visited[current] = true;
             foreach (var edge in edgeList[current])
             {
-                Relax(edge);
+                if (Relax(edge))
+                {
+                    int v = edge.v2;
+                    bool noProblem = pq.decreaseKey(v, distances[v] + Distance(v, endIndex));
+
+                    if (!noProblem)
+                    {
+                        // Unknown problem. Just terminate the pathfinding.
+                        j = size;
+                        break;
+                    }
+                }
             }
         }
 
