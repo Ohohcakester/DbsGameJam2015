@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
+using Random = OhRandom;
 
 public class MazeManager : MonoBehaviour
 {

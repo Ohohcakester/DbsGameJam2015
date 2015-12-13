@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
-using Random = UnityEngine.Random;
+using Random = OhRandom;
 
 public class FlyingEnemy : MonoBehaviour
 {

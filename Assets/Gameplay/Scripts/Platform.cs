@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Random = OhRandom;
 
 public class Platform : MonoBehaviour {
 
@@ -23,14 +24,13 @@ public class Platform : MonoBehaviour {
 
     public void Initialise(PLATFORM_TYPE type)
     {
-        Random.seed = 42;
         switch(type)
         {
             case PLATFORM_TYPE.L:
                 this.GetComponent<SpriteRenderer>().sprite = l;
                 break;
             case PLATFORM_TYPE.T:
-                float ran = Random.value;
+                float ran = Random.Range(0f,1f);
                 if (ran <0.5)
                 {
                     this.GetComponent<SpriteRenderer>().sprite = t0;

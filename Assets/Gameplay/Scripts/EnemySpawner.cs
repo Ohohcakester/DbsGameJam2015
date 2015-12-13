@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Random = OhRandom;
 
 public class EnemySpawner
 {
@@ -130,7 +131,7 @@ internal class FlyingEnemyContainer
     public void Despawn()
     {
         if (despawned) return;
-        MonoBehaviour.Destroy(flyingEnemy);
+        MonoBehaviour.Destroy(flyingEnemy.gameObject);
         despawned = true;
     }
 }
@@ -153,7 +154,7 @@ internal class WalkingEnemyContainer
     public void Despawn()
     {
         if (despawned) return;
-        MonoBehaviour.Destroy(walkingEnemy);
+        MonoBehaviour.Destroy(walkingEnemy.gameObject);
         despawned = true;
     }
 }

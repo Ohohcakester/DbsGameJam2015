@@ -150,7 +150,7 @@ public class EventScreen : MonoBehaviour {
 		Vector2 currPos = this.transform.position;
 		Vector2 offset = new Vector2 (0, 0);
 		Vector2 deSpawnPos = currPos + offset;
-		Debug.Log ("Despawning");
+//		Debug.Log ("Despawning");
 
 		eventObjs[currSize-1].GetComponent<EventRepresenter>().playFailureAnim();
 		eventObjs.RemoveAt (currSize-1);

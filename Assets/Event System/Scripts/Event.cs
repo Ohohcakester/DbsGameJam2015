@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Random = OhRandom;
 
 namespace Orb {
     public class Event{
@@ -37,6 +38,7 @@ namespace Orb {
             eventObj.transform.Find("TextCanvas").GetComponentInChildren<Text>().text = eventDescription;
             eventObj.transform.Find("ProbabilityText").GetComponentInChildren<Text>().text = ProbabilityString;
             eventObj.transform.Find("EventPlank").GetComponent<SpriteRenderer>().color = PanelColor();
+	        eventObj.transform.Find("EventIcon").GetComponent<EventIcon>().SetSprite(eventType);
 	    }
 
         private Color PanelColor()
@@ -89,7 +91,7 @@ namespace Orb {
 
         public static int GenerateProbability(OrbEventEnumerator.Event ev)
         {
-            return eventProbabilityPercent(ev) + Random.Range(-2, 2)*10;
+            return eventProbabilityPercent(ev) + Random.Range(0, 3)*10;
         }
 
         private static int eventProbabilityPercent(OrbEventEnumerator.Event ev)

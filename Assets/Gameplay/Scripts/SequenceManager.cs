@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Event = Orb.Event;
-using Random = UnityEngine.Random;
+using Random = OhRandom;
 using Type = OrbEventEnumerator.Event;
 
 class SequenceManager
@@ -24,6 +24,11 @@ class SequenceManager
     private float previousFrameTime;
 
     private List<ActiveEvent> activeEvents;
+
+    public float RemainingTime
+    {
+        get { return endTime - Time.time; }
+    }
 
     public SequenceManager()
     {
@@ -57,6 +62,20 @@ class SequenceManager
         UpdateAddEvents();
 
         enemySpawner.Update();
+
+        if (GameVariables.DEBUG_MODE && Input.GetKeyDown(KeyCode.F1))
+        {
+            // END GAME EARLY
+            float diff1 = startTime - endTime;
+            float diff2 = stopEventsTime - endTime;
+            endTime = Time.time + 3f;
+            startTime = endTime + diff1;
+            stopEventsTime = endTime + diff2;
+        }
+        if (GameVariables.DEBUG_MODE)
+        {
+            Time.timeScale = (Input.GetKey(KeyCode.LeftShift) ? 20f : 1f);
+        }
     }
 
     private void UpdateEventPop()
@@ -158,7 +177,8 @@ class SequenceManager
         if (SigmoidRandom(luck))
         {
             // Negative Things
-            int choice = Random.Range(0, 12);
+            int choice = Random.Range(0, 23);
+            Debug.Log(choice);
             switch (choice)
             {
                 case 0:
@@ -197,13 +217,46 @@ class SequenceManager
                 case 11:
                     evType = Type.Multiplier0_8;
                     break;
+                case 12:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 13:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 14:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 15:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 16:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 17:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 18:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 19:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 20:
+                    evType = Type.AggressiveJellyfish;
+                    break;
+                case 21:
+                    evType = Type.AggressiveJellyfish;
+                    break;
+                case 22:
+                    evType = Type.AggressiveJellyfish;
+                    break;
             }
 
         }
         else
         {
             // Positive Things
-            int choice = Random.Range(0, 8);
+            int choice = Random.Range(0, 10);
             switch (choice)
             {
                 case 0:
@@ -230,6 +283,12 @@ class SequenceManager
                 case 7:
                     evType = Type.MoreStarlight;
                     break;
+                case 8:
+                    evType = Type.EnemiesRun;
+                    break;
+                case 9:
+                    evType = Type.EnemiesRun;
+                    break;
             }
         }
 
@@ -251,7 +310,7 @@ class SequenceManager
             ApplyEffect(activeEvent.ev.getEventType());
         }
 
-        gameVariables.ApplyDifficultyChange(Time.time - startTime);
+        gameVariables.ApplyDifficultyChange(gameController.getCurrentOrbScore());
     }
 
     private bool WillEventHappenRandom(Event ev)

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 public class GameVariables
 {
+    public const bool DEBUG_MODE = true;
+
     public float baseDetectionRange;
-    public float baseDetectionDistance;
     public int nEnemies;
     public int nCrabs;
     public float multiplier;
@@ -27,25 +28,26 @@ public class GameVariables
     public void ResetGameBuffs()
     {
         baseDetectionRange = 10;
-        baseDetectionDistance = 10;
-        nEnemies = 2;
-        nCrabs = 5;
+        nEnemies = 1;
+        nCrabs = 2;
         multiplier = 1f;
         undercurrent = 0f;
-        itemRespawnTime = 25f;
+        itemRespawnTime = 100f;
 
         turnSpeed = 7.7f;
         moveSpeed = 3f;
-        baseAggressiveness = 0.1f;
+        baseAggressiveness = 0.05f;
         decisionTime = 0f;
         decisionTimeExtra = 0.5f;
 
         walkingEnemySpeed = 0.9f;
     }
 
-    public void ApplyDifficultyChange(float orbSize)
+    public void ApplyDifficultyChange(int orbScore)
     {
-
+        baseDetectionRange += orbScore/200f;
+        float increaseAggressiveness = Mathf.Max(orbScore/20000f,0.4f);
+        baseAggressiveness += increaseAggressiveness;
     }
 
     public void ApplyBuff(OrbEventEnumerator.Event buff)
@@ -77,10 +79,10 @@ public class GameVariables
                 nCrabs += 8;
                 break;
             case OrbEventEnumerator.Event.LessJellyfish:
-                nEnemies -= 2;
+                nEnemies -= 4;
                 break;
             case OrbEventEnumerator.Event.LessCrabs:
-                nCrabs -= 4;
+                nCrabs -= 10;
                 break;
             case OrbEventEnumerator.Event.UndercurrentLeft:
                 undercurrent -= 1.1f;
@@ -92,10 +94,10 @@ public class GameVariables
                 moveSpeed *= -1;
                 break;
             case OrbEventEnumerator.Event.LessStarlight:
-                itemRespawnTime += 15f;
+                itemRespawnTime += 50f;
                 break;
             case OrbEventEnumerator.Event.MoreStarlight:
-                itemRespawnTime -= 15f;
+                itemRespawnTime -= 90f;
                 break;
             case OrbEventEnumerator.Event.AggressiveJellyfish:
                 baseAggressiveness = 0.3f;

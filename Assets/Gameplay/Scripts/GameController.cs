@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Random = OhRandom;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] public GameObject prefab_inksplat;
-    [SerializeField] public GameObject prefab_current;
+	[SerializeField] public GameObject prefab_current;
+	[SerializeField] public GameObject endGameScreen;
 
     ScoreDisplay orbScoreScript;
 	ScoreDisplay totalScoreScript;
+	ScoreDisplay timeLeftScript;
 	Animator orbScoreAnimator;
 	GameObject orbScoreOrb;
     private SequenceManager sequenceManager;
@@ -43,6 +46,7 @@ public class GameController : MonoBehaviour
         sequenceManager.Update();
         ScoreIncreaseUpdate();
         updateOrbScoreText();
+		checkForTime ();
     }
 
     private void ScoreIncreaseUpdate()
@@ -52,7 +56,7 @@ public class GameController : MonoBehaviour
 
         currentValue += dTime * scoreAccumulationRate();
 
-        if (currentValue > incrementValue)
+        while (currentValue > incrementValue)
         {
             currentOrbScore++;
             currentValue -= incrementValue;
@@ -82,6 +86,10 @@ public class GameController : MonoBehaviour
 
 	public void setTotalScoreScript (ScoreDisplay script){
 		totalScoreScript = script;
+	}
+
+	public void setTimeLeftScript(ScoreDisplay script){
+		timeLeftScript = script;
 	}
 
 
@@ -121,5 +129,22 @@ public class GameController : MonoBehaviour
 
 	public void resetOrbScore() {
 		currentOrbScore = 0;
+	}
+
+	void checkForTime(){
+		float remainingTime = sequenceManager.RemainingTime;
+
+		timeLeftScript.updateTime (remainingTime);
+
+		string timeRep = remainingTime.ToString ();
+		if (remainingTime <= 0) {
+			endGame ();
+		}
+	}
+
+	void endGame(){
+		Time.timeScale = 0;
+		GameObject screen = Instantiate (endGameScreen, this.transform.position, this.transform.rotation) as GameObject;
+		screen.transform.parent = this.transform;
 	}
 }

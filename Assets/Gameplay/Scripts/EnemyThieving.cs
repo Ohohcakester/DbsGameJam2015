@@ -10,7 +10,7 @@ public class EnemyThieving : MonoBehaviour {
         if (plyr != null)
         {
             if (plyr.isStunned || plyr.NoTarget) return;
-            Debug.Log("Stunning player");
+     //       Debug.Log("Stunning player");
             plyr.stun(2.0f);
             plyr.DestroyOrb();
         }
