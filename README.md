@@ -1,5 +1,5 @@
 # The Angler Dilemma
-Game Created for DBS Game Jam 2015
+Game Created for DBS Game Jam 2015. Download it [here](https://github.com/Ohohcakester/DbsGameJam2015/releases/tag/DigitalGameJam2015)
 
 ![](https://github.com/Ohohcakester/DbsGameJam2015/blob/screenshot/Screenshots/screenshot4.png)
 
@@ -24,3 +24,7 @@ With a limited field of vision however, only the events can tell you what is hap
 
 ![](https://github.com/Ohohcakester/DbsGameJam2015/blob/screenshot/Screenshots/screenshot3.png)
 ![](https://github.com/Ohohcakester/DbsGameJam2015/blob/screenshot/Screenshots/screenshot2.png)
+
+## Download
+You can download the game from the [Releases](https://github.com/Ohohcakester/DbsGameJam2015/releases/tag/DigitalGameJam2015) page.
+
