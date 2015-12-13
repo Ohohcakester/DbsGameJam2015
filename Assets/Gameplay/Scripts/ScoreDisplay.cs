@@ -62,7 +62,7 @@ public class ScoreDisplay : MonoBehaviour {
 	    string strSeconds = "" + seconds;
         while (strSeconds.Length <= 1) strSeconds = "0" + strSeconds;
 
-		string strRep = minutes.ToString () + "." + strSeconds;
+		string strRep = minutes + "." + strSeconds;
 	//	Debug.Log (strRep);
 		scoreText.text = strRep;
 	}
