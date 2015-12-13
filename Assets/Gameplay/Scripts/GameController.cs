@@ -133,12 +133,9 @@ public class GameController : MonoBehaviour
 	}
 
 	void checkForTime(){
-		float remainingTime = sequenceManager.RemainingTime;
+        timeLeftScript.updateTime(sequenceManager.RemainingTime);
 
-		timeLeftScript.updateTime (remainingTime);
-
-		string timeRep = remainingTime.ToString ();
-		if (remainingTime <= 0) {
+		if (sequenceManager.ActualRemainingTime <= 0) {
 			endGame ();
 		}
 	}
