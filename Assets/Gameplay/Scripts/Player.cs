@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 			}
 		} else {
 			rigidbody2D.velocity = OhVec.SetX (rigidbody2D.velocity, 0);
-			anim.Play ("FishEat"); //replace with stunned animation
+			anim.Play ("EnemySteal");
 			if (Time.time >= stunEndTime) {
 				isStunned = false;
 				gController.resetOrbScore ();
