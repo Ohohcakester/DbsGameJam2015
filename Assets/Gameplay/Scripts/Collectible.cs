@@ -10,7 +10,7 @@ public class Collectible : MonoBehaviour
 	private GameObject collectibleSpriteObj;
     private CollectibleSpriteAnimation collectibleSpriteAnimation;
 	private float nextRespawnTime;
-	public int lightAmount = 1;
+	private int lightAmount = 10;
 
 	private void OnTriggerEnter2D(Collider2D col)
 	{
@@ -47,7 +47,7 @@ public class Collectible : MonoBehaviour
     private void CollectedByPlayer(Player player, int points)
     {
         player.GrowOrb(points);
-        gameController.addOrbScore(points);
+        gameController.addOrbScore((int)(points * gameVariables.multiplier));
 
     }
 

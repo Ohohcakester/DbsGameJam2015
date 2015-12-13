@@ -62,13 +62,13 @@ public class GameVariables
                 multiplier *= 5;
                 break;
             case OrbEventEnumerator.Event.Multiplier0_2:
-                multiplier *= 0.2f;
+                multiplier *= 0.2001f;
                 break;
             case OrbEventEnumerator.Event.Multiplier0_5:
-                multiplier *= 0.5f;
+                multiplier *= 0.5001f;
                 break;
             case OrbEventEnumerator.Event.Multiplier0_8:
-                multiplier *= 0.8f;
+                multiplier *= 0.8001f;
                 break;
             case OrbEventEnumerator.Event.MoreJellyfish:
                 nEnemies += 3;
