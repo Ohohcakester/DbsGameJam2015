@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
         sequenceManager.Update();
         ScoreIncreaseUpdate();
         updateOrbScoreText();
+		checkForTime ();
     }
 
     private void ScoreIncreaseUpdate()
@@ -122,5 +123,15 @@ public class GameController : MonoBehaviour
 
 	public void resetOrbScore() {
 		currentOrbScore = 0;
+	}
+
+	void checkForTime(){
+		float remainingTime = sequenceManager.RemainingTime;
+
+		string timeRep = remainingTime.ToString ();
+		if (remainingTime <= 0) {
+			Time.timeScale = 0;
+			Debug.Log ("Time out!");
+		}
 	}
 }
