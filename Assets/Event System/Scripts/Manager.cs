@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Event = Orb.Event;
+using Random = OhRandom;
 
 public class Manager : MonoBehaviour {
 //	public GameObject eventObjRep;

@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Event = Orb.Event;
-using Random = UnityEngine.Random;
+using Random = OhRandom;
 using Type = OrbEventEnumerator.Event;
 
 class SequenceManager
@@ -23,6 +23,11 @@ class SequenceManager
     private float previousFrameTime;
 
     private List<ActiveEvent> activeEvents;
+
+    public float RemainingTime
+    {
+        get { return endTime - Time.time; }
+    }
 
     public SequenceManager()
     {
@@ -148,6 +153,7 @@ class SequenceManager
         {
             // Negative Things
             int choice = Random.Range(0, 12);
+            Debug.Log(choice);
             switch (choice)
             {
                 case 0:

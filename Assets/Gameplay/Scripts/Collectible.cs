@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Random = OhRandom;
 
 public class Collectible : MonoBehaviour
 {
