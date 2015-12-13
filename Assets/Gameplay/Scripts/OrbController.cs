@@ -58,7 +58,6 @@ public class OrbController : MonoBehaviour
     {
         float currBlack = baseBlackScale + size * blackScaleIncrement;
         float currWhite = baseWhiteScale + size * whiteScaleIncrement;
-        Debug.Log(size + " " + currWhite);
 
         currBlack = Mathf.Clamp(currBlack, 0, maxBlackScale);
         currWhite = Mathf.Clamp(currWhite, 0, maxWhiteScale);

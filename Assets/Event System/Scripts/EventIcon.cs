@@ -9,7 +9,7 @@ public class EventIcon : MonoBehaviour
 
     public void SetSprite(Type ev)
     {
-        GetComponent<SpriteRenderer>().sprite = iconSprites[spriteIndex(ev)];
+        transform.FindChild("Sprite").GetComponent<SpriteRenderer>().sprite = iconSprites[spriteIndex(ev)];
     }
 
     private int spriteIndex(Type ev)
