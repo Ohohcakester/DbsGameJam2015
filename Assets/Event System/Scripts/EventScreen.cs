@@ -63,6 +63,10 @@ public class EventScreen : MonoBehaviour {
 				addEventToScreen (ev);
 			}
 		}*/
+
+		if (Input.GetKeyDown (KeyCode.F5)) {
+			removeLast ();
+		}
 	}
 
 	public void addEventToScreen(Event ev){
@@ -111,7 +115,9 @@ public class EventScreen : MonoBehaviour {
 
 		if (index != -1) {
 			//	Debug.Log (index);
-			eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [index]);
+		eventObjs [lastIndex].GetComponent<EventRepresenter> ().setPos (buffLocArray [index]);
+		eventObjs [lastIndex].GetComponent<EventRepresenter> ().playSuccessAnim();
+			eventObjs [lastIndex].GetComponent<EventRepresenter> ().setProbText ("");
 		} else {
 			Debug.Log ("Too many active buffs!");
 		}
@@ -140,7 +146,13 @@ public class EventScreen : MonoBehaviour {
 	public void removeLast(){
 		//Debug.Log ("Removed Last : " + Time.time);
 		int currSize = eventObjs.Count;
-		Destroy (eventObjs [currSize-1]);
+	//		Destroy (eventObjs [currSize-1]);
+		Vector2 currPos = this.transform.position;
+		Vector2 offset = new Vector2 (0, 0);
+		Vector2 deSpawnPos = currPos + offset;
+		Debug.Log ("Despawning");
+
+		eventObjs[currSize-1].GetComponent<EventRepresenter>().playFailureAnim();
 		eventObjs.RemoveAt (currSize-1);
 
 		for (int i = 0; i < eventObjs.Count; i++) {
@@ -148,6 +160,7 @@ public class EventScreen : MonoBehaviour {
 				eventObjs [i].GetComponent<EventRepresenter> ().setPos (locArray [i + 1]);
 			}			
 		}
+
 
 	}
 
