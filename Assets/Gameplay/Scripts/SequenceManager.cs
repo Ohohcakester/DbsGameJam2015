@@ -184,7 +184,7 @@ class SequenceManager
         if (SigmoidRandom(luck))
         {
             // Negative Things
-            int choice = Random.Range(0, 23);
+            int choice = Random.Range(0, 27);
             switch (choice)
             {
                 case 0:
@@ -255,6 +255,15 @@ class SequenceManager
                     break;
                 case 22:
                     evType = Type.AggressiveJellyfish;
+                    break;
+                case 24:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 25:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 26:
+                    evType = Type.MoreJellyfish;
                     break;
             }
 

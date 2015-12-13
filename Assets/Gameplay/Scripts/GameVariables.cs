@@ -100,7 +100,7 @@ public class GameVariables
                 itemRespawnTime -= 90f;
                 break;
             case OrbEventEnumerator.Event.AggressiveJellyfish:
-                baseAggressiveness = 0.3f;
+                baseAggressiveness += 0.7f;
                 break;
             case OrbEventEnumerator.Event.FastJellyfish:
                 if (moveSpeed > 0) moveSpeed = 3.7f;
