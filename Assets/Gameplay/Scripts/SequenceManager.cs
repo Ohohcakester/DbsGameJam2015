@@ -11,6 +11,7 @@ class SequenceManager
     private GameController gameController;
     private EventScreen eventScreen;
     private EnemySpawner enemySpawner;
+    private SoundManager soundManager;
     public GameVariables gameVariables { get; private set; }
     
 
@@ -28,6 +29,7 @@ class SequenceManager
     {
         gameController = Camera.main.GetComponent<GameController>();
         gameVariables = new GameVariables();
+        soundManager = Camera.main.GetComponent<SoundManager>();
         enemySpawner = new EnemySpawner(gameVariables);
         activeEvents = new List<ActiveEvent>();
         eventScreen = Camera.main.GetComponent<UISummoner>().getEventScreen();
@@ -70,12 +72,21 @@ class SequenceManager
             StartEvent(ev);
             eventScreen.popSuccess();
             AdjustLuck(ev.getEventType(), 1);
+            if (Event.eventAlignment(ev.getEventType()) == Orb.Alignment.BAD)
+            {
+                soundManager.BadEventSound();
+            } else
+            {
+                soundManager.GoodEventSound();
+            }
+
         }
         else
         {
             // Don't Start Event
             eventScreen.removeLast();
             AdjustLuck(ev.getEventType(), -0.4f);
+            soundManager.EventCancelledSound();
         }
 
         UpdateNextEventHappenTime();
