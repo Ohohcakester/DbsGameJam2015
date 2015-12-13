@@ -246,7 +246,7 @@ class SequenceManager
             ApplyEffect(activeEvent.ev.getEventType());
         }
 
-        gameVariables.ApplyDifficultyChange(Time.time - startTime);
+        gameVariables.ApplyDifficultyChange(gameController.getCurrentOrbScore());
     }
 
     private bool WillEventHappenRandom(Event ev)

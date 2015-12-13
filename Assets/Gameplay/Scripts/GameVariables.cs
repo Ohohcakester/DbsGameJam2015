@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class GameVariables
 {
     public float baseDetectionRange;
-    public float baseDetectionDistance;
     public int nEnemies;
     public int nCrabs;
     public float multiplier;
@@ -27,7 +26,6 @@ public class GameVariables
     public void ResetGameBuffs()
     {
         baseDetectionRange = 10;
-        baseDetectionDistance = 10;
         nEnemies = 3;
         nCrabs = 5;
         multiplier = 1f;
@@ -43,9 +41,11 @@ public class GameVariables
         walkingEnemySpeed = 0.9f;
     }
 
-    public void ApplyDifficultyChange(float orbSize)
+    public void ApplyDifficultyChange(int orbScore)
     {
-
+        baseDetectionRange += (orbScore/100);
+        float increaseAggressiveness = Mathf.Max(orbScore/20000f,0.4f);
+        baseAggressiveness += increaseAggressiveness;
     }
 
     public void ApplyBuff(OrbEventEnumerator.Event buff)
