@@ -28,7 +28,7 @@ public class GameVariables
     {
         baseDetectionRange = 10;
         baseDetectionDistance = 10;
-        nEnemies = 3;
+        nEnemies = 2;
         nCrabs = 5;
         multiplier = 1f;
         undercurrent = 0f;
@@ -46,5 +46,67 @@ public class GameVariables
     public void ApplyDifficultyChange(float orbSize)
     {
 
+    }
+
+    public void ApplyBuff(OrbEventEnumerator.Event buff)
+    {
+        switch (buff)
+        {
+            case OrbEventEnumerator.Event.Multiplier2:
+                multiplier *= 2;
+                break;
+            case OrbEventEnumerator.Event.Multiplier3:
+                multiplier *= 3;
+                break;
+            case OrbEventEnumerator.Event.Multiplier5:
+                multiplier *= 5;
+                break;
+            case OrbEventEnumerator.Event.Multiplier0_2:
+                multiplier *= 0.2f;
+                break;
+            case OrbEventEnumerator.Event.Multiplier0_5:
+                multiplier *= 0.5f;
+                break;
+            case OrbEventEnumerator.Event.Multiplier0_8:
+                multiplier *= 0.8f;
+                break;
+            case OrbEventEnumerator.Event.MoreJellyfish:
+                nEnemies += 3;
+                break;
+            case OrbEventEnumerator.Event.MoreCrabs:
+                nCrabs += 8;
+                break;
+            case OrbEventEnumerator.Event.LessJellyfish:
+                nEnemies -= 2;
+                break;
+            case OrbEventEnumerator.Event.LessCrabs:
+                nCrabs -= 4;
+                break;
+            case OrbEventEnumerator.Event.UndercurrentLeft:
+                undercurrent -= 1.1f;
+                break;
+            case OrbEventEnumerator.Event.UndercurrentRight:
+                undercurrent += 1.1f;
+                break;
+            case OrbEventEnumerator.Event.EnemiesRun:
+                moveSpeed *= -1;
+                break;
+            case OrbEventEnumerator.Event.LessStarlight:
+                itemRespawnTime += 15f;
+                break;
+            case OrbEventEnumerator.Event.MoreStarlight:
+                itemRespawnTime -= 15f;
+                break;
+            case OrbEventEnumerator.Event.AggressiveJellyfish:
+                baseAggressiveness = 0.3f;
+                break;
+            case OrbEventEnumerator.Event.FastJellyfish:
+                if (moveSpeed > 0) moveSpeed = 3.7f;
+                if (moveSpeed < 0) moveSpeed = -3.7f;
+                break;
+            case OrbEventEnumerator.Event.FastCrabs:
+                walkingEnemySpeed = 1.9f;
+                break;
+        }
     }
 }

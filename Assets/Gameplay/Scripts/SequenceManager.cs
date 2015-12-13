@@ -353,63 +353,7 @@ class SequenceManager
 
     private void ApplyEffect(OrbEventEnumerator.Event buff)
     {
-        switch (buff)
-        {
-            case Type.Multiplier2:
-                gameVariables.multiplier *= 2;
-                break;
-            case Type.Multiplier3:
-                gameVariables.multiplier *= 3;
-                break;
-            case Type.Multiplier5:
-                gameVariables.multiplier *= 5;
-                break;
-            case Type.Multiplier0_2:
-                gameVariables.multiplier *= 0.2f;
-                break;
-            case Type.Multiplier0_5:
-                gameVariables.multiplier *= 0.5f;
-                break;
-            case Type.Multiplier0_8:
-                gameVariables.multiplier *= 0.8f;
-                break;
-            case Type.MoreJellyfish:
-                gameVariables.nEnemies += 2;
-                break;
-            case Type.MoreCrabs:
-                gameVariables.nCrabs += 4;
-                break;
-            case Type.LessJellyfish:
-                gameVariables.nEnemies -= 2;
-                break;
-            case Type.LessCrabs:
-                gameVariables.nCrabs -= 3;
-                break;
-            case Type.UndercurrentLeft:
-                gameVariables.undercurrent -= 1.1f;
-                break;
-            case Type.UndercurrentRight:
-                gameVariables.undercurrent += 1.1f;
-                break;
-            case Type.EnemiesRun:
-                gameVariables.moveSpeed *= -1;
-                break;
-            case Type.LessStarlight:
-                gameVariables.itemRespawnTime += 15f;
-                break;
-            case Type.MoreStarlight:
-                gameVariables.itemRespawnTime -= 15f;
-                break;
-            case Type.AggressiveJellyfish:
-                gameVariables.baseAggressiveness = 0.3f;
-                break;
-            case Type.FastJellyfish:
-                gameVariables.moveSpeed = 4f;
-                break;
-            case Type.FastCrabs:
-                gameVariables.walkingEnemySpeed = 1.9f;
-                break;
-        }
+        gameVariables.ApplyBuff(buff);
     }
 
 
