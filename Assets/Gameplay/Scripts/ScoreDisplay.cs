@@ -41,4 +41,15 @@ public class ScoreDisplay : MonoBehaviour {
 			this.transform.position = Vector2.Lerp (currPos, targetPos, speed);
 		}
 	}
+
+	public void updateTime(float time){
+		int seconds = (int)time;
+		int minutes = seconds / 60;
+		seconds = seconds % 60;
+
+
+		string strRep = minutes.ToString () + "." + seconds;
+	//	Debug.Log (strRep);
+		scoreText.text = strRep;
+	}
 }

@@ -99,6 +99,7 @@ MonoBehaviour:
     type: 2}
   totalScoreScreenPrefab: {fileID: 121230, guid: 128305d2d7cb94b4ab3f9756a5faf364,
     type: 2}
+  timeLeftPrefab: {fileID: 132500, guid: af27f7fb07594b640bbf2334574e094f, type: 2}
 --- !u!114 &11414902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab_inksplat: {fileID: 120180, guid: cff25aea78f2a5147a2a16770433e3b7, type: 2}
   prefab_current: {fileID: 175808, guid: b499a5c1775fd5c44821b3a0081a3280, type: 2}
+  endGameScreen: {fileID: 170382, guid: 4602b826ebe783a4ea2ae302cbf883dd, type: 2}
 --- !u!114 &11450434
 MonoBehaviour:
   m_ObjectHideFlags: 1
