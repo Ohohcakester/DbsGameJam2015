@@ -35,7 +35,7 @@ public class GameVariables
         itemRespawnTime = 25f;
 
         turnSpeed = 7.7f;
-        moveSpeed = 3.2f;
+        moveSpeed = 3f;
         baseAggressiveness = 0.1f;
         decisionTime = 0f;
         decisionTimeExtra = 0.5f;

@@ -8,6 +8,7 @@ namespace Orb {
 	    public string eventDescription;
 
         public int probability100 { get; private set; }
+        public Alignment alignment { get; private set; }
 
         public string ProbabilityString
         {
@@ -23,7 +24,8 @@ namespace Orb {
 		    eventDescription = getEventDescription(eventType);
 		    eventName = eventDescription;
 		    hasExpired = false;
-	        this.probability100 = GenerateProbability(ev);
+	        probability100 = GenerateProbability(ev);
+	        alignment = eventAlignment(ev);
 	    }
 
 	    public void expire(){
@@ -109,5 +111,39 @@ namespace Orb {
             return 50;
         }
 
+        public static Alignment eventAlignment(OrbEventEnumerator.Event ev)
+        {
+            switch (ev)
+            {
+                case OrbEventEnumerator.Event.BonusStarlight: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.Multiplier2: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.Multiplier3: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.LessJellyfish: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.Multiplier5: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.EnemiesRun: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.LessCrabs: return Alignment.GOOD;
+                case OrbEventEnumerator.Event.MoreStarlight: return Alignment.GOOD;
+
+                case OrbEventEnumerator.Event.SquidInk: return Alignment.BAD;
+                case OrbEventEnumerator.Event.FastJellyfish: return Alignment.BAD;
+                case OrbEventEnumerator.Event.MoreJellyfish: return Alignment.BAD;
+                case OrbEventEnumerator.Event.FastCrabs: return Alignment.BAD;
+                case OrbEventEnumerator.Event.MoreCrabs: return Alignment.BAD;
+                case OrbEventEnumerator.Event.UndercurrentLeft: return Alignment.NEUTRAL;
+                case OrbEventEnumerator.Event.UndercurrentRight: return Alignment.NEUTRAL;
+                case OrbEventEnumerator.Event.AggressiveJellyfish: return Alignment.BAD;
+                case OrbEventEnumerator.Event.Multiplier0_2: return Alignment.BAD;
+                case OrbEventEnumerator.Event.Multiplier0_5: return Alignment.BAD;
+                case OrbEventEnumerator.Event.LessStarlight: return Alignment.BAD;
+                case OrbEventEnumerator.Event.Multiplier0_8: return Alignment.BAD;
+            }
+            return Alignment.NEUTRAL;
+        }
+
+    }
+
+    public enum Alignment
+    {
+        GOOD,BAD,NEUTRAL
     }
 }
