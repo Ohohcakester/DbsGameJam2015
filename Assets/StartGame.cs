@@ -13,8 +13,12 @@ public class StartGame : MonoBehaviour {
 	
 	}
 
-    public void SwitchScene()
+    public void GameScene()
     {
         Application.LoadLevel("testscene");
+    }
+    public void CreditsScene()
+    {
+        Application.LoadLevel("credits");
     }
 }
