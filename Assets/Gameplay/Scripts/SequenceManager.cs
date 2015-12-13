@@ -79,7 +79,7 @@ class SequenceManager
             startTime = endTime + diff1;
             stopEventsTime = endTime + diff2;
         }
-        if (GameVariables.DEBUG_MODE)
+        if (GameVariables.DEBUG_MODE && !gameController.gameOver)
         {
             Time.timeScale = (Input.GetKey(KeyCode.LeftShift) ? 20f : 1f);
         }

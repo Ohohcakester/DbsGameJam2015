@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
     [SerializeField] public GameObject prefab_inksplat;
 	[SerializeField] public GameObject prefab_current;
 	[SerializeField] public GameObject endGameScreen;
+    public bool gameOver { get; private set; }
+
 
     ScoreDisplay orbScoreScript;
 	ScoreDisplay totalScoreScript;
@@ -37,6 +39,7 @@ public class GameController : MonoBehaviour
     private void Initialise()
     {
         if (sequenceManager != null) return;
+        if (Time.timeScale < 0.1f) Time.timeScale = 1;
         sequenceManager = new SequenceManager();
         gameVariables = sequenceManager.gameVariables;
     }
@@ -135,12 +138,14 @@ public class GameController : MonoBehaviour
 	void checkForTime(){
         timeLeftScript.updateTime(sequenceManager.RemainingTime);
 
-		if (sequenceManager.ActualRemainingTime <= 0) {
+		if (!gameOver && sequenceManager.ActualRemainingTime <= 0) {
 			endGame ();
 		}
 	}
 
-	void endGame(){
+	void endGame()
+	{
+	    gameOver = true;
 		Time.timeScale = 0;
 		GameObject screen = Instantiate (endGameScreen, this.transform.position, this.transform.rotation) as GameObject;
 		screen.GetComponent<ScoreDisplay> ().setFinalScore (currentTotalScore);

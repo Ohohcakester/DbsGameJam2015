@@ -13,8 +13,16 @@ public class ScoreDisplay : MonoBehaviour {
 	GameObject orbScoreObj;
 
 	// Use this for initialization
-	void Start () {
-		scoreText = this.transform.Find ("TextCanvas").GetComponentInChildren<Text> ();
+    private void Start()
+    {
+        Initialise();
+    }
+
+    private void Initialise()
+    {
+        if (scoreText != null) return;
+
+        scoreText = this.transform.Find ("TextCanvas").GetComponentInChildren<Text> ();
 	//	Debug.Log (scoreText.ToString ());
 		mazeMngr = Camera.main.GetComponent<MazeManager>();
 		if (this.gameObject.name.Equals ("CurrentOrbScoreScreen(Clone)")) {
@@ -22,7 +30,9 @@ public class ScoreDisplay : MonoBehaviour {
 		}
 	}
 
-	public void updateScore(int newScore){
+	public void updateScore(int newScore)
+	{
+	    Initialise();
 //		scoreText = this.transform.Find ("TextCanvas").GetComponentInChildren<Text> ();
 //		Debug.Log (scoreText.ToString ());
 		scoreText.text = newScore.ToString();
