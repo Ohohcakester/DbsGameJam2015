@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 namespace Orb {
     public class Event{
-	    public string eventName;
-	    public string eventDescription;
+        public string eventName;
+        public string eventDescription;
 
         public int probability100 { get; private set; }
         public Alignment alignment { get; private set; }
@@ -34,13 +34,23 @@ namespace Orb {
 
 	    public void configureUIEventObject(GameObject eventObj) {
     //		Debug.Log ("Configuring" + eventDescription);
-		    eventObj.transform.Find ("TextCanvas").GetComponentInChildren<Text> ().text = eventDescription;
-			eventObj.transform.Find ("ProbabilityText").GetComponentInChildren<Text> ().text = ProbabilityString;
+            eventObj.transform.Find("TextCanvas").GetComponentInChildren<Text>().text = eventDescription;
+            eventObj.transform.Find("ProbabilityText").GetComponentInChildren<Text>().text = ProbabilityString;
+            eventObj.transform.Find("EventPlank").GetComponent<SpriteRenderer>().color = PanelColor();
 	    }
 
-    //	public void 
+        private Color PanelColor()
+        {
+            switch (alignment)
+            {
+                case Alignment.BAD: return new Color(1, 0.5f, 0.5f);
+                case Alignment.GOOD: return new Color(0.25f, 1f, 0.5f);
+                case Alignment.NEUTRAL: return Color.white;
+            }
+            return Color.white;
+        }
 
-	    public OrbEventEnumerator.Event getEventType() {
+        public OrbEventEnumerator.Event getEventType() {
 		    return this.eventType;
 	    }
 
