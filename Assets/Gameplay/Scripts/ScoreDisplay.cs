@@ -53,8 +53,18 @@ public class ScoreDisplay : MonoBehaviour {
 		int minutes = seconds / 60;
 		seconds = seconds % 60;
 
+		string mins = minutes.ToString ();
+		if (mins.Length == 0) {
+			mins = "0" + mins;
+		} 
 
-		string strRep = minutes.ToString () + "." + seconds;
+		string secs = seconds.ToString();
+		if (secs.Length == 1) {
+			secs = "0" + secs;
+		}
+
+
+		string strRep = mins + "." + secs;
 	//	Debug.Log (strRep);
 		scoreText.text = strRep;
 	}
