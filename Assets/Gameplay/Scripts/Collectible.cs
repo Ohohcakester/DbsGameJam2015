@@ -46,9 +46,8 @@ public class Collectible : MonoBehaviour
 
     private void CollectedByPlayer(Player player, int points)
     {
-        player.GrowOrb(points);
         gameController.addOrbScore((int)(points * gameVariables.multiplier));
-
+        player.UpdateOrbSize(gameController.getCurrentOrbScore());
     }
 
     public void initialize()

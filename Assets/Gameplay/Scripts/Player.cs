@@ -89,23 +89,6 @@ public class Player : MonoBehaviour
 					}
 				}
 
-				if (Input.GetKeyDown (KeyCode.F2)) {
-					if (IsOnPlatform ()) {
-						DestroyOrb ();
-					}
-				}
-				if (Input.GetKeyDown (KeyCode.F3)) {
-					if (IsOnPlatform ()) {
-						RegenerateOrb ();
-					}
-				}
-				if (Input.GetKeyDown (KeyCode.F4)) {
-					if (IsOnPlatform ()) {
-						GrowOrb (1);
-					}
-				}
-
-
 				if (Input.GetKeyDown (KeyCode.LeftControl) && IsOnPlatform () && (gController.getCurrentOrbScore () != 0)) {
 					isConsuming = true;
 					hasFinishedConsuming = false;
@@ -170,26 +153,25 @@ public class Player : MonoBehaviour
 	{
 	    gController.resetOrbScore();
 		isConsuming = false;
-		orbCtrl.SetSize (0.1f);
+		orbCtrl.Gone ();
 	}
 
 	public void RegenerateOrb(){
 		orbCtrl.setOriginalSize ();
 	}
 
-	public void GrowOrb(int size){
-		if (size < 3) {
-			orbCtrl.growAbit ();
-		} else if (size < 5) {
-//			orbCtrl.growMedium ();
-		} else {
-//			orbCtrl.growAlot ();
-		}
+	public void UpdateOrbSize(int size){
+	    orbCtrl.setSize(orbSize(size));
 	}
 
+    public float orbSize(int size)
+    {
+        return size/100f;
+    }
 
 
-	public void stun(float time){
+
+    public void stun(float time){
 		isStunned = true;
 		noTarget = true;
 		stunEndTime = Time.time + time;
