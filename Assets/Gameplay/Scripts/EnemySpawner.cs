@@ -63,10 +63,9 @@ public class EnemySpawner
         int choice = Random.Range(0, flyingEnemies.Count);
         var flyingEnemy = flyingEnemies[choice];
         float distance = OhVec.Distance2D(flyingEnemy.Position(), mazeManager.PlayerPosition());
-        if (distance >= safeModificationRange)
-        {
-            flyingEnemy.Despawn();
-        }
+        if (distance < safeModificationRange) return;
+
+        flyingEnemy.Despawn();
         RemoveDespawnedFlyingEnemies();
     }
 
@@ -85,10 +84,9 @@ public class EnemySpawner
         int choice = Random.Range(0, walkingEnemies.Count);
         var walkingEnemy = walkingEnemies[choice];
         float distance = OhVec.Distance2D(walkingEnemy.Position(), mazeManager.PlayerPosition());
-        if (distance >= safeModificationRange)
-        {
-            walkingEnemy.Despawn();
-        }
+        if (distance < safeModificationRange) return;
+        
+        walkingEnemy.Despawn();
         RemoveDespawnedWalkingEnemies();
     }
 

@@ -4,6 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour
 {
     [SerializeField] public GameObject prefab_inksplat;
+    [SerializeField] public GameObject prefab_current;
 
     ScoreDisplay orbScoreScript;
 	ScoreDisplay totalScoreScript;

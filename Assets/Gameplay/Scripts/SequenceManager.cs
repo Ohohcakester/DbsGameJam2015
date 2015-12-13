@@ -366,15 +366,29 @@ class SequenceManager
         switch (buff)
         {
             case Type.SquidInk:
+            {
                 var inkSplat = CreateInkSplat();
                 activeEvent.SetOnExpireFunction(() => inkSplat.startFading());
                 break;
+            }
             case Type.BonusStarlight:
                 Camera.main.GetComponent<MazeManager>().InstantRespawnAllCollectibles();
                 break;
             case Type.LessStarlight:
                 Camera.main.GetComponent<MazeManager>().RandomlyDestroyCollectibles();
                 break;
+            case Type.UndercurrentRight:
+            {
+                var current = CreateCurrent(true);
+                activeEvent.SetOnExpireFunction(() => MonoBehaviour.Destroy(current));
+                break;
+            }
+            case Type.UndercurrentLeft:
+            {
+                var current = CreateCurrent(false);
+                activeEvent.SetOnExpireFunction(() => MonoBehaviour.Destroy(current));
+                break;
+            }
         }
     }
 
@@ -382,6 +396,20 @@ class SequenceManager
     {
         var inkSplatObject = MonoBehaviour.Instantiate(gameController.prefab_inksplat) as GameObject;
         return inkSplatObject.GetComponent<InkSplat>();
+    }
+
+    private GameObject CreateCurrent(bool facingRight)
+    {
+        var currentObject = MonoBehaviour.Instantiate(gameController.prefab_current) as GameObject;
+        var mainCam = Camera.main.transform;
+
+        currentObject.transform.parent = mainCam;
+        currentObject.transform.position = OhVec.SetXY(currentObject.transform.position, mainCam.position.x, mainCam.position.y);
+
+        var currentScript = currentObject.GetComponent<CurrentScript>();
+        if (facingRight) currentScript.playRightCurrent();
+        else currentScript.playLeftCurrent();
+        return currentObject;
     }
 
 }
