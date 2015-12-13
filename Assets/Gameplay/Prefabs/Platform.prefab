@@ -55,11 +55,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c032cc1163781488e8aa4cac76f0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  l: {fileID: 21300000, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
-  t0: {fileID: 21300002, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
-  t1: {fileID: 21300004, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
-  r: {fileID: 21300006, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
-  b: {fileID: 21300008, guid: 7d384adaa2354be468aa2c8601cd9203, type: 3}
+  l: {fileID: 21300000, guid: c1914d87ae7bb2441ac8c8a65e011230, type: 3}
+  t0: {fileID: 21300002, guid: c1914d87ae7bb2441ac8c8a65e011230, type: 3}
+  t1: {fileID: 21300004, guid: c1914d87ae7bb2441ac8c8a65e011230, type: 3}
+  r: {fileID: 21300006, guid: c1914d87ae7bb2441ac8c8a65e011230, type: 3}
+  b: {fileID: 21300008, guid: c1914d87ae7bb2441ac8c8a65e011230, type: 3}
   g: {fileID: 21300000, guid: 41811f3acee437c4ea805e241a966f3b, type: 3}
 --- !u!212 &21220094
 SpriteRenderer:
@@ -109,7 +109,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: b
       value: 
-      objectReference: {fileID: 21300008, guid: 7d384adaa2354be468aa2c8601cd9203,
+      objectReference: {fileID: 21300008, guid: c1914d87ae7bb2441ac8c8a65e011230,
         type: 3}
     - target: {fileID: 0}
       propertyPath: t
@@ -119,22 +119,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: l
       value: 
-      objectReference: {fileID: 21300000, guid: 7d384adaa2354be468aa2c8601cd9203,
+      objectReference: {fileID: 21300000, guid: c1914d87ae7bb2441ac8c8a65e011230,
         type: 3}
     - target: {fileID: 0}
       propertyPath: r
       value: 
-      objectReference: {fileID: 21300006, guid: 7d384adaa2354be468aa2c8601cd9203,
+      objectReference: {fileID: 21300006, guid: c1914d87ae7bb2441ac8c8a65e011230,
         type: 3}
     - target: {fileID: 0}
       propertyPath: t0
       value: 
-      objectReference: {fileID: 21300002, guid: 7d384adaa2354be468aa2c8601cd9203,
+      objectReference: {fileID: 21300002, guid: c1914d87ae7bb2441ac8c8a65e011230,
         type: 3}
     - target: {fileID: 0}
       propertyPath: t1
       value: 
-      objectReference: {fileID: 21300004, guid: 7d384adaa2354be468aa2c8601cd9203,
+      objectReference: {fileID: 21300004, guid: c1914d87ae7bb2441ac8c8a65e011230,
         type: 3}
     - target: {fileID: 0}
       propertyPath: g
