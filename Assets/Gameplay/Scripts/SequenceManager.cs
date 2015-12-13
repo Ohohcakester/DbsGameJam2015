@@ -220,6 +220,7 @@ class SequenceManager
                     break;
             }
         }
+
         //Debug.Log("Add ==> " + evType + " | size " + eventScreen.getCurrentSize());
         if (eventScreen.getCurrentSize() <= 0)
         {

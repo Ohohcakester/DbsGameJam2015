@@ -4,6 +4,7 @@ using System.Collections;
 public class Collectible : MonoBehaviour
 {
     private GameVariables gameVariables;
+    private GameController gameController;
 	public GameObject collectibleSpriteObjPrefab;
 	private bool isCollected = false;
 	private GameObject collectibleSpriteObj;
@@ -19,19 +20,22 @@ public class Collectible : MonoBehaviour
 		if (!isCollected && col.gameObject.tag == "Player") {
 			nextRespawnTime = Time.time + RespawnTime ();
 			isCollected = true;
-            collectibleSpriteAnimation.chasePlayer(col.gameObject, lightAmount);
+            collectibleSpriteAnimation.chasePlayer(col.gameObject);
 
 			Player plyr = col.GetComponent<Player> ();
-			if (plyr != null) {
-				plyr.GrowOrb (lightAmount);
-			} else {
-				//			Debug.Log ("Cant retrieve plyr");
-				plyr = col.transform.parent.GetComponent<Player> ();
-				//			Debug.Log ("Successfully retrieved" + plyr.ToString ());
-				plyr.GrowOrb (lightAmount);
-			}
+		    if (plyr != null)
+		    {
+		        CollectedByPlayer(plyr, lightAmount);
+		    }
+		    else
+		    {
+		        //			Debug.Log ("Cant retrieve plyr");
+		        plyr = col.transform.parent.GetComponent<Player>();
+		        //			Debug.Log ("Successfully retrieved" + plyr.ToString ());
+		        CollectedByPlayer(plyr, lightAmount);
+		    }
 
-			//	Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
+		    //	Camera.main.gameObject.GetComponent<GameController> ().addOrbScore (1);
 			//		GameObject.Find ("TotalScoreScreen(Clone)").GetComponent<ScoreDisplay> ().addScore (1);
 		} else {
 			if (!isCollected) {
@@ -40,14 +44,22 @@ public class Collectible : MonoBehaviour
 		}
 	}
 
-	public void initialize()
+    private void CollectedByPlayer(Player player, int points)
+    {
+        player.GrowOrb(points);
+        gameController.addOrbScore(points);
+
+    }
+
+    public void initialize()
 	{
 	    if (collectibleSpriteObj != null) return;
 
 		collectibleSpriteObj = Instantiate (collectibleSpriteObjPrefab, this.transform.position, this.transform.rotation) as GameObject;
 	    collectibleSpriteAnimation = collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>();
         collectibleSpriteAnimation.stopChasing();
-	    gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
+        gameController = Camera.main.GetComponent<GameController>();
+        gameVariables = gameController.GetGameVariables();
 	}
 
 	void Start(){
