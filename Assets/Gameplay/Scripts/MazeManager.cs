@@ -217,7 +217,7 @@ public class MazeManager : MonoBehaviour
     public bool PlayerNoTarget()
     {
         if (player == null) return true;
-        return player.noTarget;
+        return player.NoTarget;
     }
 
     void MergeHitBoxes()

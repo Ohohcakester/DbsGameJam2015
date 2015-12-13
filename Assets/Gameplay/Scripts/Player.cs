@@ -13,8 +13,13 @@ public class Player : MonoBehaviour
 	private Animator anim;
     private GameVariables gameVariables;
 
-	public bool noTarget { get; private set;}
-	private float noTargetEndTime;
+    private bool noTarget;
+    public bool NoTarget
+    {
+        get { return noTarget || gController.getCurrentOrbScore() <= 0; }
+    }
+
+    private float noTargetEndTime;
 	public bool isStunned { get; private set;}
 	private float stunEndTime;
 
