@@ -64,7 +64,7 @@ public class EventScreen : MonoBehaviour {
 			}
 		}*/
 
-		if (Input.GetKeyDown (KeyCode.F5)) {
+		if (GameVariables.DEBUG_MODE && Input.GetKeyDown (KeyCode.F5)) {
 			removeLast ();
 		}
 	}
