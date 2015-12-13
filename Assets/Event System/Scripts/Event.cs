@@ -91,7 +91,7 @@ namespace Orb {
 
         public static int GenerateProbability(OrbEventEnumerator.Event ev)
         {
-            return eventProbabilityPercent(ev) + Random.Range(-2, 2)*10;
+            return eventProbabilityPercent(ev) + Random.Range(0, 3)*10;
         }
 
         private static int eventProbabilityPercent(OrbEventEnumerator.Event ev)

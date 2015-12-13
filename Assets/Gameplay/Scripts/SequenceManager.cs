@@ -152,7 +152,7 @@ class SequenceManager
         if (SigmoidRandom(luck))
         {
             // Negative Things
-            int choice = Random.Range(0, 12);
+            int choice = Random.Range(0, 23);
             Debug.Log(choice);
             switch (choice)
             {
@@ -192,13 +192,46 @@ class SequenceManager
                 case 11:
                     evType = Type.Multiplier0_8;
                     break;
+                case 12:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 13:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 14:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 15:
+                    evType = Type.MoreJellyfish;
+                    break;
+                case 16:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 17:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 18:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 19:
+                    evType = Type.MoreCrabs;
+                    break;
+                case 20:
+                    evType = Type.AggressiveJellyfish;
+                    break;
+                case 21:
+                    evType = Type.AggressiveJellyfish;
+                    break;
+                case 22:
+                    evType = Type.AggressiveJellyfish;
+                    break;
             }
 
         }
         else
         {
             // Positive Things
-            int choice = Random.Range(0, 8);
+            int choice = Random.Range(0, 10);
             switch (choice)
             {
                 case 0:
@@ -224,6 +257,12 @@ class SequenceManager
                     break;
                 case 7:
                     evType = Type.MoreStarlight;
+                    break;
+                case 8:
+                    evType = Type.EnemiesRun;
+                    break;
+                case 9:
+                    evType = Type.EnemiesRun;
                     break;
             }
         }
