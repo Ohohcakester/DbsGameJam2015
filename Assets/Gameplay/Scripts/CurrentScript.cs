@@ -5,16 +5,23 @@ public class CurrentScript : MonoBehaviour {
 	Animator anim;
 
 	// Use this for initialization
-	void Start () {
+	void Initialise ()
+	{
+	    if (anim != null) return;
 		anim = transform.GetComponent<Animator>();
 	}
 
-	public void playLeftCurrent(){
+	public void playLeftCurrent()
+	{
+	    Initialise();
 //		Debug.Log ("left curr");
 		anim.Play ("LeftwardsCurrent");
 	}
-	public void playRightCurrent(){
+
+    public void playRightCurrent()
+    {
+        Initialise();
 //		Debug.Log ("right curr");
-		anim.Play ("RightwardsCurrent");
-	}
+        anim.Play("RightwardsCurrent");
+    }
 }
