@@ -28,7 +28,7 @@ public class GameVariables
     {
         baseDetectionRange = 10;
         baseDetectionDistance = 10;
-        nEnemies = 2;
+        nEnemies = 3;
         nCrabs = 5;
         multiplier = 1f;
         undercurrent = 0f;
