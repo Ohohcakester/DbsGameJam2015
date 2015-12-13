@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     public bool facingRight { get; private set; }
 	public bool isOrbDestroyed { get; private set; }
 	private OrbController orbCtrl;
+    private GameController gameController;
+    private int lastUpdatedOrbSize = int.MinValue;
 
     // Use this for initialization
 	void Start ()
@@ -58,7 +60,8 @@ public class Player : MonoBehaviour
         colliderWidth2 = OhVec.ScaleX(boxCollider2D.size, 0.985f);
 		anim = transform.Find("PlayerSprite").transform.GetComponent<Animator> ();
         orbCtrl = transform.GetComponentInChildren<OrbController>();
-        gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
+        gameController = Camera.main.GetComponent<GameController>();
+        gameVariables = gameController.GetGameVariables();
 
 		isStunned = false;
 		noTarget = false;
@@ -129,6 +132,8 @@ public class Player : MonoBehaviour
 				noTarget = false;
 			}
 		}
+
+	    UpdateOrbSize();
 	}
 
     private void FaceDirection(bool right)
@@ -160,8 +165,11 @@ public class Player : MonoBehaviour
 		orbCtrl.setOriginalSize ();
 	}
 
-	public void UpdateOrbSize(int size){
-	    orbCtrl.setSize(orbSize(size));
+	private void UpdateOrbSize()
+	{
+	    if (lastUpdatedOrbSize == gameController.getCurrentOrbScore()) return;
+	    lastUpdatedOrbSize = gameController.getCurrentOrbScore();
+	    orbCtrl.setSize(orbSize(lastUpdatedOrbSize));
 	}
 
     public float orbSize(int size)

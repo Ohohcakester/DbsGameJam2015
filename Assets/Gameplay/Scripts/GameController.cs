@@ -10,9 +10,16 @@ public class GameController : MonoBehaviour
 	Animator orbScoreAnimator;
 	GameObject orbScoreOrb;
     private SequenceManager sequenceManager;
-		
+
+    private int orbScoreTextValue = int.MinValue;
+
 	int currentOrbScore = 0;
 	int currentTotalScore = 0;
+
+    private float lastUpdateTime;
+    private float currentValue;
+    private float incrementValue = 50f;
+    private GameVariables gameVariables;
 
     private void Start()
     {
@@ -27,17 +34,40 @@ public class GameController : MonoBehaviour
     {
         if (sequenceManager != null) return;
         sequenceManager = new SequenceManager();
+        gameVariables = sequenceManager.gameVariables;
     }
 
     private void Update()
     {
         sequenceManager.Update();
+        ScoreIncreaseUpdate();
+        updateOrbScoreText();
+    }
+
+    private void ScoreIncreaseUpdate()
+    {
+        float dTime = Time.time - lastUpdateTime;
+        lastUpdateTime = Time.time;
+
+        currentValue += dTime * scoreAccumulationRate();
+
+        if (currentValue > incrementValue)
+        {
+            currentOrbScore++;
+            currentValue -= incrementValue;
+        }
+    }
+
+    private float scoreAccumulationRate()
+    {
+        // Depends on orb score
+        return currentOrbScore * gameVariables.multiplier;
     }
 
     public GameVariables GetGameVariables()
     {
         Initialise();
-        return sequenceManager.gameVariables;
+        return gameVariables;
     }
 
     public void setOrbScoreScript (ScoreDisplay script){
@@ -60,11 +90,14 @@ public class GameController : MonoBehaviour
 
 	public void addOrbScore(int score) {
 		currentOrbScore += score;
-		updateOrbScoreText ();
 		orbScoreAnimator.Play ("OrbCircleActivate");
 	}
 
-	void updateOrbScoreText() {
+	void updateOrbScoreText()
+	{
+	    if (orbScoreTextValue == currentOrbScore) return;
+	    orbScoreTextValue = currentOrbScore;
+
 		orbScoreScript.updateScore (currentOrbScore);
 		setOrbScoreSize ();
 	}
@@ -82,12 +115,10 @@ public class GameController : MonoBehaviour
 	public void transferOrbScoreToTotal() {
 		currentTotalScore += currentOrbScore;
 		currentOrbScore = 0;
-		updateOrbScoreText ();
 		updateTotalScoreText ();
 	}
 
 	public void resetOrbScore() {
 		currentOrbScore = 0;
-		updateOrbScoreText ();
 	}
 }
