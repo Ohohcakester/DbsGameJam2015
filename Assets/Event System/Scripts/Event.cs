@@ -37,6 +37,7 @@ namespace Orb {
             eventObj.transform.Find("TextCanvas").GetComponentInChildren<Text>().text = eventDescription;
             eventObj.transform.Find("ProbabilityText").GetComponentInChildren<Text>().text = ProbabilityString;
             eventObj.transform.Find("EventPlank").GetComponent<SpriteRenderer>().color = PanelColor();
+	        eventObj.transform.Find("EventIcon").GetComponent<EventIcon>().SetSprite(eventType);
 	    }
 
         private Color PanelColor()
