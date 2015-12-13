@@ -48,7 +48,7 @@ class SequenceManager
 
         startTime = Time.time;
         endTime = Time.time + 180 + TIME_BUFFER;
-        stopEventsTime = Time.time + 80;
+        stopEventsTime = Time.time + 120;
     }
 
     public void Update()
@@ -179,7 +179,7 @@ class SequenceManager
 
     public void AddNewEvent()
     {
-        OrbEventEnumerator.Event evType = OrbEventEnumerator.Event.None;
+        OrbEventEnumerator.Event evType = OrbEventEnumerator.Event.MoreStarlight;
 
         if (SigmoidRandom(luck))
         {
@@ -335,7 +335,7 @@ class SequenceManager
 
     private float EventHappenDelay(OrbEventEnumerator.Event eventType)
     {
-        return (float) EventHappenDelayValue(eventType) + Random.Range(-10f, 5f);
+        return (float) EventHappenDelayValue(eventType) + Random.Range(-12f, -3f);
     }
 
     private double EventHappenDelayValue(OrbEventEnumerator.Event eventType)
@@ -351,7 +351,7 @@ class SequenceManager
             case Type.LessCrabs: return 15;
             case Type.MoreStarlight: return 15;
 
-            case Type.SquidInk: return 10;
+            case Type.SquidInk: return 15;
             case Type.FastJellyfish: return 15;
             case Type.MoreJellyfish: return 15;
             case Type.FastCrabs: return 15;

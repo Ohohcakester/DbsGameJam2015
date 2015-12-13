@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using Random = OhRandom;
@@ -20,7 +21,8 @@ namespace Orb {
 	    public bool hasExpired { get; private set; }
 
 	    //Constructor
-	    public Event (OrbEventEnumerator.Event ev) {
+	    public Event (OrbEventEnumerator.Event ev)
+	    {
 		    eventType = ev;
 		    eventDescription = getEventDescription(eventType);
 		    eventName = eventDescription;
