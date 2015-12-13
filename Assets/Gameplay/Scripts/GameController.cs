@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
         ScoreIncreaseUpdate();
         updateOrbScoreText();
 		checkForTime ();
+		checkForEscape ();
     }
 
     private void ScoreIncreaseUpdate()
@@ -145,6 +146,13 @@ public class GameController : MonoBehaviour
 	void endGame(){
 		Time.timeScale = 0;
 		GameObject screen = Instantiate (endGameScreen, this.transform.position, this.transform.rotation) as GameObject;
+		screen.GetComponent<ScoreDisplay> ().setFinalScore (currentTotalScore);
 		screen.transform.parent = this.transform;
+	}
+
+	void checkForEscape(){
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			UnityEngine.SceneManagement.SceneManager.LoadScene ("startscreen");
+		}
 	}
 }
