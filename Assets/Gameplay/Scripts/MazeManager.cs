@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class MazeManager : MonoBehaviour
 {
@@ -313,6 +314,14 @@ public class MazeManager : MonoBehaviour
         foreach (var collectible in collectibles)
         {
             collectible.InstantRespawn();
+        }
+    }
+
+    public void RandomlyDestroyCollectibles()
+    {
+        foreach (var collectible in collectibles)
+        {
+            if (Random.Range(0,3) != 2) collectible.Vanish();
         }
     }
 }

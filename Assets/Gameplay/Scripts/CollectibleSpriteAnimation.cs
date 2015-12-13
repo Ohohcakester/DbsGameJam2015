@@ -38,4 +38,9 @@ public class CollectibleSpriteAnimation : MonoBehaviour {
 		this.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0f);
 
 	}
+
+    public void Disable()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

@@ -7,15 +7,19 @@ public class Collectible : MonoBehaviour
 	public GameObject collectibleSpriteObjPrefab;
 	private bool isCollected = false;
 	private GameObject collectibleSpriteObj;
+    private CollectibleSpriteAnimation collectibleSpriteAnimation;
 	private float nextRespawnTime;
 	public int lightAmount = 1;
 
-	private void OnTriggerEnter2D(Collider2D col){
+	private void OnTriggerEnter2D(Collider2D col)
+	{
+	    initialize();
+
 		//Debug.Log (col.ToString ());
 		if (!isCollected && col.gameObject.tag == "Player") {
 			nextRespawnTime = Time.time + RespawnTime ();
 			isCollected = true;
-			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().chasePlayer (col.gameObject, lightAmount);
+            collectibleSpriteAnimation.chasePlayer(col.gameObject, lightAmount);
 
 			Player plyr = col.GetComponent<Player> ();
 			if (plyr != null) {
@@ -36,9 +40,13 @@ public class Collectible : MonoBehaviour
 		}
 	}
 
-	public void initialize(){
+	public void initialize()
+	{
+	    if (collectibleSpriteObj != null) return;
+
 		collectibleSpriteObj = Instantiate (collectibleSpriteObjPrefab, this.transform.position, this.transform.rotation) as GameObject;
-		collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
+	    collectibleSpriteAnimation = collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation>();
+        collectibleSpriteAnimation.stopChasing();
 	    gameVariables = Camera.main.GetComponent<GameController>().GetGameVariables();
 	}
 
@@ -51,7 +59,7 @@ public class Collectible : MonoBehaviour
 			collectibleSpriteObj.transform.position = this.transform.position;
 			collectibleSpriteObj.SetActive (true);
 			isCollected = false;
-			collectibleSpriteObj.GetComponent<CollectibleSpriteAnimation> ().stopChasing ();
+            collectibleSpriteAnimation.stopChasing();
 		}
 	}
 
@@ -63,5 +71,12 @@ public class Collectible : MonoBehaviour
     public void InstantRespawn()
     {
         if (isCollected) nextRespawnTime = Time.time;
+    }
+
+    public void Vanish()
+    {
+        nextRespawnTime = Time.time + RespawnTime();
+        isCollected = true;
+        collectibleSpriteAnimation.Disable();
     }
 }
